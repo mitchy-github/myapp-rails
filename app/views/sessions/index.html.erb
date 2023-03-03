@@ -1,0 +1,44 @@
+  <h1>Sessions#index</h1>
+    <p>Find me in app/views/sessions/index.html.erb</p>
+      <h1>ログインできたよ</h1>
+        <p>テスト</p>
+      <%= link_to "Log in画面に戻る", login_path %><br>
+    <%= button_to "Log out（失敗例）", logout_path,method: :delete %><br>
+  <%if current_user%>
+    <%="#{current_user.name}さん"%>
+    <%=link_to "ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"} %>
+  <%end%>
+
+  <%= link_to login_path, method: :delete, data:{confirm: "ログアウトしますか？"} do %>
+    <i>ログアウト</i>
+  <% end %>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $("p").text("成功！！");
+  });
+</script>
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "sample app", root_path %>
+        <% if logged_in? %>
+          <li><%= link_to "Users", '#' %></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", logout_path, method: :delete %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Log in", login_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

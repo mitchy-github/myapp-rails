@@ -3,13 +3,18 @@
   <head>
     <title>Myapp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </head>
 
   <body>
+  <h1>application.html.erb画面のやつ</h1>
     <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

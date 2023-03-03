@@ -1,0 +1,39 @@
+<h1>ユーザー情報</h1>
+<p>メールアドレス：<%= @user.email %></p>
+
+<%if current_user%>
+  <p><%="#{current_user.name}さん"%></p>
+  <p><%= button_to "Log out", logout_path, method: :delete %></p>
+
+<p><%=link_to("ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"})%></p>
+<%end%>
+
+<li><%= link_to "Settings", edit_user_path(current_user) %></li>
+
+  <p>↓ちゃんとできてないっぽいやつ</p>
+
+<p><%= link_to 'ログアウト', logout_path, method: :delete %></p>
+<p><%= link_to '登録解除', logout_path(@user.id), method: :delete, data: { confirm: '本当に登録解除しますか？' } %></p>
+
+<%= link_to "Log out", logout_path, method: :post %>
+
+<p><%= link_to "delete", @user, method: :delete,
+  data: { confirm: "You sure?" } %></p>
+
+  <% if logged_in? && @user == current_user %>
+  <%= link_to "編集する", edit_user_path(@user), class: "ui inverted green button" %>
+  <%= link_to "削除する", @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+ <% end %>
+
+ <div class="ui two buttons">
+            <% if logged_in? && @user == current_user %>
+              <%= link_to edit_user_path(@user), class: "ui inverted green button" do %>
+                <i class="icon edit"></i>
+                編集する
+              <% end %>
+              <%= link_to @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } do %>
+                <i class="icon trash alternate"></i>
+                削除する
+              <% end %>
+            <% end %>
+          </div>

@@ -5,7 +5,7 @@
 #  id                         :bigint           not null, primary key
 #  activated                  :boolean          default(FALSE), not null
 #  activated_at               :datetime
-#  activation_digest          :string(255)      not null
+#  activation_digest          :string(255)
 #  admin                      :boolean          default(FALSE), not null
 #  birthday                   :date             not null
 #  birthday_of_baby           :date
@@ -31,7 +31,7 @@
 #  index_users_on_email  (email) UNIQUE
 #
 class User < ApplicationRecord
-  # has_secure_password
+  has_secure_password
   has_many :posts
   has_many :questions
   has_many :question_answers
@@ -49,8 +49,9 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :sex, presence: true
+  # validates :sex, presence: true
   validates :birthday, presence: true
   validates :region, presence: true
-  validates :password_digest, presence: true
+  validates :password, presence: true, length: { minimum: 8 }
+  # validates :password_digest, presence: true
 end

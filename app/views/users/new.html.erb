@@ -1,0 +1,49 @@
+<h1>Users#new</h1>
+<p>Find me in app/views/users/new.html.erb</p>
+
+<h1>ユーザー登録</h1>
+
+<%= form_with model: @user, url: signup_path, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <strong><%= @user.errors.count %>個のエラーがあります。</strong>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form.label :name, '名前' %>
+  <%= form.text_field :name %>
+
+<div>
+  <%= form.radio_button :sex, true %>
+  <%= form.label :sex, '男', value: true %>
+</div>
+<div class = "radio-button">
+  <%= form.radio_button :sex, false %>
+  <%= form.label :sex, '女', value: false %>
+</div>
+
+  <%= form.label :birthday, '誕生日' %>
+  <%= form.date_field :birthday %>
+
+  <%= form.label :region, 'お住まい' %>
+  <%= form.text_field :region %>
+
+  <%= form.label :email, 'メールアドレス' %>
+  <%= form.email_field :email %>
+
+  <%= form.label :password, 'パスワード' %>
+  <%= form.password_field :password %>
+
+  <%= form.label :password_confirmation, 'パスワード(確認)' %>
+  <%= form.password_field :password_confirmation %>
+
+  <%= form.submit '登録' %>
+<% end %>
+
+
+<div class="ui message">
+すでにアカウントをお持ちですか？ <%= link_to "ログイン", login_path %>
+</div>
