@@ -14,6 +14,7 @@
 #  childcare_graduation_start :date
 #  childcare_start            :date
 #  email                      :string(255)      not null
+#  image                      :string(255)
 #  months_pregnant            :integer
 #  name                       :string(255)      not null
 #  number_of_baby             :integer
@@ -32,6 +33,7 @@
 #
 class User < ApplicationRecord
   has_secure_password
+  has_one_attached :avatar
   has_many :posts
   has_many :questions
   has_many :question_answers
@@ -49,9 +51,12 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  # validates :sex, presence: true
+  validates :sex, inclusion: [true, false]
   validates :birthday, presence: true
   validates :region, presence: true
   validates :password, presence: true, length: { minimum: 8 }
   # validates :password_digest, presence: true
+  validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
+    message: "有効なフォーマットではありません" },
+    size: { less_than: 5.megabytes, message: " 5MBを超える画像はアップロードできません" }
 end

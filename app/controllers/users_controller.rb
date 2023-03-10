@@ -7,6 +7,7 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def create
     @user = User.new(user_params)
+    @user.avatar.attach(params[:user][:avatar])
     if @user.save
       log_in @user
       redirect_to @user
@@ -20,31 +21,29 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
+    @user.avatar.attach(params[:user][:avatar]) if @user.avatar.blank?
     if @user.update(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to user_url(@user), notice: "ユーザーアカウントを編集しました。"
     else
-      render 'edit', status: :unprocessable_entity 
+      render :edit, status: :unprocessable_entity # rails7 から必須のオプション
     end
   end
 
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to :users, status: :see_other
+    redirect_to root_url, status: :see_other
   end
 
 private
-  def user_params
-    params.require(:user).permit(:name, :sex, :birthday, :region, :email, :password, :password_confirmation)
-  end
-
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :sex, :avatar, :birthday, :region, :email, :password, :password_confirmation)
   end
 end

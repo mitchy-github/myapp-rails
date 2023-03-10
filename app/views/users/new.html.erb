@@ -1,20 +1,10 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
-
-<h1>ユーザー登録</h1>
+<h1 class="text-5xl text-green-600">＜ユーザー登録＞</h1>
 
 <%= form_with model: @user, url: signup_path, local: true do |form| %>
-  <% if @user.errors.any? %>
-    <strong><%= @user.errors.count %>個のエラーがあります。</strong>
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
+  <%= render  "shared/error_messages" %>
 
   <%= form.label :name, '名前' %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50", placeholder: "山田太郎"  %>
 
 <div>
   <%= form.radio_button :sex, true %>
@@ -26,24 +16,24 @@
 </div>
 
   <%= form.label :birthday, '誕生日' %>
-  <%= form.date_field :birthday %>
+  <%= form.date_field :birthday, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
 
   <%= form.label :region, 'お住まい' %>
-  <%= form.text_field :region %>
+  <%= form.text_field :region, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
 
   <%= form.label :email, 'メールアドレス' %>
-  <%= form.email_field :email %>
+  <%= form.email_field :email, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
 
   <%= form.label :password, 'パスワード' %>
-  <%= form.password_field :password %>
+  <%= form.password_field :password, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
 
   <%= form.label :password_confirmation, 'パスワード(確認)' %>
-  <%= form.password_field :password_confirmation %>
+  <%= form.password_field :password_confirmation, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
 
-  <%= form.submit '登録' %>
+  <%= form.submit '登録', class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
 <% end %>
 
 
 <div class="ui message">
-すでにアカウントをお持ちですか？ <%= link_to "ログイン", login_path %>
+  すでにアカウントをお持ちですか？ <%= link_to "ログイン", login_path, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
 </div>

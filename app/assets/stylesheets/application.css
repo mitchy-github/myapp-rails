@@ -15,8 +15,6 @@
  */
 
 /* mixins, variables, etc. */
-
-
  box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
@@ -24,7 +22,6 @@
 }
 
 /* miscellaneous */
-
 .debug_dump {
   clear: both;
   float: left;

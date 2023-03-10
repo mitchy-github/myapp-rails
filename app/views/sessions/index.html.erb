@@ -1,16 +1,16 @@
   <h1>Sessions#index</h1>
     <p>Find me in app/views/sessions/index.html.erb</p>
-      <h1>ログインできたよ</h1>
+      <p><h1>ログインできたよ</h1></p>
         <p>テスト</p>
-      <%= link_to "Log in画面に戻る", login_path %><br>
-    <%= button_to "Log out（失敗例）", logout_path,method: :delete %><br>
+      <p><%= link_to "Log in画面に戻る", login_path %></p><br>
+    <p><%= button_to "Log out（失敗例）", logout_path,method: :delete %><p>/<br>
   <%if current_user%>
-    <%="#{current_user.name}さん"%>
-    <%=link_to "ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"} %>
+    <p><%="#{current_user.name}さん"%>
+    <%=link_to "ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"} %></p>
   <%end%>
 
-  <%= link_to login_path, method: :delete, data:{confirm: "ログアウトしますか？"} do %>
-    <i>ログアウト</i>
+  <p><%= link_to login_path, method: :delete, data:{confirm: "ログアウトしますか？"} do %>
+    <i>ログアウト</i></p>
   <% end %>
 
   <script type="text/javascript">

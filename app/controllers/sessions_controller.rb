@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :require_login, only: [:destroy]
-  
+
   def index
   end
 
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_to user
     else
       flash.now[:danger] = 'メールアドレスかパスワードが間違っています。'
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 

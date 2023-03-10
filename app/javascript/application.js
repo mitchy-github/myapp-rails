@@ -2,9 +2,6 @@
 import jquery from "jquery"
 window.$ = jquery
 
-
-$(function(){
-  alert("jQuery 動いた！")
-})
-
 console.log('hoge')
+import "./controllers";
+import "@hotwired/turbo-rails"

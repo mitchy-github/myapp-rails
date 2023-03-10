@@ -3,9 +3,10 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
-  get '/users/:id', to: 'users#show'
-  delete '/users/:id', to: 'users#destroy'
-  resources :users
+  # get '/users/:id', to: 'users#show'
+  # delete '/users/:id', to: 'users#destroy'
+  resources :users, only: %i(show destroy edit update) 
+  # 上記の()にupdateを追加するとうまくロールバックせずアップデートされた
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

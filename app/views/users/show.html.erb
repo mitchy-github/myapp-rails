@@ -1,39 +1,59 @@
-<h1>ユーザー情報</h1>
-<p>メールアドレス：<%= @user.email %></p>
+<h1 class="text-5xl text-green-600">＜ユーザー情報＞</h1>
 
-<%if current_user%>
-  <p><%="#{current_user.name}さん"%></p>
-  <p><%= button_to "Log out", logout_path, method: :delete %></p>
+  <%if current_user%>
+    <h1>
+      <p>メールアドレス：<%= @user.email %></p>
+      <p><%="#{current_user.name}さん"%></p>
+      <%= image_tag avatar_url(current_user), width: 200, class: "rounded-full" %>
+    </h1>
 
-<p><%=link_to("ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"})%></p>
-<%end%>
+    <div class="space-x-4">
+      <p><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" }, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+      </p>
+    </div>
 
-<li><%= link_to "Settings", edit_user_path(current_user) %></li>
+    <button class="btn btn--secondary py-5">
+      <%= link_to '登録解除', user_path(@user.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+    </button>
 
-  <p>↓ちゃんとできてないっぽいやつ</p>
+    <div class="space-x-4">
+      <p><%= link_to "設定", edit_user_path(current_user), class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+      </p>
+    </div>
+  <%end%>
 
-<p><%= link_to 'ログアウト', logout_path, method: :delete %></p>
-<p><%= link_to '登録解除', logout_path(@user.id), method: :delete, data: { confirm: '本当に登録解除しますか？' } %></p>
 
-<%= link_to "Log out", logout_path, method: :post %>
+<%
+=begin %>
+  <%# <%= gravatar_for @user %>
+  <%# <p><%= @user.name %>
+  <%# <p><%= image_tag @user.avatar.variant(resize:'250') %>
 
-<p><%= link_to "delete", @user, method: :delete,
-  data: { confirm: "You sure?" } %></p>
+<p><%= button_to '登録解除', user_path(@user.id), { method: :delete, data: { turbo_confirm: "本当に削除しますか？" } } %>
 
-  <% if logged_in? && @user == current_user %>
-  <%= link_to "編集する", edit_user_path(@user), class: "ui inverted green button" %>
-  <%= link_to "削除する", @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
- <% end %>
+      <p>↓ちゃんとできてないっぽいやつ</p>
+      <p><%=link_to("ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"})%></p>
+      <p><%= link_to 'ログアウト', logout_path, :method => :post %></p>
+      <%= link_to "Log out", logout_path, method: :post %>
+      <p><%= link_to "delete", @user, method: :delete,
+        data: { confirm: "You sure?" } %></p>
 
- <div class="ui two buttons">
-            <% if logged_in? && @user == current_user %>
-              <%= link_to edit_user_path(@user), class: "ui inverted green button" do %>
-                <i class="icon edit"></i>
-                編集する
-              <% end %>
-              <%= link_to @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } do %>
-                <i class="icon trash alternate"></i>
-                削除する
-              <% end %>
-            <% end %>
-          </div>
+    <% if logged_in? && @user == current_user %>
+      <%= link_to "編集する", edit_user_path(@user), class: "ui inverted green button" %>
+      <%= link_to "削除する", @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+    <% end %>
+
+  <div class="ui two buttons">
+      <% if logged_in? && @user == current_user %>
+        <%= link_to edit_user_path(@user), class: "ui inverted green button" do %>
+          <i class="icon edit"></i>
+          編集する
+        <% end %>
+        <%= button_to @user, class: "ui inverted red button", data: { method: :delete, confirm: "本当に削除しますか？" } do %>
+          <i class="icon trash alternate"></i>
+          削除する
+        <% end %>
+      <% end %>
+  </div>
+<%
+=end %>
