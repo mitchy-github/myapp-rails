@@ -14,11 +14,11 @@ module SessionsHelper
 
    # ユーザーがログインしていればtrue、その他ならfalseを返す
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
   def require_login
-    redirect_to login_path if !logged_in?
+    redirect_to login_path unless logged_in?
   end
 
    # 現在のユーザーをログアウトする
