@@ -7,5 +7,5 @@ module ApplicationHelper
         else
             ActionController::Base.helpers.asset_path('icon_default_avatar.jpg')
         end
-    end    
+    end
 end

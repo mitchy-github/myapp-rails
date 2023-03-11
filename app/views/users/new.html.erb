@@ -4,7 +4,7 @@
   <%= render  "shared/error_messages" %>
 
   <%= form.label :name, '名前' %>
-  <%= form.text_field :name, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50", placeholder: "山田太郎"  %>
+  <%= form.text_field :name, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50", placeholder: "山田太郎" %>
 
 <div>
   <%= form.radio_button :sex, true %>
@@ -32,7 +32,6 @@
 
   <%= form.submit '登録', class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
 <% end %>
-
 
 <div class="ui message">
   すでにアカウントをお持ちですか？ <%= link_to "ログイン", login_path, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>

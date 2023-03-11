@@ -21,6 +21,7 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
