@@ -3,13 +3,25 @@
   <head>
     <title>Myapp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%# <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+    <%# <script src="https://cdn.tailwindcss.com"></script> %>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
+  <body class="google-font">
+    <%= render  "shared/navbar" %>
+    <%= render  "shared/sample_top" %>
     <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
+
+

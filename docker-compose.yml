@@ -29,10 +29,10 @@ services:
       # Dockerfileのある位置を指定
       context: .
       dockerfile: Dockerfile
-      
-     # 起動時に行うコマンドを指定
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"  
-    
+
+    # 起動時に行うコマンドを指定
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+
     # ローカルの全てのファイルとコンテナのmyappを紐付けることで、vscodeでの編集内容を常時コンテナに転送している
     volumes:
       - .:/myapp

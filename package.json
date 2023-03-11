@@ -1,0 +1,21 @@
+{
+  "name": "myapp",
+  "private": "true",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/turbo-rails": "^7.3.0",
+    "@rails/webpacker": "5.4.4",
+    "esbuild": "^0.17.11",
+    "jquery": "^3.6.3",
+    "tailwindcss": "^3.2.7",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.*",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css"
+  }
+}
