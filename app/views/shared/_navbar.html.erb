@@ -1,6 +1,6 @@
 <div id="app">
   <nav class="w-full bg-red-200">
-    <div class="flex justify-between bg-blue-200 max-w-5xl mx-auto">
+    <div class="flex justify-between bg-blue-200 max-w-5xl mx-auto fixed top-0 w-full left-0 md:static md:mt-0">
       <div class="flex items-center ml-8 bg-yellow-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
         </svg>
         <h2 class="text-xl font-bold">タイトル</h2>
       </div>
-      <div class="bg-indigo-200 items-center mr-8">
+      <div class="bg-indigo-200 mr-8">
         <!-- Mobile menu button -->
         <div class="flex mt-2">
           <button
@@ -31,7 +31,7 @@
             class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 md:hidden"
             aria-label="toggle menu"
           >
-            <svg viewBox="0 0 24 24" class="w-6 h-6">
+            <svg viewBox="0 0 24 24" class="w-8 h-8 -mt-1">
               <path
                 v-show="!isOpen"
                 fill-rule="evenodd"
@@ -45,15 +45,13 @@
         </div>
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <div :class="isOpen ? 'block' : 'hidden'" class="fixed left-0 w-full mt-2 bg-blue-200 md:block md:static md:-mt-1.5">
-
           <ul class="md:flex md:justify-end">
-
           <% if logged_in? %>
             <li class="border-b md:border-none">
             <%= link_to "#", '#',class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
-            <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2  hover:bg-gray-400 rounded" %>
+            <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
             <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
@@ -63,11 +61,21 @@
             <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
           <% end %>
+          </ul>
         </div>
       </div>
     </div>
   </nav>
 </div>
+
+<script>
+    var app = new Vue({
+        el : '#app',
+        data: {
+            isOpen: false,
+        }
+    })
+</script>
 
 <%#
 <header class="navbar navbar-fixed-top navbar-inverse">
@@ -93,12 +101,3 @@
     </nav>
   </div>
 </header> %>
-
-<script>
-    var app = new Vue({
-        el : '#app',
-        data: {
-            isOpen: false,
-        }
-    })
-</script>
