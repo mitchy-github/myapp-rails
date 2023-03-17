@@ -10,7 +10,7 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
     @user.avatar.attach(params[:user][:avatar])
     if @user.save
       log_in @user
-      redirect_to @user
+      redirect_to @user, notice: "新規登録完了しました。"
     else
       render 'new', status: :unprocessable_entity
     end
@@ -36,7 +36,17 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to root_url, status: :see_other
+    redirect_to root_url, notice: "登録解除しました。", status: :see_other
+  end
+
+  def guest_login
+    if current_user
+      redirect_to current_user, alert: "すでにログインしています"  # ログインしている場合はゲストユーザーを作成しない
+    else
+      user = User.guest_login
+      log_in user
+      redirect_to user, notice: "ゲストとしてログインしました"
+    end
   end
 
 private

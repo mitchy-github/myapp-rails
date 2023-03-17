@@ -58,6 +58,10 @@
             </li>
           <% else %>
             <li class="border-b md:border-none">
+              <%= link_to "ゲストユーザーとして利用する", guest_login_path, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+            </li>
+
+            <li class="border-b md:border-none">
             <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
           <% end %>
