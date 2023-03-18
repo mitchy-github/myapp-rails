@@ -1,6 +1,7 @@
 <div id="app">
   <nav class="w-full bg-red-200">
-    <div class="flex justify-between bg-blue-200 max-w-5xl mx-auto fixed top-0 w-full left-0 md:static md:mt-0">
+    <div class="flex justify-between bg-blue-200 mx-auto fixed top-0 w-full left-0">
+      <a href="/">
       <div class="flex items-center ml-8 bg-yellow-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,21 +23,18 @@
         </svg>
         <h2 class="text-xl font-bold">タイトル</h2>
       </div>
+      </a>
       <div class="bg-indigo-200 mr-8">
         <!-- Mobile menu button -->
         <div class="flex mt-2">
           <button
-            @click="isOpen = !isOpen"
+            @click="toggleOpen"
             type="button"
             class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 md:hidden"
             aria-label="toggle menu"
           >
             <svg viewBox="0 0 24 24" class="w-8 h-8 -mt-1">
-              <path
-                v-show="!isOpen"
-                fill-rule="evenodd"
-                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-              />
+              <path v-show="!isOpen" d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/>
               <path
               v-show="isOpen" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"
               />
@@ -58,9 +56,8 @@
             </li>
           <% else %>
             <li class="border-b md:border-none">
-              <%= link_to "ゲストユーザーとして利用する", guest_login_path, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { turbo_method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
-
             <li class="border-b md:border-none">
             <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
@@ -73,12 +70,17 @@
 </div>
 
 <script>
-    var app = new Vue({
-        el : '#app',
-        data: {
-            isOpen: false,
-        }
-    })
+  var app = new Vue({
+          el : '#app',
+          data: {
+              isOpen: false,
+          },
+          methods: {
+            toggleOpen: function() {
+              this.isOpen = !this.isOpen
+            }
+          }
+      })
 </script>
 
 <%#
