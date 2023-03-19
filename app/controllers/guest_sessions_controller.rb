@@ -7,8 +7,9 @@ class GuestSessionsController < ApplicationController
       user.birthday = "2020-01-01"
       user.region = "tokyo"
     end
-      session[:user_id] = user.id
-      flash[:notice] = "ゲストユーザーとしてログインしました"
-      redirect_to root_url
+
+    log_in(user)
+    flash[:notice] = "ゲストユーザーとしてログインしました"
+    redirect_to root_url
   end
 end

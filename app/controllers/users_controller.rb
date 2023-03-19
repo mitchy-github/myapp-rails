@@ -38,7 +38,7 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def destroy
     @user = User.find(params[:id])
-    if @user.email == 'guest@exapmle.com'
+    if @user.guest_user?
       redirect_to :root, alert: "ゲストユーザーは登録解除できません。"
     else
       @user.destroy
