@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'sessions#index'
 
+  post "/guest_login", to: "guest_sessions#create"
+
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
   # get '/users/:id', to: 'users#show'

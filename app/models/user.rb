@@ -59,4 +59,14 @@ class User < ApplicationRecord
   validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
     message: "有効なフォーマットではありません" },
     size: { less_than: 5.megabytes, message: " 5MBを超える画像はアップロードできません" }
+
+  validate :birthday_date_check
+  
+  def birthday_date_check 
+    errors.add(:birthday,"に未来の日付は指定できません") if birthday.nil? || birthday > Date.today
+  end
+
+  def guest_user?
+    email == 'guest@exapmle.com'
+  end
 end

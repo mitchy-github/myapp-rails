@@ -10,7 +10,7 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
     @user.avatar.attach(params[:user][:avatar])
     if @user.save
       log_in @user
-      redirect_to @user
+      redirect_to @user, notice: "新規登録完了しました。"
     else
       render 'new', status: :unprocessable_entity
     end
@@ -26,7 +26,10 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def update
     @user.avatar.attach(params[:user][:avatar]) if @user.avatar.blank?
-    if @user.update(user_params)
+    if @user.email == 'guest@exapmle.com'
+      redirect_to :root, alert: "ゲストユーザーは編集できません。"
+    elsif
+      @user.update(user_params)
       redirect_to user_url(@user), notice: "ユーザーアカウントを編集しました。"
     else
       render :edit, status: :unprocessable_entity # rails7 から必須のオプション
@@ -35,8 +38,12 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to root_url, status: :see_other
+    if @user.guest_user?
+      redirect_to :root, alert: "ゲストユーザーは登録解除できません。"
+    else
+      @user.destroy
+      redirect_to root_url, notice: "登録解除しました。", status: :see_other
+    end
   end
 
 private
