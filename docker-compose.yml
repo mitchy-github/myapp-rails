@@ -3,25 +3,25 @@ services:
   db:
     # dockerhubからmysqlイメージ取得
     image: mysql:8.0.29
-    
+
     # 起動時に常にスタートするように設定
     restart: always
-    
+
     # 環境変数にMYSQL_ROOT_PASSWORDをセットしrootユーザーのパスワードを指定してDBコンテナを起動させる
     environment:
       MYSQL_ROOT_PASSWORD: password
-      
+
     # mysql 8.0から認証方法が変わったので以前の認証方法で起動させるようにし、railsのエラーを防ぐ
     command: --default-authentication-plugin=mysql_native_password
-    
+
     # mysql-dataとコンテナの/var/lib/mysqlをリンクさせ、データの永続化する
     volumes:
       - mysql-data:/var/lib/mysql
-      
+
     # ローカルの3306ポートとコンテナの3306ポートを結びつける
     ports:
       - 3306:3306
-      
+
     # 使用する環境を指定
     platform: linux/x86_64/v8
   rails:
@@ -36,7 +36,7 @@ services:
     # ローカルの全てのファイルとコンテナのmyappを紐付けることで、vscodeでの編集内容を常時コンテナに転送している
     volumes:
       - .:/myapp
-      
+
     # 環境変数を指定する。ほぼDBへの接続設定時に使用される
     environment:
       TZ: Asia/Tokyo
@@ -44,11 +44,11 @@ services:
       DB_HOST: db
       DB_USER: root
       MYSQL_ROOT_PASSWORD: password
-      
+
     # ローカルの80ポートとコンテナの3000ポートを紐付けブラウザーの80ポートで接続できるようにしている
     ports:
       - "80:3000"
-      
+
     # 正常終了してしまうとコンテナに入れないので, 正常終了しないようにしている
     tty:
       true
