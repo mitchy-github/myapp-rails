@@ -6,11 +6,11 @@
       <td><%= question.id %></td><br>
       <td><%= question.question_title %></td><br>
       <td><%= question.contents_question %></td><br>
-      <td><%= link_to 'Show', question %></td><br>
+      <td><%= link_to '詳細', question %></td><br>
     </tr>
   <% end %>
 
-  <td><%= link_to 'new', new_question_url %></td><br>
+  <td><%= link_to '質問を投稿する', new_question_url %></td><br>
 
   <div>現在回答募集中の質問一覧です</div>
   <div class="row text-center">

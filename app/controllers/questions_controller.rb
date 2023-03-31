@@ -3,8 +3,8 @@ class QuestionsController < ApplicationController
 
   def index
     @test = "テストテキスト"
-    @questions = current_user.questions.all
-    # @questions = Question.all
+    # @questions = current_user.questions.all
+    @questions = Question.all
   end
 
   def show
