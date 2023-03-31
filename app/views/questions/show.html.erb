@@ -1,0 +1,32 @@
+<p><%= @question.question_title %></p>
+<p><%= @question.contents_question %></p>
+<%= link_to("編集", "/questions/#{@question.id}/edit") %>
+<%= link_to("削除", "/questions/#{@question.id}", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }) %>
+
+<div>
+  <%= form_with(model: [@question, @question_answer], local: true) do |f| %>
+    <% if @question_answer.errors.any? %>
+      <strong><%= @question_answer.errors.count %>個のエラーがあります。</strong>
+      <ul>
+        <% @question_answer.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div>
+      <%= f.label :answer_content, "回答" %><br>
+      <%= f.text_area :answer_content %>
+    </div>
+    <%= f.submit '登録'  %>
+  <% end %>
+</div>
+<hr>
+<div>
+  <% @question.question_answers.each do |question_answer| %>
+    <p><%= question_answer.answer_content %></p>
+    <%# <% binding.pry %>
+      <%# <%= link_to "編集", edit_question_question_answer_path(current_user) %>
+      <%=link_to "削除", question_question_answer_path(question_answer.question.id, question_answer.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  <% end %>
+</div>

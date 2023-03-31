@@ -1,16 +1,16 @@
 <div id="app">
   <nav class="w-full bg-red-200">
-    <div class="flex justify-between bg-amber-100 mx-auto fixed top-0 w-full left-0">
-      <div class="flex items-center ml-8 bg-yellow-200 h-11 rounded-lg">
+    <div class="flex justify-between bg-lime-600 mx-auto fixed top-0 w-full left-0">
+      <div class="flex items-center ml-8 bg-lime-600 h-11 rounded-lg">
         <a href="/" data-turbo="false">
           <img
-          class="rounded-lg"
-          src="../../../img/Liceria.png"
+          class="rounded-lg w-32"
+          src="../../../img/title_logo.PNG"
           alt="サイトタイトル"
           />
         </a>
       </div>
-      <div class="bg-indigo-200 mr-8">
+      <div class="mr-8">
         <!-- Mobile menu -->
         <div class="flex mt-2">
           <button
@@ -22,34 +22,39 @@
             <svg viewBox="0 0 24 24" class="w-8 h-8 -mt-1">
               <path
                 v-show="!isOpen"
-                d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"
+                fill="white"
+                d="M4 7.25C4 6.83579 4.33579 6.5 4.75 6.5H19.25C19.6642 6.5 20 6.83579 20 7.25C20 7.66421 19.6642 8 19.25 8H4.75C4.33579 8 4 7.66421 4 7.25ZM4 12.25C4 11.8358 4.33579 11.5 4.75 11.5H19.25C19.6642 11.5 20 11.8358 20 12.25C20 12.6642 19.6642 13 19.25 13H4.75C4.33579 13 4 12.6642 4 12.25ZM4.75 16.5C4.33579 16.5 4 16.8358 4 17.25C4 17.6642 4.33579 18 4.75 18H19.25C19.6642 18 20 17.6642 20 17.25C20 16.8358 19.6642 16.5 19.25 16.5H4.75Z"
               />
               <path
                 v-show="isOpen"
-                d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"
+                fill="white"
+                d="M5.59099 4.46967C5.2981 4.17678 4.82322 4.17678 4.53033 4.46967C4.23744 4.76256 4.23744 5.23744 4.53033 5.53033L10.9393 11.9393L4.46967 18.409C4.17678 18.7019 4.17678 19.1768 4.46967 19.4697C4.76256 19.7626 5.23744 19.7626 5.53033 19.4697L12 13L18.4697 19.4697C18.7626 19.7626 19.2374 19.7626 19.5303 19.4697C19.8232 19.1768 19.8232 18.7019 19.5303 18.409L13.0607 11.9393L19.4697 5.53033C19.7626 5.23744 19.7626 4.76256 19.4697 4.46967C19.1768 4.17678 18.7019 4.17678 18.409 4.46967L12 10.8787L5.59099 4.46967Z"
               />
             </svg>
           </button>
         </div>
         <!-- Mobile Menu -->
-        <div :class="isOpen ? 'block' : 'hidden'" class="fixed left-0 w-full mt-2 bg-blue-200 md:block md:static md:-mt-1.5">
+        <div
+        :class="isOpen ? 'block animate-scale-in-ver-top' : 'hidden'"
+        <%# v-on:click="animate-scale-out-ver-top" %>
+        class="fixed left-0 w-full mt-2 bg-lime-200 rounded-lg md:block md:static md:-mt-1.5 md:animate-none">
           <ul class="md:flex md:justify-end">
           <% if logged_in? %>
             <li class="border-b md:border-none">
-            <%= link_to "#", '#',class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "質問一覧", questions_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
-            <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
-            <li class="border-b md:border-none">
-            <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+            <li>
+              <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
           <% else %>
             <li class="border-b md:border-none">
               <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { turbo_method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
-            <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
           <% end %>
           </ul>
