@@ -3,7 +3,7 @@
 
   <%= form_with(model: @user, local: true) do |form| %>
     <%= render  "shared/error_messages" %>
-  
+
     <%= form.label :name, '名前' %>
     <%= form.text_field :name, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50", placeholder: "山田太郎" %>
 
@@ -15,7 +15,7 @@
     <%= form.radio_button :sex, false %>
     <%= form.label :sex, '女', value: false %>
   </div>
-  
+
   <div>
     <%= form.label :birthday, '誕生日' %>
     <%= form.date_field :birthday, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
@@ -48,12 +48,12 @@
   <%# <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :avatar %>
     <!------ 添付画像のプレビューを表示 ------>
     <div id="avatar" >
-      <img id="avatar_preview" class="mb-5" width="100">
+      <img id="avatar_preview" class="mb-5 rounded-lg" width="200">
     </div>
     <!------ 現在DBに登録(保存)されている画像を表示 ------>
     <% if @user.avatar.present? %> <!-- @user.avatarが存在する場合のみ image_tag を使用(if文ないとエラーが出る) -->
       <p><span><b>[現在登録されている画像]</b></span></p>
-      <%= image_tag @user.avatar, width: 200, class: "mb-5",
+      <%= image_tag @user.avatar, width: 200, class: "mb-5 rounded-lg",
       alt:"上記のエラーにより画像を更新できませんでした"  %>
     <% end %>
   </div>
