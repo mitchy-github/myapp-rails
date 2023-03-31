@@ -12,7 +12,18 @@ class QuestionAnswersController < ApplicationController
   end
 
   def destroy
-    QuestionAnswer.find_by(id: params[:id],question_id: question_id).destroy
+    question_answer = QuestionAnswer.find_by(id: params[:id],question_id: question_id)
+    # if question_answer.user_answer?(current_user)
+    #   question_answer.destroy
+    #   redirect_to question_path(question_id), notice: "コメントを解除しました。", status: :see_other
+    # else
+    #   redirect_to question_path(question_id), alert: "許可されていないrequestです。", status: :unprocessable_entity
+    # end
+    unless question_answer.user_answer?(current_user)
+      redirect_to question_path(question_id), alert: "許可されていないrequestです。", status: :unprocessable_entity and return
+    end
+    
+    question_answer.destroy
     redirect_to question_path(question_id), notice: "コメントを解除しました。", status: :see_other
   end
 

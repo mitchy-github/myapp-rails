@@ -21,4 +21,9 @@ class QuestionAnswer < ApplicationRecord
   belongs_to :question
 
   validates :answer_content, presence: true, length: { maximum: 1000 }
+
+  def user_answer?(user)
+    user.id == user_id
+  end
+
 end

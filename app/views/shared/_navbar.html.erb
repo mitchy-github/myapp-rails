@@ -41,7 +41,7 @@
           <ul class="md:flex md:justify-end">
           <% if logged_in? %>
             <li class="border-b md:border-none">
-              <%= link_to "質問一覧", questions_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "質問一覧", questions_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
               <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
