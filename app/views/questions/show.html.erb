@@ -27,6 +27,8 @@
     <p><%= question_answer.answer_content %></p>
     <%# <% binding.pry %>
       <%# <%= link_to "編集", edit_question_question_answer_path(current_user) %>
+    <% if current_user.id == question_answer.user_id %>
       <%=link_to "削除", question_question_answer_path(question_answer.question.id, question_answer.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+    <% end %>
   <% end %>
 </div>
