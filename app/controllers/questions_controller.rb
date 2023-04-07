@@ -5,48 +5,51 @@ class QuestionsController < ApplicationController
     @test = "テストテキスト"
     # @questions = current_user.questions.all
     @questions = Question.all
+    @categories = Category.all
   end
 
   def show
-    @question = Question.find(params[:id])
     @question_answer = QuestionAnswer.new
-    # @question_answer.user_id = current_user.id
-    # @question_answer.question_id = params[:question_id]
   end
 
   def new
+    @categories = Category.all
     @question = Question.new
   end
 
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
-    if @question.save
+    @categories = Category.all
+    @question.save!
       flash[:notice] = "成功！"
       redirect_to("/questions/new")
-    else
+    rescue StandardError
       flash.now[:alert] = "失敗！"
       render "questions/new", status: :unprocessable_entity
-    end
   end
 
   def edit
-    @question = Question.find(params[:id])
+    @categories = Category.all
   end
 
   def update
-    @question = Question.find(params[:id])
-    if @question.update(question_params)
-      flash[:notice] = "投稿内容を編集しました"
-      redirect_to("/questions/#{@question.id}")
-    else
-      # flash.now[:alert] = "失敗！"
-      render"questions/edit", status: :unprocessable_entity
+    # if @question.user_question?(current_user) && @question.update(question_params)
+    #   flash[:notice] = "投稿内容を編集しました"
+    #   redirect_to question_path(@question.id)
+    # else
+    #   # flash.now[:alert] = "失敗！"
+    #   render "questions/edit", status: :unprocessable_entity
+    # end
+    unless @question.user_question?(current_user) && @question.update(question_params)
+      render "questions/edit", status: :unprocessable_entity and return
     end
+
+    flash[:notice] = "投稿内容を編集しました"
+    redirect_to question_path(@question.id)
   end
 
   def destroy
-    @question = Question.find(params[:id])
     @question.destroy
     flash[:notice] = "成功！"
     redirect_to "/questions", status: :see_other
@@ -58,6 +61,6 @@ private
   end
 
   def question_params
-    params.require(:question).permit(:question_title, :contents_question)
+    params.require(:question).permit(:question_title, :contents_question, {:category_ids => []})
   end
 end

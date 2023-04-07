@@ -7,7 +7,7 @@
     </h1>
 
     <p><% @user.questions.each do |question| %></p>
-    <%= link_to(question.question_title, "/questions/#{question.id}") %>
+    <%= link_to question.question_title, question_path(question) %>
     <% end %>
 
     <div class="space-x-4 p-2">

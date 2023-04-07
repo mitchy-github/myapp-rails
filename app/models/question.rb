@@ -23,4 +23,8 @@ class Question < ApplicationRecord
 
   validates :question_title, presence: true, length: { maximum: 100 }
   validates :contents_question, presence: true, length: { maximum: 1000 }
+
+  def user_question?(user)
+    user.id == user_id
+  end
 end

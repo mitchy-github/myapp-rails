@@ -36,21 +36,3 @@ class QuestionAnswersController < ApplicationController
       @question_id ||= params[:question_id]
     end
 end
-
-  # def edit
-    # @question_answer.user_id = current_user.id
-    # @question_answer.question_id = params[:question_id]
-  # end
-
-  # def update
-    # @question_answer.user_id = current_user.id
-    # @question_answer.question_id = params[:question_id]
-    # if @question_answer.update(question_answer_params)
-      # flash[:notice] = "コメントを編集しました。"
-      # redirect_to("/questions/#{params[:question_id]}")
-    # else
-      # @question = Question.find(params[:question_id])
-      # flash.now[:alert] = "コメントを入力してください。"
-      # render "questions/show", status: :unprocessable_entity
-    # end
-  # end

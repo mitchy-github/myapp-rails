@@ -25,5 +25,4 @@ class QuestionAnswer < ApplicationRecord
   def user_answer?(user)
     user.id == user_id
   end
-
 end

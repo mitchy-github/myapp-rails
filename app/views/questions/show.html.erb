@@ -1,7 +1,12 @@
 <p><%= @question.question_title %></p>
 <p><%= @question.contents_question %></p>
-<%= link_to("編集", "/questions/#{@question.id}/edit") %>
-<%= link_to("削除", "/questions/#{@question.id}", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }) %>
+  <% @question.categories.each do |category| %>
+    <button class="btn btn-info"><%= category.category %></button><br>
+  <% end %>
+<% if @question.user_question?(current_user) %>
+<%= link_to "編集", edit_question_path(@question) %>
+<%= link_to"削除", question_path(@question), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+<% end %>
 
 <div>
   <%= form_with(model: [@question, @question_answer], local: true) do |f| %>

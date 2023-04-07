@@ -16,5 +16,14 @@
     <%= f.label :contents_question, '質問内容' %><br>
     <%= f.text_area :contents_question %>
   </div>
+
+  <div class="field">
+    <% @categories.each do |t| %>
+      <%= f.label t.category %>
+      <%= check_box_tag "question[category_ids][]", t.id, @question.category_ids.include?(t) %>
+      <br/>
+    <% end %>
+  </div>
+
   <%= f.submit '登録' %>
 <% end %>

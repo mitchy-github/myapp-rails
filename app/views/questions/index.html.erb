@@ -6,8 +6,12 @@
       <td><%= question.id %></td><br>
       <td><%= question.question_title %></td><br>
       <td><%= question.contents_question %></td><br>
+      <%# <td><%= question.category_ids</td><br> %>
       <td><%= link_to '詳細', question %></td><br>
     </tr>
+  <% end %>
+    <% @categories.each do |category| %>
+    <button class="btn btn-info"><%= category.category %></button><br>
   <% end %>
 
   <td><%= link_to '質問を投稿する', new_question_url %></td><br>
