@@ -35,7 +35,7 @@ class User < ApplicationRecord
   has_secure_password
   has_one_attached :avatar
   has_many :posts
-  has_many :questions
+  has_many :questions, dependent: :destroy
   has_many :question_answers
   has_many :likes
 

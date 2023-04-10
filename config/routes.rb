@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :questions do
+    resources :question_answers, only: [:create, :destroy, :edit, :update]
+  end
+
   root 'sessions#index'
 
   post "/guest_login", to: "guest_sessions#create"
