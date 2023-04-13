@@ -11,8 +11,12 @@ class Category < ApplicationRecord
   has_many :category_users
   has_many :users, through: :category_users
 
-  has_many :category_questions
+  has_many :category_questions, dependent: :destroy
   has_many :questions, through: :category_questions
 
-  validates :category, presence: true
+  validates :category, presence: true, uniqueness: { case_sensitive: false }
+
+  def user_category?(question)
+    question["user_id"] == current_user["id"]
+  end
 end

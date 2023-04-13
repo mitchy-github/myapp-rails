@@ -1,0 +1,11 @@
+<h2>ハッシュタグ一覧</h2>
+<% @categories.each do |category| %>
+    <%
+        name = category["category"]
+        count = category["count"]
+        id = category["id"]
+    %>
+    <p>
+        <%= link_to "##{name}(#{count})", category_path(id) %>
+    </p>
+<% end %>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-before_action :set_user, only: [:show, :edit, :update, :destroy ]
+  include CategoryMethods
+  before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def new
     @user = User.new
@@ -8,15 +9,18 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
   def create
     @user = User.new(user_params)
     @user.avatar.attach(params[:user][:avatar])
-    if @user.save
+    @user.save!
       log_in @user
       redirect_to @user, notice: "新規登録完了しました。"
-    else
+    rescue StandardError
       render "new", status: :unprocessable_entity
-    end
   end
 
   def show
+    @questions = Question.all
+    @categories = Category.all
+    @category_questions = CategoryQuestion.all
+    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
   end
 
   def edit

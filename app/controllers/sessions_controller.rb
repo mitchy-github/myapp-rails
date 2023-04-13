@@ -1,7 +1,13 @@
 class SessionsController < ApplicationController
+  include CategoryMethods
   before_action :require_login, only: [:edit, :update, :destroy]
 
   def index
+    @questions = Question.all
+    @categories = Category.all
+    # @categories = current_user.category.all
+    @category_questions = CategoryQuestion.all
+    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
   end
 
   def create
