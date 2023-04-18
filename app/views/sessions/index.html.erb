@@ -1,6 +1,6 @@
 <%= render  "shared/sample_top" %>
 <% if logged_in? %>
-  <td><%= link_to '質問を投稿する', new_question_url %></td><br>
+  <td><%= link_to '質問を投稿する', new_question_path %></td><br>
 <% end %>
   <td><%= link_to 'ハッシュタグ一覧', categories_path %></td><br>
 

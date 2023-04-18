@@ -40,13 +40,14 @@ class QuestionsController < ApplicationController
     @question.user_id = current_user.id
     category = extract_category(@question.contents_question) #パラメーターのcaptionの中よりハッシュタグを抽出
     @question.save! #一度投稿を保存
-      flash[:notice] = "成功！"
       save_category(category,@question) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
-      redirect_to("/questions/index")
+      flash[:notice] = "成功！"
+      redirect_to questions_path
 
     rescue StandardError
-      flash.now[:alert] = "失敗！"
-      render "questions/new", status: :unprocessable_entity
+      # flash.now[:alert] = "失敗！"
+        render "questions/new", status: :unprocessable_entity
+      # render new_question_path, status: :unprocessable_entity
   end
 
   def edit
@@ -107,7 +108,8 @@ class QuestionsController < ApplicationController
     @question = Question.find_by(id: params[:id]) #削除対象のレコード
     @question.destroy #投稿を削除
     delete_records_related_to_category(params[:id]) #中間テーブルとハッシュタグのレコードを削除
-    redirect_to "/questions", status: :see_other
+    flash[:notice] = "投稿を削除しました"
+    redirect_to questions_path, status: :see_other
   end
 
 private

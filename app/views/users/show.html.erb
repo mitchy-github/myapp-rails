@@ -6,8 +6,9 @@
     <%= image_tag avatar_url(current_user), width: 200, class: "rounded-lg" %>
   </h1>
 
+  <h2>質問投稿一覧</h2>
   <p><% @user.questions.each do |question| %></p>
-  <%= link_to question.question_title, question_path(question) %>
+    <%= link_to question.question_title, question_path(question) %>
   <% end %>
 
   <h2>ハッシュタグ一覧</h2>

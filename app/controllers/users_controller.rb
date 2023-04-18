@@ -29,10 +29,10 @@ class UsersController < ApplicationController
   def update
     @user.avatar.attach(params[:user][:avatar]) if @user.avatar.blank?
     if @user.email == "guest@exapmle.com"
-      redirect_to root_url, alert: "ゲストユーザーは編集できません。"
+      redirect_to root_path, alert: "ゲストユーザーは編集できません。"
     elsif
       @user.update(user_params)
-      redirect_to user_url(@user), notice: "ユーザーアカウントを編集しました。"
+      redirect_to user_path(@user), notice: "ユーザーアカウントを編集しました。"
     else
       render "edit", status: :unprocessable_entity # rails7 から必須のオプション
     end
@@ -40,10 +40,10 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.guest_user?
-      redirect_to root_url, alert: "ゲストユーザーは登録解除できません。"
+      redirect_to root_path, alert: "ゲストユーザーは登録解除できません。"
     else
       @user.destroy
-      redirect_to root_url, notice: "登録解除しました。", status: :see_other
+      redirect_to root_path, notice: "登録解除しました。", status: :see_other
     end
   end
 
