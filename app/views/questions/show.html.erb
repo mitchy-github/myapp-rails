@@ -6,24 +6,37 @@
       <%= @question.question_title %>
     </div>
     <div>
-      <p style="color: red">contents_question</p>
-      <p>
+      <%# <% if @display_contents_question.present? %>
+        <p style="color: red">contents_question</p>
+        <p>
+
+<%# <%if @display_contents_question.nil? %>
+        <%# <%= @display_contents_question %>
+<%# <% else %>
+<%# <%= safe_join(@display_contents_question.split("\n"),tag(:br)) %>
+<%# <%end %>
       <%= safe_join(@display_contents_question.split("\n"),tag(:br)) %><br>
-        <% if @categories.present? %>
-          <% @categories.each do |category| %>
-            <%= link_to "##{category.category}", category_path(category.id) %>
-          <% end %>
+      <% if @categories.present? %>
+        <% @categories.each do |category| %>
+          <%= link_to "##{category.category}", category_path(category.id) %>
         <% end %>
+      <% end %>
+      <%# <% end %>
       <p>
     </div>
     <div>
       <% if logged_in? && @question.user_question?(current_user) %>
-        <%= link_to_unless @question.best_answer_id, "編集", edit_question_path(id: @question.id) %>
-        <%= link_to_unless @question.best_answer_id, "削除", question_path(id: @question.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+        <%# <%= link_to_unless @question.best_answer_id,  %>
+        <%=link_to "編集", edit_question_path(id: @question.id) %>
+        <%# <%= link_to_unless @question.best_answer_id,  %>
+        <%=link_to "削除", question_path(id: @question.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
       <% end %>
     </div>
   </div>
 
+
+<%
+=begin %>
   <p><%= @question.question_title %></p>
   <p><%= @question.contents_question %></p>
     <% @question.categories.each do |category| %>
@@ -33,6 +46,8 @@
       <%= link_to "編集", edit_question_path(@question) %>
       <%= link_to"削除", question_path(@question), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
     <% end %>
+    <%
+=end %>
 
   <div>
     <%= form_with(model: [@question, @question_answer], local: true) do |f| %>
@@ -70,7 +85,8 @@
           <%# <%= form_with(model: @question, local: true) do |f| %>
           <%= f.hidden_field :best_answer_id, value: question_answer.id %>
           <div class="actions">
-            <%= f.submit 'BA', disabled: (@question.best_answer_id.present?) %>
+            <%= f.submit 'BA' %>
+            <%# , disabled: (@question.best_answer_id.present?) %>
           </div>
           <% end %>
         <% end %>
@@ -78,7 +94,8 @@
       <!--ここまで-->
 
       <% if logged_in? && question_answer.user_answer?(current_user) %>
-        <%=link_to_unless @question.best_answer_id, "削除", question_question_answer_path(question_answer.question.id, question_answer.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %><br>
+        <%# <%=link_to_unless @question.best_answer_id, %>
+        <%=link_to "削除", question_question_answer_path(question_answer.question.id, question_answer.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %><br>
       <% end %>
     <% end %>
   </div>

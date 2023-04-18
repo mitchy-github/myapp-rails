@@ -1,4 +1,6 @@
 class QuestionAnswersController < ApplicationController
+  # include CategoryMethods
+  
   def create
     @question_answer = QuestionAnswer.new(question_answer_params)
     @question_answer.user_id = current_user.id
@@ -8,6 +10,10 @@ class QuestionAnswersController < ApplicationController
     redirect_to question_path(question_id)
   rescue StandardError
     @question = Question.find(question_id)
+    related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id) #=> [1,2,3] idのみを配列にして返す
+    categories = Category.all
+    @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。
+    @display_contents_question = @question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") #実際に表示するキャプション。ハッシュタグが文字列のまま表示されてしまうので、#から始まる文字列を""に変換したものをViewにて表示
     render "questions/show", status: :unprocessable_entity
   end
 

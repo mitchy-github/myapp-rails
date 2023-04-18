@@ -12,13 +12,9 @@
 
   <h2>ハッシュタグ一覧</h2>
   <% @categories.each do |category| %>
-      <%
-          name = category["category"]
-          id = category["id"]
-      %>
-      <p>
-          <%= link_to "currentuserのカテゴリのみ表示したい##{name}", category_path(id) %>
-      </p>
+    <p>
+      <%= link_to "##{category.category}", category_path(category.id) %>
+    </p>
   <% end %>
 
   <div class="space-x-4 p-2">
