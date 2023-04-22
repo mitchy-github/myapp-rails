@@ -1,0 +1,14 @@
+<h1>All users</h1>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <%# <%= gravatar_for user, size: 50 %>
+      <%= image_tag avatar_url(user), width: 50, class: "rounded-lg" %>
+      <%= link_to user.name, user %>
+    </li>
+    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+  <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %>
+<% end %>
+  <% end %>
+</ul>
