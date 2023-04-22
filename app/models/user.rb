@@ -34,16 +34,26 @@
 class User < ApplicationRecord
   has_secure_password
   has_one_attached :avatar
+
   has_many :posts
   has_many :questions, dependent: :destroy
-  has_many :question_answers
+  has_many :favorites, dependent: :destroy   #この行を追記
+  has_many :chats
   has_many :likes
+
+  has_many :question_answers
+  has_many :user_rooms
+  has_many :rooms, through: :user_rooms
+  has_many :category_users
+  has_many :categories, through: :category_users
+
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
+  has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
 
   has_many :community_users
   has_many :communities, through: :community_users
-
-  has_many :category_users
-  has_many :categories, through: :category_users
 
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
@@ -68,5 +78,24 @@ class User < ApplicationRecord
 
   def guest_user?
     email == 'guest@exapmle.com'
+  end
+
+  def user?(user)
+    user.id == user.id
+  end
+
+  # ユーザーをフォローする
+  def follow(user_id)
+    follower.create(followed_id: user_id)
+  end
+
+  # ユーザーのフォローを外す
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
+  end
+
+  # フォローしていればtrueを返す
+  def following?(user)
+    following_user.include?(user)
   end
 end

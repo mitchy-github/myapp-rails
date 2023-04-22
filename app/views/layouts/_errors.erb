@@ -1,0 +1,10 @@
+<% if obj.errors.any? %>
+  <div class="validates js-message-errors">
+    <strong><%= obj.errors.count %>個のエラーがあります。</strong>
+    <ul>
+      <% obj.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
