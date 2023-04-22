@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-before_action :set_user, only: [:show, :edit, :update, :destroy ]
+  include CategoryMethods
+  before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def new
     @user = User.new
@@ -8,15 +9,18 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
   def create
     @user = User.new(user_params)
     @user.avatar.attach(params[:user][:avatar])
-    if @user.save
+    @user.save!
       log_in @user
       redirect_to @user, notice: "新規登録完了しました。"
-    else
+    rescue StandardError
       render "new", status: :unprocessable_entity
-    end
   end
 
   def show
+    @questions = Question.all
+    @categories = current_user.questions.map(&:categories).flatten
+    @category_questions = CategoryQuestion.all
+    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
   end
 
   def edit
@@ -25,10 +29,10 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
   def update
     @user.avatar.attach(params[:user][:avatar]) if @user.avatar.blank?
     if @user.email == "guest@exapmle.com"
-      redirect_to root_url, alert: "ゲストユーザーは編集できません。"
+      redirect_to root_path, alert: "ゲストユーザーは編集できません。"
     elsif
       @user.update(user_params)
-      redirect_to user_url(@user), notice: "ユーザーアカウントを編集しました。"
+      redirect_to user_path(@user), notice: "ユーザーアカウントを編集しました。"
     else
       render "edit", status: :unprocessable_entity # rails7 から必須のオプション
     end
@@ -36,10 +40,10 @@ before_action :set_user, only: [:show, :edit, :update, :destroy ]
 
   def destroy
     if @user.guest_user?
-      redirect_to root_url, alert: "ゲストユーザーは登録解除できません。"
+      redirect_to root_path, alert: "ゲストユーザーは登録解除できません。"
     else
       @user.destroy
-      redirect_to root_url, notice: "登録解除しました。", status: :see_other
+      redirect_to root_path, notice: "登録解除しました。", status: :see_other
     end
   end
 

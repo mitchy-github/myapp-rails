@@ -1,0 +1,59 @@
+<h2>ハッシュタグが埋め込まれている投稿一覧</h2>
+<div style = "display: flex; flex-wrap: wrap;">
+  <% @question_objects.each_with_index do |question| %>
+    <%
+        display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
+    %>
+    <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
+        <%# <%= attachment_image_tag @questions[i],:image,style: 'width: 40%;' %>
+      <div style="border-bottom: 1px solid">
+        <p style="color: red">question_title</p>
+          <%= question["question_title"] %>
+      </div>
+      <div>
+        <p style="color: red">contents_question</p>
+        <p>
+          <%= display_contents_question %><br>
+          <% if question["categories"].present? %>
+            <% question["categories"].each do |category| %>
+              <%= link_to "##{category.category}", category_path(category.id) %>
+            <% end %>
+          <% end %>
+        <p>
+      </div>
+      <% if logged_in? && question["user_id"] == current_user["id"] %>
+        <%= link_to "詳細", question_path(id: question["id"]) %>
+        <%= link_to "編集", edit_question_path(id: question["id"]) %>
+        <%= link_to "削除", question_path(id: question["id"]), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+      <% else %>
+        <%= link_to "詳細", question_path(id: question["id"]) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<%# <h2>投稿詳細</h2>
+<div style="border: 1px solid black;margin: 2% 0;padding: 3%;">
+    <%# <%= attachment_image_tag @question,:image,style: 'width: 40%;' %>
+    <%# <div style="border-bottom: 1px solid"> %>
+        <%# <p style="color: red">title</p> %>
+        <%# <%= @question.title %>
+    <%# </div> %>
+    <%# <div>
+        <p style="color: red">category</p>
+        <p>
+            <%= @display_category<br>
+            <% if @categories.present? %>
+                <%# <% @categories.each do |category| %>
+                    <%# <%= link_to "##{category.name}", category_path(category.id) %>
+                <%# <% end %>
+            <%# <% end %>
+        <%# <p>
+    </div>
+    <div> %>
+    <%# <%= link_to "編集", edit_question_path(id: @question.id) %>
+    <%# <%= link_to "削除", question_path(id: @question.id),method: :delete %>
+
+    <%# </div> %>
+<%# </div> %>
+

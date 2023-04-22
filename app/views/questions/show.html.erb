@@ -1,39 +1,101 @@
-<p><%= @question.question_title %></p>
-<p><%= @question.contents_question %></p>
-  <% @question.categories.each do |category| %>
-    <button class="btn btn-info"><%= category.category %></button><br>
-  <% end %>
-<% if @question.user_question?(current_user) %>
-<%= link_to "編集", edit_question_path(@question) %>
-<%= link_to"削除", question_path(@question), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-<% end %>
-
-<div>
-  <%= form_with(model: [@question, @question_answer], local: true) do |f| %>
-    <% if @question_answer.errors.any? %>
-      <strong><%= @question_answer.errors.count %>個のエラーがあります。</strong>
-      <ul>
-        <% @question_answer.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <div>
-      <%= f.label :answer_content, "回答" %><br>
-      <%= f.text_area :answer_content %>
+<h2>投稿詳細</h2>
+  <div style="border: 1px solid black;margin: 2% 0;padding: 3%;">
+    <%# <%= attachment_image_tag @post,:image,style: 'width: 40%;' %>
+    <div style="border-bottom: 1px solid">
+      <p style="color: red">question_title</p>
+      <%= @question.question_title %>
     </div>
-    <%= f.submit '登録'  %>
-  <% end %>
-</div>
-<hr>
-<div>
-  <% @question.question_answers.each do |question_answer| %>
-    <p><%= question_answer.answer_content %></p>
-    <%# <% binding.pry %>
-      <%# <%= link_to "編集", edit_question_question_answer_path(current_user) %>
-    <% if question_answer.user_answer?(current_user) %>
-      <%=link_to "削除", question_question_answer_path(question_answer.question.id, question_answer.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+    <div>
+      <%# <% if @display_contents_question.present? %>
+        <p style="color: red">contents_question</p>
+        <p>
+
+<%# <%if @display_contents_question.nil? %>
+        <%# <%= @display_contents_question %>
+<%# <% else %>
+<%# <%= safe_join(@display_contents_question.split("\n"),tag(:br)) %>
+<%# <%end %>
+      <%= safe_join(@display_contents_question.split("\n"),tag(:br)) %><br>
+      <% if @categories.present? %>
+        <% @categories.each do |category| %>
+          <%= link_to "##{category.category}", category_path(category.id) %>
+        <% end %>
+      <% end %>
+      <%# <% end %>
+      <p>
+    </div>
+    <div>
+      <% if logged_in? && @question.user_question?(current_user) %>
+        <%# <%= link_to_unless @question.best_answer_id,  %>
+        <%=link_to "編集", edit_question_path(id: @question.id) %>
+        <%# <%= link_to_unless @question.best_answer_id,  %>
+        <%=link_to "削除", question_path(id: @question.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+      <% end %>
+    </div>
+  </div>
+
+
+<%
+=begin %>
+  <p><%= @question.question_title %></p>
+  <p><%= @question.contents_question %></p>
+    <% @question.categories.each do |category| %>
+      <button class="btn btn-info"><%= category.category %></button><br>
     <% end %>
-  <% end %>
-</div>
+    <% if logged_in? && @question.user_question?(current_user) %>
+      <%= link_to "編集", edit_question_path(@question) %>
+      <%= link_to"削除", question_path(@question), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+    <% end %>
+    <%
+=end %>
+
+  <div>
+    <%= form_with(model: [@question, @question_answer], local: true) do |f| %>
+      <% if @question_answer.errors.any? %>
+        <strong><%= @question_answer.errors.count %>個のエラーがあります。</strong>
+        <ul>
+          <% @question_answer.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if logged_in? %>
+      <div>
+        <%= f.label :answer_content, "回答" %><br>
+        <%= f.text_area :answer_content, size:"55x5" %>
+      </div>
+        <%= f.submit '登録'  %>
+      <% end %>
+    <% end %>
+  </div>
+  <hr>
+  <div>
+    <%# <div> %>
+    <% @question.question_answers.each do |question_answer| %>
+      <%# <p><%= question_answer.answer_content</p> %>
+      <div class="card-body  <%= "best-answer" if @question.best_answer_id == question_answer.id %>">
+      <%= safe_join(question_answer.answer_content.split("\n"),tag(:br)) %>
+      <%# <% binding.pry %>
+        <%# <%= link_to "編集", edit_question_question_answer_path(current_user) %>
+      </div>
+        <!--ここから追加-->
+      <div>
+        <% if current_user.id == @question.user_id %>
+          <%= form_with(model: @question, local: true, data: {turbo_confirm: "#{question_answer.user.name}さんの回答をベストアンサーにします。この修正は変更できませんが、よろしいですか？"}) do |f| %>
+          <%# <%= form_with(model: @question, local: true) do |f| %>
+          <%= f.hidden_field :best_answer_id, value: question_answer.id %>
+          <div class="actions">
+            <%= f.submit 'BA' %>
+            <%# , disabled: (@question.best_answer_id.present?) %>
+          </div>
+          <% end %>
+        <% end %>
+      </div>
+      <!--ここまで-->
+
+      <% if logged_in? && question_answer.user_answer?(current_user) %>
+        <%# <%=link_to_unless @question.best_answer_id, %>
+        <%=link_to "削除", question_question_answer_path(question_answer.question.id, question_answer.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %><br>
+      <% end %>
+    <% end %>
+  </div>

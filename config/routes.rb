@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :question_answers, only: [:create, :destroy, :edit, :update]
   end
 
+  resources :categories, only: [:index, :show] #hashtagsコントローラー作成後記入
+
   root 'sessions#index'
 
   post "/guest_login", to: "guest_sessions#create"
