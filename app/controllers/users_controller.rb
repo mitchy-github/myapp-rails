@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include CategoryMethods
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only:[:edit, :update, :destroy]
+  before_action :logged_in_user, only:[:new, :edit, :update, :destroy]
 
   def follows
     user = User.find(params[:id])
