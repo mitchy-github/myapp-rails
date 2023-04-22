@@ -1,0 +1,23 @@
+  <div id="post-<%= @post.id %>" class="mb-3">
+    <p class="font-bold">タイトル：<%= @post.post_title %></p>
+    <p class="font-bold">本文：<%= @post.post_content %></p>
+    <% if @post.images.attached? %>
+      <% @post.images.each do |image| %>
+        <div class="mb-2 inline-flex">
+          <%= image_tag(image, width:100, class: "") %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <p><%= link_to '投稿一覧', posts_path, class: "btn btn-sky" %></p><br>
+
+        <% if @post.favorited_by?(current_user) %>
+    <%= link_to post_favorites_path(@post), method: :delete, class: "favorite_btn" do %>
+     ♥<%= @post.favorites.count %> いいね
+    <% end %>
+    <% else %>
+     <%= link_to post_favorites_path(@post), method: :post, class: "favorite_btn" do %>
+      ♡<%= @post.favorites.count %> いいね
+     <% end %>
+    <% end %>
+  </div>

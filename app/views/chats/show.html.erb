@@ -7,8 +7,11 @@
       <p style="text-align: right;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
     <% else %>
     <%# safe_join(@display_contents_question.split("\n"),tag(:br)) %>
-    <div class="message-sender"><%= chat.user.name %></div>
-      <p style="text-align: left;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
+      <div class="message-sender">
+        <%# <%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg" %>
+        <%= chat.user.name %>
+      </div>
+        <p style="text-align: left;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
     <% end %>
   <% end %>
 </div>

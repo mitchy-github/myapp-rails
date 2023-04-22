@@ -33,6 +33,7 @@
       <% end %>
     </div>
   </div>
+  <%# 基本的なカテゴリ機能とベストアンサー機能追加のリファクタリング/カレントユーザーのタグ一覧表示にベストアンサーがされた時の制御を変更した履歴が残っている %>
 
 
 <%
@@ -80,7 +81,7 @@
       </div>
         <!--ここから追加-->
       <div>
-        <% if current_user.id == @question.user_id %>
+        <% if logged_in? && current_user.id == @question.user_id %>
           <%= form_with(model: @question, local: true, data: {turbo_confirm: "#{question_answer.user.name}さんの回答をベストアンサーにします。この修正は変更できませんが、よろしいですか？"}) do |f| %>
           <%# <%= form_with(model: @question, local: true) do |f| %>
           <%= f.hidden_field :best_answer_id, value: question_answer.id %>
@@ -92,6 +93,7 @@
         <% end %>
       </div>
       <!--ここまで-->
+      <%# 基本的なカテゴリ機能とベストアンサー機能追加のリファクタリング/カレントユーザーのタグ一覧表示にベストアンサーがされた時の制御を変更した履歴が残っている %>
 
       <% if logged_in? && question_answer.user_answer?(current_user) %>
         <%# <%=link_to_unless @question.best_answer_id, %>

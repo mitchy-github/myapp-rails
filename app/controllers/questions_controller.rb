@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   include CategoryMethods
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only:[:new, :edit, :update, :destroy]
 
   def index
     @test = "テストテキスト"
