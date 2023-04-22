@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :question_answers, only: [:create, :destroy, :edit, :update]
   end
 
+  resources :chats, only: [:show, :create]
+
   resources :categories, only: [:index, :show] #hashtagsコントローラー作成後記入
 
   root 'sessions#index'
@@ -13,8 +15,15 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   # get '/users/:id', to: 'users#show'
   # delete '/users/:id', to: 'users#destroy'
-  resources :users, only: %i(show destroy edit update)
+  # resources :users, only: %i(show destroy edit update)
   # 上記の()にupdateを追加するとうまくロールバックせずアップデートされた
+
+  resources :users, only:[:index, :show, :edit, :destroy, :update] do
+    member do
+      get :follows, :followers
+    end
+    resource :relationships, only: [:create, :destroy]
+  end
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

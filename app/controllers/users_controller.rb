@@ -1,6 +1,20 @@
 class UsersController < ApplicationController
   include CategoryMethods
-  before_action :set_user, only: [:show, :edit, :update, :destroy ]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  def follows
+    user = User.find(params[:id])
+    @users = user.following_user.page(params[:page]).per(3).reverse_order
+  end
+  
+  def followers
+    user = User.find(params[:id])
+    @users = user.follower_user.page(params[:page]).per(3).reverse_order
+  end
+
+  def index
+    @users = User.all
+  end
 
   def new
     @user = User.new
@@ -21,6 +35,10 @@ class UsersController < ApplicationController
     @categories = current_user.questions.map(&:categories).flatten
     @category_questions = CategoryQuestion.all
     @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
+    @user = User.find(params[:id])
+    @questions = @user.questions.page(params[:page]).reverse_order
+    @following_users = @user.following_user
+    @follower_users = @user.follower_user
   end
 
   def edit
