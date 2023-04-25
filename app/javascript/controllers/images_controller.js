@@ -21,8 +21,8 @@ export default class extends Controller {
     this.errorTarget.textContent = ""
     const uploadedFilesCount = this.previewTarget.querySelectorAll(".image-box").length // すでにアップロードされた画像の枚数
     const files = this.selectTargets[0].files // 選択した画像の枚数（これからアップロードする画像）
-    if(files.length + uploadedFilesCount > 10){
-      this.errorTarget.textContent = "画像アップロード上限は最大10枚です。"
+    if(files.length + uploadedFilesCount > 2){
+      this.errorTarget.textContent = "画像アップロード上限は最大2枚です。"
     }else{
       for(const file of files){
         if(this.imageSizeOver(file)){
@@ -57,7 +57,7 @@ export default class extends Controller {
       body: formData
     }
  /* fetchで画像ファイルをPostコントローラー(upload_imageアクション)に送信 */
-    fetch("/posts/upload_image", options) 
+    fetch("/posts/upload_image", options)
       .then(response => response.json())
       .then(data => { // Postコントローラーからのレスポンス(blobデータ)
         this.previewImage(file, data.id) // 画像プレビューアクションにblobデータのidを受け渡す

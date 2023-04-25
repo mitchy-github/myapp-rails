@@ -71,8 +71,8 @@ class User < ApplicationRecord
     size: { less_than: 5.megabytes, message: " 5MBを超える画像はアップロードできません" }
 
   validate :birthday_date_check
-  
-  def birthday_date_check 
+
+  def birthday_date_check
     errors.add(:birthday,"に未来の日付は指定できません") if birthday.nil? || birthday > Date.today
   end
 

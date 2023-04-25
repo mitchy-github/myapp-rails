@@ -3,11 +3,21 @@
 @import "tailwindcss/utilities";
 
 /* mixins, variables, etc. */
- box_sizing {
+box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
+
+/* @media only screen and (min-width: 768px) {
+  .fade-enter-from,
+  .fade-leave-to,.fade-enter-active,
+  .fade-leave-active,.animate-scale-out-ver-top {
+        animation: none;
+        transform: none;
+        transition: unset;
+    }
+} */
 
 /* miscellaneous */
 .debug_dump {
@@ -21,3 +31,15 @@
   background-color: red;
   color: white;
 }
+/*
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity:  0.8s;
+} */
+
+

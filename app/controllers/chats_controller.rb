@@ -19,8 +19,9 @@ class ChatsController < ApplicationController
   end
 
   def create
-    # binding.pry
     @chat = current_user.chats.new(chat_params)
+    @room = @chat.room
+    @chats = @room.chats
     render :validator, status: :unprocessable_entity unless @chat.save
   end
 

@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   include CategoryMethods
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only:[:new, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :likes]
+  before_action :require_login, only:[:new, :show, :edit, :update, :destroy]
+
+  def favorites
+    @user = User.find(params[:id])
+    favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
+    @favorite_posts = Post.find(favorites)
+  end
 
   def follows
     user = User.find(params[:id])
@@ -40,6 +46,8 @@ class UsersController < ApplicationController
     @questions = @user.questions.page(params[:page]).reverse_order
     @following_users = @user.following_user
     @follower_users = @user.follower_user
+    # favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
+    # @favorite_posts = Post.find(favorites)
   end
 
   def edit

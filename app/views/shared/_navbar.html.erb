@@ -12,6 +12,7 @@
       </div>
       <div class="mr-8">
         <!-- Mobile menu -->
+        <%# <div id="hamburger" class="hamburger"> %>
         <div class="flex mt-2">
           <button
             @click="toggleOpen"
@@ -33,11 +34,15 @@
             </svg>
           </button>
         </div>
+        <%# </div> %>
         <!-- Mobile Menu -->
+        <%# <transition> %>
         <div
+        <%# v-show="isOpen" %>
         :class="isOpen ? 'block animate-scale-in-ver-top' : 'hidden'"
         <%# v-on:click="animate-scale-out-ver-top" %>
         class="fixed left-0 w-full mt-2 bg-lime-200 rounded-lg md:block md:static md:-mt-1.5 md:animate-none">
+        <%# header__nav %>
           <ul class="md:flex md:justify-end">
           <% if logged_in? %>
             <li class="border-b md:border-none">
@@ -63,6 +68,7 @@
     </div>
   </nav>
 </div>
+<%# </transition> %>
 
 <script>
   var app = new Vue({
@@ -77,3 +83,28 @@
           }
       })
 </script>
+<%#
+  const mediaQuery = window.matchMedia("(max-width: 768px)")
+  // const mediaQuery = window.performance.navigation.type
+  // ウィンドウサイズを変更したら実行（ブレイクポイントの監視）
+
+  // ページが読み込まれた時に実行
+  handle(mediaQuery);
+
+  // ウィンドウサイズを変更しても実行（ブレイクポイントの監視）
+  mediaQuery.addListener(handle);
+  function handle(mm) {
+    if (mm.matches) {
+      // if (mm.performance.navigation.type === 1) {
+    // if (window.performance) {
+    // if (window.performance.navigation.type === 1) {
+      $('.hamburger').removeClass('toggleOpen');
+      $('.header__nav').hide();
+    } else {
+      $('.hamburger').removeClass('toggleOpen');
+      $('.header__nav').show();
+    }
+  }
+  // }
+  // }
+%>

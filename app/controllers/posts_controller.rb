@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only:[:new, :edit, :update, :destroy]
+  before_action :require_login, only:[:new, :edit, :update, :destroy]
 
   def index
     @posts = Post.all
   end
 
   def show
+    @user = User.find_by(id: @post.user_id)
     @post = Post.find(params[:id])
   end
 
@@ -19,19 +20,24 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    if @post.save
+    @post.save!
       redirect_to posts_path, notice: "投稿しました"
-    else
+    rescue StandardError
       render "new", status: :unprocessable_entity
-    end
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to posts_path, notice: "更新しました"
-    else
-      render "edit", status: :unprocessable_entity
+    unless logged_in? && @post.user_post?(current_user) && @post.update(post_params)
+      render "edit", status: :unprocessable_entity and return
     end
+
+    redirect_to posts_path, notice: "更新しました"
+
+    # if @post.update(post_params)
+    #   redirect_to posts_path, notice: "更新しました"
+    # else
+    #   render "edit", status: :unprocessable_entity
+    # end
   end
 
   def destroy
@@ -50,7 +56,7 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   end
-  
+
   # 選択状態の画像をパラメータにマージ（Postモデルとの紐付け）
   def post_params
     params.require(:post).permit(:post_title, :post_content).merge(images: uploaded_images, user_id:current_user.id)
