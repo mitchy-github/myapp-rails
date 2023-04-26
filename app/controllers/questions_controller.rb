@@ -1,10 +1,12 @@
 class QuestionsController < ApplicationController
   include CategoryMethods
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only:[:new, :edit, :update, :destroy]
 
   def index
+    # @user = User.find_by(id: @question.user_id)
+    # @question = current_user.questions
     @test = "テストテキスト"
-    # @questions = current_user.questions.all
     @questions = Question.all
     @categories = Category.all
     @category_questions = CategoryQuestion.all
@@ -12,6 +14,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @user = User.find_by(id: @question.user_id)
     @question_answer = QuestionAnswer.new
     @question = Question.find(params[:id])
     related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id) #=> [1,2,3] idのみを配列にして返す
@@ -26,16 +29,6 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    # @question = Question.new(question_params)
-    # @question.user_id = current_user.id
-    # @categories = Category.all
-    # @question.save!
-    #   flash[:notice] = "成功！"
-    #   redirect_to("/questions/new")
-    # rescue StandardError
-    #   flash.now[:alert] = "失敗！"
-    #   render "questions/new", status: :unprocessable_entity
-
     @question = Question.new(question_params) #インスタンスの作成
     @question.user_id = current_user.id
     category = extract_category(@question.contents_question) #パラメーターのcaptionの中よりハッシュタグを抽出
@@ -46,8 +39,20 @@ class QuestionsController < ApplicationController
 
     rescue StandardError
       # flash.now[:alert] = "失敗！"
-        render "questions/new", status: :unprocessable_entity
+      render "questions/new", status: :unprocessable_entity
       # render new_question_path, status: :unprocessable_entity
+
+    # ↓リファクタリングまえ↓
+    # @question = Question.new(question_params)
+    # @question.user_id = current_user.id
+    # @categories = Category.all
+    # @question.save!
+    #   flash[:notice] = "成功！"
+    #   redirect_to("/questions/new")
+    # rescue StandardError
+    #   flash.now[:alert] = "失敗！"
+    #   render "questions/new", status: :unprocessable_entity
+
   end
 
   def edit
@@ -56,6 +61,21 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    unless logged_in? && @question.user_question?(current_user) && @question.update(question_params)
+      render "questions/edit", status: :unprocessable_entity and return
+    end
+
+    @question = Question.find(params[:id])
+    strong_paramater = question_params
+    delete_records_related_to_category(params[:id]) #こちらのメソッドで中間テーブルとハッシュタグのレコードを削除
+
+    # @question.update(question_params)
+    flash[:notice] = "投稿内容を編集しました"
+    category = extract_category(@question.contents_question) #投稿よりハッシュタグを取得
+    save_category(category,@question) #ハッシュタグの保存
+    redirect_to question_path(@question.id)
+
+
     # if @question.user_question?(current_user) && @question.update(question_params)
     #   flash[:notice] = "投稿内容を編集しました"
     #   redirect_to question_path(@question.id)
@@ -84,32 +104,19 @@ class QuestionsController < ApplicationController
     # else
     #   render "questions/edit", status: :unprocessable_entity
     # end
-
-    unless logged_in? && @question.user_question?(current_user) && @question.update(question_params)
-      render "questions/edit", status: :unprocessable_entity and return
-    end
-
-    @question = Question.find(params[:id])
-    strong_paramater = question_params
-    delete_records_related_to_category(params[:id]) #こちらのメソッドで中間テーブルとハッシュタグのレコードを削除
-
-    # @question.update(question_params)
-    flash[:notice] = "投稿内容を編集しました"
-    category = extract_category(@question.contents_question) #投稿よりハッシュタグを取得
-    save_category(category,@question) #ハッシュタグの保存
-    redirect_to question_path(@question.id)
   end
 
   def destroy
-    # @question.destroy
-    # flash[:notice] = "成功！"
-    # redirect_to "/questions", status: :see_other
-
     @question = Question.find_by(id: params[:id]) #削除対象のレコード
     @question.destroy #投稿を削除
     delete_records_related_to_category(params[:id]) #中間テーブルとハッシュタグのレコードを削除
     flash[:notice] = "投稿を削除しました"
     redirect_to questions_path, status: :see_other
+
+    # @question.destroy
+    # flash[:notice] = "成功！"
+    # redirect_to "/questions", status: :see_other
+
   end
 
 private

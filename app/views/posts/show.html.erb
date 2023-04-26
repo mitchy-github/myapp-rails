@@ -1,0 +1,36 @@
+<%= image_tag avatar_url(@post.user), width: 50, class: "rounded-lg" %>
+<p class="text-2xl text-green-600"><%= link_to(@post.user.name, post_path(@post.id)) %> さんの投稿</p>
+<% if logged_in? %>
+  <% if current_user != @post.user %>
+    <% if current_user.following?(@post.user) %>
+      <%= link_to 'フォロー外す', user_relationships_path(@post.user.id), data: { turbo_method: :delete }, class: "btn-sm btn-danger" %>
+    <% else %>
+      <%= link_to 'フォローする', user_relationships_path(@post.user.id), data: { turbo_method: :POST }, class:"btn-sm btn-success" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div id="post-<%= @post.id %>" class="mb-3">
+  <p class="font-bold">タイトル：<%= @post.post_title %></p>
+  <p class="font-bold">本文：<%= @post.post_content %></p>
+  <% if @post.images.attached? %>
+    <% @post.images.each do |image| %>
+      <div class="mb-2 inline-flex">
+        <%= image_tag(image, width:100, class: "") %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if logged_in? %>
+    <% if @post.favorited_by?(current_user) %>
+      <%= link_to post_favorites_path(@post), method: :delete, class: "favorite_btn" do %>
+      ♥<%= @post.favorites.count %> いいね
+      <% end %>
+    <% else %>
+      <%= link_to post_favorites_path(@post), method: :post, class: "favorite_btn" do %>
+      ♡<%= @post.favorites.count %> いいね
+      <% end %>
+    <% end %>
+  <% end %>
+  <p><%= link_to '投稿一覧', posts_path, class: "btn btn-sky" %></p><br>
+</div>

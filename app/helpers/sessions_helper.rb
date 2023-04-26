@@ -12,16 +12,16 @@ module SessionsHelper
     end
   end
 
-   # ユーザーがログインしていればtrue、その他ならfalseを返す
+  # ユーザーがログインしていればtrue、その他ならfalseを返す
   def logged_in?
     current_user.present?
   end
 
   def require_login
-    redirect_to login_path unless logged_in?
+    redirect_to login_path, alert: "ログインか新規登録をしてください" unless logged_in?
   end
 
-   # 現在のユーザーをログアウトする
+  # 現在のユーザーをログアウトする
   def log_out
     session.delete(:user_id)
     @current_user = nil

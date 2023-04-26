@@ -34,14 +34,18 @@
 class User < ApplicationRecord
   has_secure_password
   has_one_attached :avatar
+
   has_many :posts
   has_many :questions, dependent: :destroy
-  has_many :question_answers
+  has_many :favorites, dependent: :destroy   #この行を追記
+  has_many :chats
   has_many :likes
 
+  has_many :question_answers
   has_many :user_rooms
-  has_many :chats
   has_many :rooms, through: :user_rooms
+  has_many :category_users
+  has_many :categories, through: :category_users
 
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -50,9 +54,6 @@ class User < ApplicationRecord
 
   has_many :community_users
   has_many :communities, through: :community_users
-
-  has_many :category_users
-  has_many :categories, through: :category_users
 
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
@@ -70,8 +71,8 @@ class User < ApplicationRecord
     size: { less_than: 5.megabytes, message: " 5MBを超える画像はアップロードできません" }
 
   validate :birthday_date_check
-  
-  def birthday_date_check 
+
+  def birthday_date_check
     errors.add(:birthday,"に未来の日付は指定できません") if birthday.nil? || birthday > Date.today
   end
 

@@ -9,7 +9,10 @@ class QuestionAnswersController < ApplicationController
     flash[:notice] = "コメントしました。"
     redirect_to question_path(question_id)
   rescue StandardError
+    # @user = User.find_by(id: question_id)
+    # @user = User.find_by(id: @question.current_user_id)
     @question = Question.find(question_id)
+    # @question_answer = QuestionAnswer.find(params[:id])
     related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id) #=> [1,2,3] idのみを配列にして返す
     categories = Category.all
     @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。

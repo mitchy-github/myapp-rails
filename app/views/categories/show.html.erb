@@ -1,6 +1,6 @@
 <h2>ハッシュタグが埋め込まれている投稿一覧</h2>
 <div style = "display: flex; flex-wrap: wrap;">
-  <% @question_objects.each_with_index do |question| %>
+  <% @questions.each_with_index do |question| %>
     <%
         display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
     %>
@@ -14,8 +14,8 @@
         <p style="color: red">contents_question</p>
         <p>
           <%= display_contents_question %><br>
-          <% if question["categories"].present? %>
-            <% question["categories"].each do |category| %>
+          <% if question.categories.present? %>
+            <% question.categories.each do |category| %>
               <%= link_to "##{category.category}", category_path(category.id) %>
             <% end %>
           <% end %>
