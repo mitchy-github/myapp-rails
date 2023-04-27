@@ -5,5 +5,6 @@ window.$ = jquery
 console.log('hoge')
 import "./controllers";
 import "@hotwired/turbo-rails"
+Turbo.session.drive = false
 import Rails from '@rails/ujs';
 Rails.start();

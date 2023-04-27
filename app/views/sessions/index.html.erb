@@ -11,66 +11,15 @@
   <%# <% end %>
   <%# <span>投稿者：</span><%= question["name"] %>
 <h2>ハッシュタグが埋め込まれている投稿一覧</h2>
-<div style = "display: flex; flex-wrap: wrap;">
-    <%# <% @user.each do |output| %>
-    <%# <%= link_to(post.user.name, "/users/#{post.user.id}") %>
-    <%# <% end %>
-<%# 投稿にユーザー情報を表示する→→user_idがないよエラーは@question_objectsから@questionsにしたら治った %>
-  <% @questions.each_with_index do |question| %>
-    <%
-        display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
-    %>
-    <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
-      <div style="border-bottom: 1px solid">
-        <%= image_tag avatar_url(question.user), width: 50, class: "rounded-lg" %>
-        <p class="text-2xl text-green-600"><%= link_to question.user.name, question_path(id: question["id"]) %> さんの質問</p>
-        <p style="color: red">question_title</p>
-        <%= question["question_title"] %>
-      </div>
-        <div>
-          <p style="color: red">contents_question</p>
-          <p>
-          <%= safe_join(display_contents_question.split("\n"),tag(:br)) %><br>
-            <% if question.categories.present? %>
-              <% question.categories.each do |category| %>
-                <%= link_to "##{category.category}", category_path(category.id) %>
-              <% end %>
-            <% end %>
-          </p>
-      </div>
-        <%= link_to "詳細", question_path(id: question["id"]) %>
-    </div>
-  <% end %>
-</div>
+  <div style = "display: flex; flex-wrap: wrap;">
+    <%= render @questions %>
+  </div>
 
 <h1 class="text-3xl mb-3">投稿一覧</h1>
 <div class="mb-3">
   <%= link_to '新規投稿', new_post_path, class: "btn btn-sky" %>
 </div>
-<% @posts.each do |post| %>
-  <%= image_tag avatar_url(post.user), width: 50, class: "rounded-lg" %>
-  <p class="text-2xl text-green-600"><%= link_to(post.user.name, post_path(post.id)) %> さんの投稿</p>
-  <div class="my-8">
-    <div id="post-<%= post.id %>" class="mb-3">
-      <p class="font-bold">タイトル：<%= post.post_title %></p>
-      <% if post.images.attached? %>
-        <% post.images.each do |image| %>
-          <div class="mb-2 inline-flex">
-            <%= image_tag(image, width:100, class: "") %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-
-    <% if logged_in? %>
-      <%= link_to "詳細", post_path(post) %>
-    <% end %>
-    <% if logged_in? && post.user_post?(current_user) %>
-      <%= link_to "編集", edit_post_path(post), class: "btn btn-outline-gray" %>
-      <%= link_to "削除", post, data: { turbo_method: :delete ,turbo_confirm: "削除してよろしいですか?" }, class: "btn btn-outline-gray" %>
-    <% end %>
-  </div>
-<% end %>
+<%= render @posts %>
 
       <%# <p><h1>ログインできたよ</h1></p>
         <p>テスト</p>

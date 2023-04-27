@@ -2,39 +2,12 @@
 <p>Find me in app/views/questions/index.html.erb</p>
 
   <td><%= link_to '質問を投稿する', new_question_url %></td><br>
-
   <td><%= link_to 'ハッシュタグ一覧', categories_path %></td><br>
 
-<h2>ハッシュタグが埋め込まれている投稿一覧</h2>
-<div style = "display: flex; flex-wrap: wrap;">
-<%# 投稿にユーザー情報を表示する→→user_idがないよエラーは@question_objectsから@questionsにしたら治った %>
-  <% @questions.each_with_index do |question| %>
-    <%
-        display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
-    %>
-    <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
-      <div style="border-bottom: 1px solid">
-        <%= image_tag avatar_url(question.user), width: 50, class: "rounded-lg" %>
-        <p class="text-2xl text-green-600"><%= link_to question.user.name, question_path(id: question["id"]) %> さんの質問</p>
-        <p style="color: red">question_title</p>
-        <%= question["question_title"] %>
-      </div>
-      <div>
-        <p style="color: red">contents_question</p>
-        <p>
-        <%= safe_join(display_contents_question.split("\n"),tag(:br)) %><br>
-          <% if question.categories.present? %>
-            <% question.categories.each do |category| %>
-              <%= link_to "##{category.category}", category_path(category.id) %>
-            <% end %>
-          <% end %>
-        <p>
-      </div>
-        <%= link_to "詳細", question_path(id: question["id"]) %>
-        <%# <%= link_to '詳細', question["question"] %>
-    </div>
-  <% end %>
-</div>
+  <h2>ハッシュタグが埋め込まれている投稿一覧</h2>
+  <div style = "display: flex; flex-wrap: wrap;">
+    <%= render @questions %>
+  </div>
 
 <%= @test %><br>
 <% @questions.each do |question| %>

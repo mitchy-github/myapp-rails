@@ -1,0 +1,23 @@
+<%= form_with(model: @question, local: true) do |f| %>
+<%= render 'layouts/errors', obj: @question %>
+
+  <div>
+    <%= f.label :question_title, '質問タイトル' %><br>
+    <%= f.text_field :question_title, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55" %>
+  </div>
+  <div>
+    <%= f.label :contents_question, '質問内容' %><br>
+    <%= f.text_area :contents_question, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55x12" %>
+  </div>
+
+  <%# <div class="field">
+    <% @categories.each do |t| %>
+      <%# <%= f.label t.category %>
+      <%# <%= check_box_tag "question[category_ids][]", t.id, @question.category_ids.include?(t) %>
+      <%# <br/> %>
+    <%# <% end %>
+  <%# </div> %>
+
+  <%= f.submit '登録' %>
+<% end %>
+
