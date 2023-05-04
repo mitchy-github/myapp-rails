@@ -1,20 +1,51 @@
-  <p>Find me in app/views/sessions/new.html.erb</p>
-  <h1 class="text-5xl text-green-600">＜ログインページ＞</h1>
-    <%= form_for :session, url: login_path do |f| %>
-      <%= flash[:danger] %>
-    
-      <%= f.label :email %>
-      <%= f.email_field :email, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+<div class="rounded bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+    <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">ログインページ</h2>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-      <%= f.submit "ログイン", class: "px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
-    <% end %>
+    <div class="mx-auto max-w-lg rounded-lg border">
+      <div class="flex flex-col gap-4 p-4 md:p-8">
+        <%= form_for :session, url: login_path do |f| %>
+          <%= flash[:danger] %>
 
-  <div class="ui message">
-    アカウントをお持ちではないですか？
-    <%= link_to "新規登録", signup_path, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+          <div>
+            <%= f.label :email, 'メールアドレス', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.email_field :email, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div  id="fieldPassword">
+            <%= f.label :password, 'パスワード', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <div  class="flex">
+              <%= f.password_field :password, id: "textPassword", class: "mb-4 w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+              <span id="buttonEye" class="fa fa-eye ml-4 mt-3" onclick="pushHideButton()"></span>
+            </div>
+          </div>
+
+          <div>
+            <%= f.submit 'ログイン', class: "w-full block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base" %>
+          </div>
+        <% end %>
+        <div class="ui message text-center text-sm">
+          アカウントをお持ちではないですか？
+          <%= link_to "新規登録", signup_path, class: "text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700" %>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+<script>
+  function pushHideButton() {
+    var txtPass = document.getElementById("textPassword");
+    var btnEye = document.getElementById("buttonEye");
+    if (txtPass.type === "text") {
+      txtPass.type = "password";
+      btnEye.className = "fa fa-eye ml-4 mt-3";
+    } else {
+      txtPass.type = "text";
+      btnEye.className = "fa fa-eye-slash ml-4 mt-3";
+    }
+  }
+</script>
 <%#
 <script type="text/javascript">
   $(document).ready(function() {

@@ -52,11 +52,11 @@
               <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li>
-              <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ログアウト", logout_path, data: { turbo: true, turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
           <% else %>
             <li class="border-b md:border-none">
-              <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { turbo_method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { turbo: true, turbo_method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
               <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>

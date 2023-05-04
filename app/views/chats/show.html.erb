@@ -10,7 +10,7 @@
 </div>
 
 <%= form_with model: @chat, data: {remote: true} do |f| %>
-<%= f.text_area :message, size:"55x8" %>
-<%= f.hidden_field :room_id %>
+  <%= f.text_area :message, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55x8" %>
+  <%= f.hidden_field :room_id %>
   <%= f.submit "送信" %>
 <% end %>

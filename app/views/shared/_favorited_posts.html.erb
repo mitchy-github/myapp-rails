@@ -1,9 +1,0 @@
-<% @user ||= current_user %>
-<div class="favorited_posts">
-  <a href="<%= likes_user_path(@user) %>">
-    <strong id="favorited_posts" class="favorited_posts">
-      <%=  @user.likes.count %>
-    </strong>
-    favorited posts
-  </a>
-</div>

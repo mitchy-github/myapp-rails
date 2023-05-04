@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include CategoryMethods
   before_action :set_user, only: [:show, :edit, :update, :destroy, :likes]
-  before_action :require_login, only:[:new, :show, :edit, :update, :destroy]
+  before_action :require_login, only:[:show, :edit, :update, :destroy]
 
   def favorites
     @user = User.find(params[:id])
@@ -81,6 +81,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :sex, :avatar, :birthday, :region, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :sex, :avatar, :birthday, :region, :email, :password, :password_confirmation, :birthday_of_baby, :number_of_baby, :child_want, :childcare_start, :childcare_graduation_start, :childcare_graduation_end, :months_pregnant)
   end
 end

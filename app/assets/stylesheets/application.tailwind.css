@@ -31,6 +31,21 @@ box_sizing {
   background-color: red;
   color: white;
 }
+
+.required-a::after {
+  content: "必須";
+  color: #fff;
+  background-color: #ff0000a8;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 4px;
+  margin: 0 5px;
+}
+
+#textPassword {
+  border: none; /* デフォルトの枠線を消す */
+}
+
 /*
 .fade-enter-active,
 .fade-leave-active {

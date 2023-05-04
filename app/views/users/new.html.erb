@@ -1,51 +1,113 @@
-  <h1 class="text-5xl text-green-600">＜ユーザー登録＞</h1>
-  <%= form_with model: @user, url: signup_path, local: true do |form| %>
-    <%= render  "shared/error_messages" %>
-  
-  <div>
-    <%= form.label :name, '名前' %>
-    <%= form.text_field :name, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50", placeholder: "山田太郎" %>
-  </div>
+<div class="rounded bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+    <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">ユーザー登録</h2>
 
-  <div>
-    <%= form.radio_button :sex, true %>
-    <%= form.label :sex, '男', value: true %>
-  </div>
-  <div class = "radio-button">
-    <%= form.radio_button :sex, false %>
-    <%= form.label :sex, '女', value: false %>
-  </div>
+    <div class="mx-auto max-w-lg rounded-lg border">
+      <div class="flex flex-col gap-4 p-4 md:p-8">
+        <%= link_to 'トップ画面に戻る', root_path, class: "btn btn-sky" %>
+        <%= form_with model: @user, url: signup_path, local: true do |f| %>
+          <%= render 'layouts/errors', obj: @user %>
 
-  <div>
-    <%= form.label :birthday, '誕生日' %>
-    <%= form.date_field :birthday, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-  </div>
+          <div>
+            <%= f.label :name, '名前', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            <%= f.text_field :name, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50", placeholder: "山田太郎" %>
+          </div>
 
-  <div>
-    <%= form.label :region, 'お住まい' %>
-    <%= form.text_field :region, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-  </div>
+          <div>
+            <div>
+              <%= f.label :sex, '性別', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            </div>
+            <%= f.radio_button :sex, true %>
+            <%= f.label :sex, '男', value: true %>
+          </div>
+          <div class = "radio-button">
+            <%= f.radio_button :sex, false %>
+            <%= f.label :sex, '女', value: false %>
+          </div>
 
-  <div>
-    <%= form.label :email, 'メールアドレス' %>
-    <%= form.email_field :email, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-  </div>
+          <div>
+            <%= f.label :birthday, '誕生日', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            <%= f.date_field :birthday, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
 
-  <div>
-    <%= form.label :password, 'パスワード' %>
-    <%= form.password_field :password, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-  </div>
+          <div>
+            <%= f.label :region, 'お住まい', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            <%= f.select :region, User.ride_areas.keys, {}, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
 
-  <div>
-    <%= form.label :password_confirmation, 'パスワード(確認)' %>
-    <%= form.password_field :password_confirmation, class: "w-40 py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-  </div>
+          <div>
+            <%= f.label :email, 'メールアドレス', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            <%= f.email_field :email, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
 
-  <div>
-    <%= form.submit '登録', class: "px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
-  </div>
-  <% end %>
+          <div  id="fieldPassword">
+            <%= f.label :password, 'パスワード', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            <div  class="flex">
+              <%= f.password_field :password, id: "textPassword", class: "mb-4 w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+              <span id="buttonEye" class="fa fa-eye ml-4 mt-3" onclick="pushHideButton()"></span>
+            </div>
+          </div>
 
-  <div class="ui message">
-    すでにアカウントをお持ちですか？ <%= link_to "ログイン", login_path, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+          <div>
+            <%= f.label :password_confirmation, 'パスワード(確認)', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base required-a" %>
+            <%= f.password_field :password_confirmation, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <h2 class="m-4 font-bold text-gray-800">任意項目（あとから追加できます）</h2>
+
+          <div>
+            <%= f.label :months_pregnant, '妊娠されている方は何ヶ月か', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.number_field :months_pregnant, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.label :birthday_of_baby, '赤ちゃんの誕生日', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.date_field :birthday_of_baby, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.label :number_of_baby, '赤ちゃんの人数', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.number_field :number_of_baby, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.label :childcare_start, '現在育児中であればいつからか', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.date_field :childcare_start, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.label :childcare_start, '育児卒業の方はいつから', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.date_field :childcare_start, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.label :childcare_graduation_end, '育児卒業の方はいつから', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.date_field :childcare_graduation_end, class: "mb-4 w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.submit '登録', class: "w-full block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base" %>
+          </div>
+        <% end %>
+
+        <div class="ui message text-center text-sm">
+          すでにアカウントをお持ちですか？ <%= link_to "ログイン", login_path, class: "text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700" %>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+<script>
+  function pushHideButton() {
+    var txtPass = document.getElementById("textPassword");
+    var btnEye = document.getElementById("buttonEye");
+    if (txtPass.type === "text") {
+      txtPass.type = "password";
+      btnEye.className = "fa fa-eye ml-4 mt-3";
+    } else {
+      txtPass.type = "text";
+      btnEye.className = "fa fa-eye-slash ml-4 mt-3";
+    }
+  }
+</script>
