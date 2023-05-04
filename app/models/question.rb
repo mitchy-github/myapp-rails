@@ -17,7 +17,7 @@
 class Question < ApplicationRecord
   has_many :question_answers, dependent: :destroy
 
-  has_many :category_questions
+  has_many :category_questions, dependent: :destroy
   has_many :categories, through: :category_questions
 
   belongs_to :user

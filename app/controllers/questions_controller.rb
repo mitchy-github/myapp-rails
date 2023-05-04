@@ -6,11 +6,11 @@ class QuestionsController < ApplicationController
   def index
     # @user = User.find_by(id: @question.user_id)
     # @question = current_user.questions
-    @test = "テストテキスト"
+    # @users = User.all
     @questions = Question.all
     @categories = Category.all
     @category_questions = CategoryQuestion.all
-    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
+    # @all_comment_ranks = Question.find(QuestionAnswer.group(:question_id).order('count(question_id) desc').pluck(:question_id))
   end
 
   def show
@@ -52,7 +52,6 @@ class QuestionsController < ApplicationController
     # rescue StandardError
     #   flash.now[:alert] = "失敗！"
     #   render "questions/new", status: :unprocessable_entity
-
   end
 
   def edit
@@ -116,7 +115,6 @@ class QuestionsController < ApplicationController
     # @question.destroy
     # flash[:notice] = "成功！"
     # redirect_to "/questions", status: :see_other
-
   end
 
 private

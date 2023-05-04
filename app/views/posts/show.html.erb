@@ -3,9 +3,9 @@
 <% if logged_in? %>
   <% if current_user != @post.user %>
     <% if current_user.following?(@post.user) %>
-      <%= link_to 'フォロー外す', user_relationships_path(@post.user.id), data: { turbo: true, turbo_method: :delete }, class: "btn-sm btn-danger" %>
+      <%= link_to 'フォロー外す', user_relationships_path(@post.user.id), data: { method: :delete }, class: "btn-sm btn-danger" %>
     <% else %>
-      <%= link_to 'フォローする', user_relationships_path(@post.user.id), data: { turbo: true, turbo_method: :POST }, class:"btn-sm btn-success" %>
+      <%= link_to 'フォローする', user_relationships_path(@post.user.id), data: { method: :POST }, class:"btn-sm btn-success" %>
     <% end %>
   <% end %>
 <% end %>

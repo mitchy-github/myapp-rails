@@ -39,9 +39,10 @@ class UsersController < ApplicationController
 
   def show
     @questions = Question.all
+    @posts = Post.all
     @categories = current_user.questions.map(&:categories).flatten
     @category_questions = CategoryQuestion.all
-    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
+    # @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
     @user = User.find(params[:id])
     @questions = @user.questions.page(params[:page]).reverse_order
     @following_users = @user.following_user

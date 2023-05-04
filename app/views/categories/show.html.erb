@@ -24,7 +24,7 @@
       <% if logged_in? && question["user_id"] == current_user["id"] %>
         <%= link_to "詳細", question_path(id: question["id"]) %>
         <%= link_to "編集", edit_question_path(id: question["id"]) %>
-        <%= link_to "削除", question_path(id: question["id"]), data: { turbo: true, turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+        <%= link_to "削除", question_path(id: question["id"]), data: { method: :delete, confirm: "本当に削除しますか？" } %>
       <% else %>
         <%= link_to "詳細", question_path(id: question["id"]) %>
       <% end %>

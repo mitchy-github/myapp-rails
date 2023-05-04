@@ -1,8 +1,8 @@
 <div id="app">
   <nav class="w-full bg-red-200">
-    <div class="flex justify-between bg-lime-600 mx-auto fixed top-0 w-full left-0">
+    <div class="z-40 flex justify-between bg-lime-600 mx-auto fixed top-0 w-full left-0">
       <div class="flex items-center ml-8 bg-lime-600 h-11 rounded-lg">
-        <a href="/" data-turbo="false">
+        <a href="/">
           <img
           class="rounded-lg w-32"
           src="../../../img/title_logo.PNG"
@@ -52,11 +52,11 @@
               <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li>
-              <%= link_to "ログアウト", logout_path, data: { turbo: true, turbo_method: :delete, turbo_confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ログアウト", logout_path, data: { method: :delete, confirm: "本当にログアウトしますか？" },class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
           <% else %>
             <li class="border-b md:border-none">
-              <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { turbo: true, turbo_method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+              <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
               <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>

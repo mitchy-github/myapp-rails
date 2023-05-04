@@ -16,7 +16,9 @@ class SessionsController < ApplicationController
     # @question = current_user
     # @question = User.questions
     @category_questions = CategoryQuestion.all
-    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
+    # @articles = Question.find(QuestionAnswer.group(:question_id).includes(:question).select(:question_id, 'count(*) as c').order(c: :desc).map{_1.question})
+    # @all_comment_ranks = Question.having(id: QuestionAnswer.group(:question_id).order('count(question_id) desc').pluck(:question_id))
+    @all_comment_ranks = Question.joins(:question_answers).group("question_answers.question_id").order('count(question_id) desc')
   end
 
   def create

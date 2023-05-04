@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 class Category < ApplicationRecord
-  has_many :category_users
+  has_many :category_users, dependent: :destroy
   has_many :users, through: :category_users
 
   has_many :category_questions, dependent: :destroy

@@ -3,7 +3,6 @@
 <ul class="users">
   <% @users.each do |user| %>
     <li>
-      <%# <%= gravatar_for user, size: 50 %>
       <%= image_tag avatar_url(user), width: 50, class: "rounded-lg" %>
       <%= link_to user.name, user %>
     </li>

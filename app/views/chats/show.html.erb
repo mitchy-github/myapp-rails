@@ -2,7 +2,15 @@
 <%= @user.name %> さんとのチャット</h1>
 
 <div class="message" style="width: 800px;">
-  <%= render "chats/messages", chats: @chats %>
+  <% @chats.each do |chat| %>
+    <% if chat.user_id == current_user.id %>
+      <p style="text-align: right;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
+    <% else %>
+      <p class="message-sender" style="text-align: left;"><%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg" %></p>
+      <p class="message-sender" style="text-align: left;"><%= chat.user.name %></p>
+      <p class="message-sender" style="text-align: left;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="errors">

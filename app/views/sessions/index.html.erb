@@ -1,65 +1,129 @@
 <%= render  "shared/sample_top" %>
-<% if logged_in? %>
-  <td><%= link_to '質問を投稿する', new_question_path %></td><br>
-  <td><%= link_to "ユーザー一覧", users_path %></td><br>
-<% end %>
-  <td><%= link_to '投稿一覧', posts_path, class: "btn btn-sky" %></td><br>
-  <td><%= link_to 'ハッシュタグ一覧', categories_path %></td><br>
-  <%# <span>ログインしているユーザ：</span><%= @user.name %>
-  <%# <% @questions.each do |output| %>
-  <%# <span>投稿者：</span><%= output.user.name %>
-  <%# <% end %>
-  <%# <span>投稿者：</span><%= question["name"] %>
-<h2>ハッシュタグが埋め込まれている投稿一覧</h2>
-  <div style = "display: flex; flex-wrap: wrap;">
-    <%= render @questions %>
+<section class="mx-auto max-w-screen-2xl px-4">
+  <div class="mb-8 flex flex-wrap justify-between md:mb-16">
+    <div class="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pt-48 lg:pb-24">
+      <h1 class="text-black-800 mb-4 text-4xl font-bold sm:text-5xl md:mb-8 md:text-6xl">Find your<br />style online</h1>
+      <p class="max-w-md leading-relaxed text-gray-500 xl:text-lg">This is a section of some simple filler text, also known as placeholder text. It shares characteristics of real text.</p>
+    </div>
+    <div class="mb-12 flex w-full md:mb-16 lg:w-2/3">
+      <div class="relative top-12 left-12 z-10 -ml-12 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:top-16 md:left-16 lg:ml-0 animate-slide-in-elliptic-top-fwd">
+        <img src="img/4_v2.jpg" loading="lazy" alt="Photo by Kaung Htet" class="h-full w-full object-cover object-center" />
+      </div>
+      <div class="overflow-hidden rounded-lg bg-gray-100 shadow-lg animate-slide-in-elliptic-top-fwd">
+        <img src="img/2_v2.jpg" loading="lazy" alt="Photo by Manny Moreno" class="h-full w-full object-cover object-center" />
+      </div>
+    </div>
   </div>
+</section>
 
-<h1 class="text-3xl mb-3">投稿一覧</h1>
-<div class="mb-3">
-  <%= link_to '新規投稿', new_post_path, class: "btn btn-sky" %>
+<div class="bg-white px-4">
+  <!-- nav - start -->
+  <nav class="sticky bottom-0 mx-auto flex justify-between gap-5 border-t bg-white px-4 sm:px-10 pt-5 pb-3 text-xs max-w-xl rounded-t-xl border-l border-r sm:text-sm">
+    <% if logged_in? %>
+      <%= link_to(users_path, class: 'list-content1') do %>
+        <div class="list-content1 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+          </svg>
+          <span>ユーザー一覧</span>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= link_to(questions_path, class: 'list-content2') do %>
+      <div class="list-content2 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
+        </svg>
+        <span>質問一覧</span>
+      </div>
+    <% end %>
+
+    <%= link_to(posts_path, class: 'list-content3') do %>
+      <div class="list-content3 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
+        </svg>
+      <span>投稿一覧</span>
+    </div>
+  <% end %>
+  <!-- nav - end -->
 </div>
-<%= render @posts %>
 
-      <%# <p><h1>ログインできたよ</h1></p>
-        <p>テスト</p>
-      <p><%= link_to "Log in画面に戻る", login_path</p><br>
-    <p><%= button_to "Log out（失敗例）", logout_path,method: :delete<p>/<br>
-  <%if current_user
-    <p><%="#{current_user.name}さん"%>
-    <%# <%=link_to "ログアウト",:login,method: :delete,data:{confirm:"本当にログアウトしますか?"}</p> %>
-  <%# <%end
+<div class="">
+  <div class="mx-auto max-w-screen-8xl px-4 md:px-8">
+    <div class="mx-auto max-w-6xl rounded-lg border">
+      <h2 class="m-4 text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">コメントが多い投稿</h2>
+      <div class="px-4 md:px-8">
+        <td><%= link_to 'ハッシュタグ一覧', categories_path, class: "text-blue-600 transition duration-100 hover:text-indigo-600 active:text-indigo-700" %></td><br>
+      </div>
+      <%# <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3"> %>
+      <div class="flex overflow-x-auto p-4">
+          <%# <% @questions.each_with_index do |question| %>
+          <%# <% if @all_comment_ranks.present? %>
+        <% @all_comment_ranks.each.with_index do |question| %>
+          <%# <div class="m-5 py-6 sm:py-8 lg:py-12"> %>
+            <%# <div class=" mx-auto max-w-5xl rounded-lg border"> %>
+              <%
+                display_contents_question = question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
+              %>
 
-  <p><%= link_to login_path, method: :delete, data:{confirm: "ログアウトしますか？"} do %>
-    <%# <i>ログアウト</i></p
-  <% end  %
-
-  <script type="text/javascript">
-  $(document).ready(function() {
-    $("p").text("成功！！");
-  });
-</script>
-
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "sample app", root_path %>
-        <%# <% if logged_in? %>
-          <%# <li><%= link_to "Users", '#'</li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", logout_path, method: :delete %>
-              <%# </li>
-            </ul>
-          </li> %>
-        <%# <% else % %>
-          <%# <li><%= link_to "Log in", login_path</li %>
-        <%# <% end %>
-      <%# </ul>
-    </nav>
-  </div> %>
-<%# </header> %>
+              <div class="flex-none w-[18rem] flex-col p-4 mr-2 max-w-5xl rounded-lg border">
+                <div class="mt-auto flex justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
+                      <%= image_tag avatar_url(question.user), class: "h-full w-full object-cover object-center" %>
+                    </div>
+                    <div>
+                      <p class="block text-gray-500"><%= link_to question.user.name, user_path(question.user) %> さん</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-bold text-blue-600">
+                  タイトル
+                  <%= question.id %>
+                  </p>
+                  <p class="mb-2 text-lg font-semibold text-gray-800 line-clamp-1">
+                  <%= question.question_title %>
+                  </p>
+                  <p class="font-bold text-blue-600">
+                  質問内容
+                  </p>
+                  <p class="mb-8 text-gray-500 line-clamp-3">
+                  <%= safe_join(display_contents_question.split("\n"),tag(:br)) %><br>
+                    <% if question.categories.present? %>
+                      <% question.categories.each do |category| %>
+                        <%= link_to "##{category.category}", category_path(category.id) %>
+                      <% end %>
+                    <% end %>
+                  </p>
+                </div>
+                <%= link_to "続きを読む", question_path(question.id) %>
+              </div>
+            <%# </div> %>
+          <%# </div> %>
+        <% end %>
+      </div>
+      <h1 class="text-3xl mb-3">投稿一覧</h1>
+      <div class="mb-3">
+        <%= link_to '新規投稿', new_post_path, class: "btn btn-sky" %>
+      </div>
+      <%= render @posts %>
+    </div>
+  </div>
+</div>
+<%#
+<% @all_comment_ranks.each.with_index(1) do |question, i| %>
+  <%# <h6>第<%= i位</h6> %>
+  <%# <h6>
+      <%= question.question_title %>
+  <%# </h6> %>
+            <%# <% if question.categories.present? %>
+            <%# <% question.categories.each do |category| %>
+              <%# <%= link_to "##{category.category}", category_path(category.id) %>
+            <%# <% end %>
+          <%# <% end %>
+        <%# </p> %>
+      <%# </div> %>
+<%# <% end %>
