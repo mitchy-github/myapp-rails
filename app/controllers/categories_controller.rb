@@ -20,6 +20,6 @@ class CategoriesController < ApplicationController
     relationship_records = category_questions.select{ |cq| cq.category_id == params[:id].to_i}.map(&:question_id) #中間テーブルの全レコードより、該当ハッシュタグIDが含まれるものを取得→post_idを配列に格納 #=> [1,3]
     all_questions = Question.all
     @questions = all_questions.select{ |question| relationship_records.include?(question.id)} #中間テーブルの情報が含まれるPostのレコードを取得する
-    @question_objects = creating_structures(questions: @questions,category_questions: category_questions ,categories: Category.all) #取得したレコードをハッシュに変換し、ハッシュタグを一つ一つのハッシュに格納する。
+    # @question_objects = creating_structures(questions: @questions,category_questions: category_questions ,categories: Category.all) #取得したレコードをハッシュに変換し、ハッシュタグを一つ一つのハッシュに格納する。
   end
 end

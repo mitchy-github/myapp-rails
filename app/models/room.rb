@@ -7,6 +7,6 @@
 #  updated_at :datetime         not null
 #
 class Room < ApplicationRecord
-  has_many :user_rooms
-  has_many :chats
+  has_many :user_rooms, dependent: :destroy#データ残っている
+  has_many :chats, dependent: :destroy
 end

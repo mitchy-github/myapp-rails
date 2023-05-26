@@ -38,14 +38,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @questions = Question.all
-    @categories = current_user.questions.map(&:categories).flatten
-    @category_questions = CategoryQuestion.all
-    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
-    @user = User.find(params[:id])
+    @categories = current_user.questions.map(&:categories).flatten.uniq
+    @question_answer = current_user.question_answers.map(&:question).flatten.uniq
+    @user = User.includes(:posts, :questions).find(params[:id])
     @questions = @user.questions.page(params[:page]).reverse_order
     @following_users = @user.following_user
     @follower_users = @user.follower_user
+    # @questions = Question.all
+    # @posts = Post.all
+    # @category_questions = CategoryQuestion.all
+    # @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
     # favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
     # @favorite_posts = Post.find(favorites)
   end

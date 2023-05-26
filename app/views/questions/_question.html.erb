@@ -1,27 +1,43 @@
 <%# 投稿にユーザー情報を表示する→→user_idがないよエラーは@question_objectsから@questionsにしたら治った %>
   <%# <% @questions.each_with_index do |question| %>
-<%
-  display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
-%>
-<div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
-  <div style="border-bottom: 1px solid">
-    <%= image_tag avatar_url(question.user), width: 50, class: "rounded-lg" %>
-    <p class="text-2xl text-green-600"><%= link_to question.user.name, question_path(id: question["id"]) %> さんの質問</p>
-    <p style="color: red">question_title</p>
-    <%= question["question_title"] %>
+
+<div class="m-5 py-6 sm:py-8 lg:py-12">
+  <div class=" mx-auto max-w-5xl rounded-lg border">
+    <%
+      display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
+    %>
+    <div class="flex flex-1 flex-col p-4 sm:p-6">
+      <div class="mt-auto flex justify-between">
+        <div class="flex items-center gap-2">
+          <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
+            <%= image_tag avatar_url(question.user), class: "h-full w-full object-cover object-center" %>
+          </div>
+          <div>
+            <p class="block text-gray-500"><%= link_to question.user.name, user_path(question.user), class: "break-all" %> さん</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="font-bold text-blue-600">
+        タイトル
+        <%= question.id %>
+        </p>
+        <p class="mb-2 text-lg font-semibold text-gray-800 line-clamp-1">
+        <%= question.question_title %>
+        </p>
+        <p class="font-bold text-blue-600">
+        質問内容
+        </p>
+        <p class="mb-8 text-gray-500 line-clamp-3">
+        <%= safe_join(display_contents_question.split("\n"),tag(:br)) %><br>
+          <% if question.categories.present? %>
+            <% question.categories.each do |category| %>
+              <%= link_to "##{category.category}", category_path(category.id) %>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+      <%= link_to "続きを読む", question_path(question.id) %>
+    </div>
   </div>
-  <div>
-    <p style="color: red">contents_question</p>
-    <p>
-    <%= safe_join(display_contents_question.split("\n"),tag(:br)) %><br>
-      <% if question.categories.present? %>
-        <% question.categories.each do |category| %>
-          <%= link_to "##{category.category}", category_path(category.id) %>
-        <% end %>
-      <% end %>
-    <p>
-  </div>
-    <%= link_to "詳細", question_path(id: question["id"]) %>
-    <%# <%= link_to '詳細', question["question"] %>
 </div>
-<%# <% end %>

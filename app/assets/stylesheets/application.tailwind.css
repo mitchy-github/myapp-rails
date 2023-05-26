@@ -42,6 +42,102 @@ box_sizing {
   margin: 0 5px;
 }
 
+span {
+  display: inline-block;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* max-width: 800px; */
+  margin: 0 auto;
+}
+
+.chat-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #29b6f6;
+  color: #fff;
+  height: 50px;
+  padding: 0 20px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 20px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.message-sender {
+  margin-bottom: 5px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.message-body {
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.self .message-body {
+  align-self: flex-end;
+  background-color: #29b6f6;
+  color: #fff;
+  word-break: break-all;
+}
+
+.other .message-body {
+  align-self: flex-start;
+  background-color: #f5f5f5;
+  color: #333;
+  word-break: break-all;
+}
+
+.chat-form {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.chat-form form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-form input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.chat-form input[type="submit"] {
+  flex: 0 0 auto;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: #29b6f6;
+  color: #fff;
+  cursor: pointer;
+}
+/* .aaa {
+  min-width: 240px;
+} */
+
 #textPassword {
   border: none; /* デフォルトの枠線を消す */
 }

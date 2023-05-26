@@ -1,43 +1,7 @@
-<h1>Questions#index</h1>
-<p>Find me in app/views/questions/index.html.erb</p>
-
-  <td><%= link_to '質問を投稿する', new_question_url %></td><br>
-  <td><%= link_to 'ハッシュタグ一覧', categories_path %></td><br>
-
-  <h2>ハッシュタグが埋め込まれている投稿一覧</h2>
-  <div style = "display: flex; flex-wrap: wrap;">
-    <%= render @questions %>
-  </div>
-
-<%= @test %><br>
-<% @questions.each do |question| %>
-  <tr>
-    <td><%= question.id %></td><br>
-    <td><%= question.question_title %></td><br>
-    <td><%= question.contents_question %></td><br>
-    <%# <td><%= question.category_ids</td><br> %>
-    <td><%= link_to '詳細', question %></td><br>
-  </tr>
-<% end %>
-
-<td><%= link_to '質問を投稿する', new_question_url %></td><br>
-
-<div>現在回答募集中の質問一覧です</div>
-  <div class="row text-center">
-    <% @questions.each do |question| %>
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-        <div class="card-body">
-          <h4 class="card-title"><%= question.question_title %></h4>
-          <p class="card-text"><%= question.contents_question %></p>
-        </div>
-        <div class="card-footer">
-          <%= link_to '回答する' %>
-        </div>
-              <div class="col-lg-1 col-md-1 ba-parent">
-      </div>
-      </div>
-    </div>
-  <% end %>
+<div class="mt-4 text-center">
+  <h2 class="text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">質問一覧</h2>
+  <div class="mt-4"><%= link_to '質問を投稿する', new_question_url, class:"w-full px-4 py-2 text-sm font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %></div>
+</div>
+<div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+  <%= render @questions %>
 </div>

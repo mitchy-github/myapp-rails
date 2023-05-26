@@ -1,12 +1,20 @@
-<% @chats.each do |chat| %>
-  <% if chat.user_id == current_user.id %>
-    <%# <p style="text-align: right; display: flex; justify-content: flex-end;"><%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg"</p> %>
-    <%# <p style="text-align: right;"><%= chat.user.name</p> %>
-    <p style="text-align: right;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
-  <% else %>
-  <%# safe_join(@display_contents_question.split("\n"),tag(:br)) %>
-    <p style="text-align: left;"><%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg" %></p>
-    <p style="text-align: left;"><%= chat.user.name %></p>
-    <p style="text-align: left;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
+<div class="chat-messages">
+  <% chats.each do |chat| %>
+    <% if chat.user_id == current_user.id %>
+      <div class="message self">
+        <div class="message-body">
+          <%= safe_join(chat.message.split("\n"),tag(:br)) %>
+        </div>
+      </div>
+    <% else %>
+      <div class="message other">
+        <div class="message-sender">
+          <%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg" %>
+          <%= chat.user.name %></div>
+        <div class="message-body">
+          <%= safe_join(chat.message.split("\n"),tag(:br)) %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>

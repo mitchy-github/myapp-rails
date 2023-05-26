@@ -4,19 +4,19 @@ class QuestionsController < ApplicationController
   before_action :require_login, only:[:new, :edit, :update, :destroy]
 
   def index
+    @questions = Question.includes(:user)
+    @categories = Category.includes(:question)
+    @category_questions = CategoryQuestion.includes(:question)
     # @user = User.find_by(id: @question.user_id)
     # @question = current_user.questions
-    @test = "テストテキスト"
-    @questions = Question.all
-    @categories = Category.all
-    @category_questions = CategoryQuestion.all
-    @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
+    # @users = User.all
+    # @all_comment_ranks = Question.find(QuestionAnswer.group(:question_id).order('count(question_id) desc').pluck(:question_id))
   end
 
   def show
     @user = User.find_by(id: @question.user_id)
     @question_answer = QuestionAnswer.new
-    @question = Question.find(params[:id])
+    @question = Question.includes(:categories, :question_answers).find(params[:id])
     related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id) #=> [1,2,3] idのみを配列にして返す
     categories = Category.all
     @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。
@@ -52,7 +52,6 @@ class QuestionsController < ApplicationController
     # rescue StandardError
     #   flash.now[:alert] = "失敗！"
     #   render "questions/new", status: :unprocessable_entity
-
   end
 
   def edit
@@ -116,7 +115,6 @@ class QuestionsController < ApplicationController
     # @question.destroy
     # flash[:notice] = "成功！"
     # redirect_to "/questions", status: :see_other
-
   end
 
 private

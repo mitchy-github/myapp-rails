@@ -7,6 +7,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <%# <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" /> %>
     <%# <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%# <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -16,12 +17,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
+  <body class="aaa">
     <%= render  "shared/navbar" %>
     <%= render  "shared/flash" %>
-    <div class="mt-11">
+    <%# <div class="mt-11"> %>
     <%= yield %>
-    </div>
+    <%# </div> %>
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
