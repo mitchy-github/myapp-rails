@@ -1,13 +1,35 @@
-<h1>All users</h1>
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-xl px-4 md:px-8">
+    <!-- text - start -->
+    <div class="mb-10 md:mb-16">
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">All users</h2>
 
-<ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <%= image_tag avatar_url(user), width: 50, class: "rounded-lg" %>
-      <%= link_to user.name, user %>
-    </li>
-    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
-      <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %>
-    <% end %>
-  <% end %>
-</ul>
+      <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">This is a section of some simple filler text, also known as placeholder text. It shares some characteristics of a real written text but is random or otherwise generated.</p>
+    </div>
+    <!-- text - end -->
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
+    <%# <ul class="users"> %>
+      <% @users.each do |user| %>
+          <%# <li> %>
+        <div class="flex flex-col items-center rounded-lg bg-gray-100 p-4 lg:p-8">
+          <div class="mb-2 h-24 w-24 overflow-hidden rounded-full bg-gray-200 shadow-lg md:mb-4 md:h-32 md:w-32">
+            <%= image_tag avatar_url(user), class: "h-full w-full object-cover object-center" %>
+          </div>
+          <div>
+            <div class="w-24 sm:w-48 text-center font-bold text-indigo-500 md:text-lg truncate mb-2">
+              <%= link_to user.name, user %>
+            </div>
+            <%# </li> %>
+            <div class="flex justify-center gap-4">
+            <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+            <%= link_to 'chatを始める', chat_path(user.id), class: "
+            inline-block rounded border bg-white px-2 py-2 text-center font-light text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-500 hover:text-white focus-visible:ring active:bg-indigo-700 md:px-8 md:py-3 md:text-base text-xs sm:text-sm" %>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <%# </ul> %>
+  </div>
+</div>

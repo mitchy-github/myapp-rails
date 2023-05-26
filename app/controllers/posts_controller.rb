@@ -3,12 +3,12 @@ class PostsController < ApplicationController
   before_action :require_login, only:[:new, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.includes(:user)
   end
 
   def show
     @user = User.find_by(id: @post.user_id)
-    @post = Post.find(params[:id])
+    @post = Post.includes(:user).find(params[:id])
   end
 
   def new

@@ -13,7 +13,7 @@
             <%= image_tag avatar_url(question.user), class: "h-full w-full object-cover object-center" %>
           </div>
           <div>
-            <p class="block text-gray-500"><%= link_to question.user.name, user_path(question.user) %> さん</p>
+            <p class="block text-gray-500"><%= link_to question.user.name, user_path(question.user), class: "break-all" %> さん</p>
           </div>
         </div>
       </div>

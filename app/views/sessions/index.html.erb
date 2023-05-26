@@ -1,5 +1,5 @@
 <%= render  "shared/sample_top" %>
-<section class="mx-auto max-w-screen-2xl px-4">
+<section class="mx-auto max-w-screen-2xl px-2 sm:px-4">
   <div class="mb-8 flex flex-wrap justify-between md:mb-16">
     <div class="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pt-48 lg:pb-24">
       <h1 class="text-black-800 mb-4 text-4xl font-bold sm:text-5xl md:mb-8 md:text-6xl">Find your<br />style online</h1>
@@ -14,11 +14,60 @@
       </div>
     </div>
   </div>
-</section>
+<%# </section> %>
 
-<div class="bg-white px-4">
+<div class="bg-white pb-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl md:px-8">
+    <div class="mb-6 flex items-end justify-between gap-4">
+      <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl">Collections</h2>
+    </div>
+
+    <div class="grid gap-x-4 gap-y-6 grid-cols-2">
+      <!-- product - start -->
+      <div class="flex flex-col items-center w-full">
+        <div class="group mb-2 block h-24 sm:h-40 lg:h-52 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
+          <img src="img/24907189_s.jpg" loading="lazy" alt="Photo by Austin Wade" class="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+        </div>
+
+        <div class="flex flex-col">
+            <div class="text-sm font-bold text-gray-800 lg:text-xl">
+            誰か詳しい人に聞きたい!
+            </div>
+            <%= link_to new_question_path do %>
+              <button class="z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">質問する！</button>
+          <% end %>
+        </div>
+      </div>
+      <!-- product - end -->
+
+      <!-- product - start -->
+      <div class="flex flex-col items-center">
+        <div class="group mb-2 block h-24 sm:h-40 lg:h-52 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3">
+          <img src="img/24907189_s.jpg" loading="lazy" alt="Photo by Austin Wade" class="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+        </div>
+
+        <div class="flex flex-col">
+            <div class="text-sm font-bold text-gray-800 lg:text-xl">
+            日々の思い出を共有したい！
+            </div>
+            <%= link_to new_post_path do %>
+              <button class="z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500">投稿する！</button>
+          <% end %>
+        </div>
+      </div>
+      <!-- product - end -->
+
+    </div>
+  </div>
+</div>
+
+    <div class="mb-6 flex items-end justify-between gap-4 md:px-8">
+      <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl">Collections</h2>
+    </div>
+
+<div class="bg-white sm:px-8">
   <!-- nav - start -->
-  <nav class="sticky bottom-0 mx-auto flex justify-between gap-5 border-t bg-white px-4 sm:px-10 pt-5 pb-3 text-xs max-w-xl rounded-t-xl border-l border-r sm:text-sm">
+  <nav class="grid gap-x-4 gap-y-6 grid-cols-2  lg:grid-cols-4 sticky bottom-0 mx-auto justify-center md:justify-between gap-5 border-t border-b bg-white px-4 pt-5 pb-3 text-xs rounded-t-xl rounded-b-xl border-l border-r sm:text-sm mb-6">
     <% if logged_in? %>
       <%= link_to(users_path, class: 'list-content1') do %>
         <div class="list-content1 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
@@ -51,14 +100,14 @@
 </div>
 
 <div class="">
-  <div class="mx-auto max-w-screen-8xl px-4 md:px-8">
+  <div class="mx-auto max-w-screen-8xl md:px-8">
     <div class="mx-auto max-w-6xl rounded-lg border">
       <h2 class="m-4 text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">コメントが多い投稿</h2>
       <div class="px-4 md:px-8">
         <td><%= link_to 'ハッシュタグ一覧', categories_path, class: "text-blue-600 transition duration-100 hover:text-indigo-600 active:text-indigo-700" %></td><br>
       </div>
       <%# <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3"> %>
-      <div class="flex overflow-x-auto p-4">
+      <div class="flex overflow-x-auto p-1.5">
           <%# <% @questions.each_with_index do |question| %>
           <%# <% if @all_comment_ranks.present? %>
         <% @all_comment_ranks.each.with_index do |question| %>
@@ -75,7 +124,7 @@
                       <%= image_tag avatar_url(question.user), class: "h-full w-full object-cover object-center" %>
                     </div>
                     <div>
-                      <p class="block text-gray-500"><%= link_to question.user.name, user_path(question.user) %> さん</p>
+                      <p class="block text-gray-500"><%= link_to question.user.name, user_path(question.user), class: "break-all" %> さん</p>
                     </div>
                   </div>
                 </div>
@@ -105,14 +154,48 @@
           <%# </div> %>
         <% end %>
       </div>
-      <h1 class="text-3xl mb-3">投稿一覧</h1>
-      <div class="mb-3">
-        <%= link_to '新規投稿', new_post_path, class: "btn btn-sky" %>
-      </div>
-      <%= render @posts %>
+
+<h2 class="m-4 text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">いいねランキング</h2>
+      <!--配列の1つ目から順に1位、２位と表示される-->
+<% @post_like_ranks.each.with_index(1) do |post, i| %>
+  第<%= i %>位
+:
+<div class="my-8">
+  <div id="post-<%= post.id %>" class="mb-3">
+    <%= image_tag avatar_url(post.user), width: 50, class: "rounded-lg" %>
+    <p class="text-2xl text-green-600"><%= link_to(post.user.name, post_path(post.id), class: "break-all") %> さんの投稿</p>
+    <p class="font-bold">タイトル：<%= post.post_title %></p>
+    <% if post.images.attached? %>
+      <% post.images.each do |image| %>
+        <div class="mb-2 inline-flex">
+          <%= image_tag(image, width:100, class: "") %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if logged_in? %>
+    <%= link_to "詳細", post_path(post) %>
+  <% end %>
+  <% if logged_in? && post.user_post?(current_user) %>
+    <%= link_to "編集", edit_post_path(post), class: "btn btn-outline-gray" %>
+    <%= link_to "削除", post, data: { method: :delete, confirm: "削除してよろしいですか?" }, class: "btn btn-outline-gray" %>
+  <% end %>
+</div>
+:
+<% end %>
     </div>
   </div>
 </div>
+
+</section>
+<%#
+      <h1 class="text-3xl mb-3">投稿一覧</h1>
+      <div class="mb-3">
+        <%= link_to '新規投稿', new_post_path, class: "btn btn-sky" %>
+      <%# </div> %>
+      <%# <%= render @posts %>
+
 <%#
 <% @all_comment_ranks.each.with_index(1) do |question, i| %>
   <%# <h6>第<%= i位</h6> %>

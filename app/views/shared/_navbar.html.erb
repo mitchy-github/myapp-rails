@@ -70,6 +70,38 @@
 </div>
 <%# </transition> %>
 
+<div class="bg-lime-600 mt-11">
+  <!-- nav - start -->
+  <nav class="sticky bottom-0 mx-auto flex overflow-x-auto gap-5  bg-lime-600 px-4 sm:px-10 pt-2 pb-2 text-xs max-w-xl sm:text-sm sm:justify-between">
+    <% if logged_in? %>
+      <%= link_to(users_path, class: 'list-content1') do %>
+        <div class="list-content1 flex flex-col items-center gap-1 text-white transition duration-100 hover:text-gray-500 active:text-gray-600 w-24 sm:w-auto">
+          <span>ユーザー一覧</span>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= link_to(questions_path, class: 'list-content2') do %>
+      <div class="list-content2 flex flex-col items-center gap-1 text-white transition duration-100 hover:text-gray-500 active:text-gray-600 w-20 sm:w-auto">
+        <span>質問一覧</span>
+      </div>
+    <% end %>
+
+    <%= link_to(posts_path, class: 'list-content3') do %>
+      <div class="list-content3 flex flex-col items-center gap-1 text-white transition duration-100 hover:text-gray-500 active:text-gray-600 w-20 sm:w-auto">
+        <span>投稿一覧</span>
+      </div>
+    <% end %>
+
+      <%= link_to(categories_path, class: 'list-content2') do %>
+      <div class="list-content2 flex flex-col items-center gap-1 text-white transition duration-100 hover:text-gray-500 active:text-gray-600 w-28 sm:w-auto">
+        <span>ハッシュタグ一覧</span>
+      </div>
+    <% end %>
+  </nav>
+  <!-- nav - end -->
+</div>
+
 <script>
   var app = new Vue({
           el : '#app',

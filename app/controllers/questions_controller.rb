@@ -4,19 +4,19 @@ class QuestionsController < ApplicationController
   before_action :require_login, only:[:new, :edit, :update, :destroy]
 
   def index
+    @questions = Question.includes(:user)
+    @categories = Category.includes(:question)
+    @category_questions = CategoryQuestion.includes(:question)
     # @user = User.find_by(id: @question.user_id)
     # @question = current_user.questions
     # @users = User.all
-    @questions = Question.all
-    @categories = Category.all
-    @category_questions = CategoryQuestion.all
     # @all_comment_ranks = Question.find(QuestionAnswer.group(:question_id).order('count(question_id) desc').pluck(:question_id))
   end
 
   def show
     @user = User.find_by(id: @question.user_id)
     @question_answer = QuestionAnswer.new
-    @question = Question.find(params[:id])
+    @question = Question.includes(:categories, :question_answers).find(params[:id])
     related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id) #=> [1,2,3] idのみを配列にして返す
     categories = Category.all
     @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。

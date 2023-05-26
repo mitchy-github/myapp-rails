@@ -1,24 +1,56 @@
-<h1 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>">
-<%= @user.name %> さんとのチャット</h1>
+<div class="chat-container">
+  <div class="chat-topbar">
+    <h2><%= @user.name %> さんとのチャット</h2>
+  </div>
+  <div class="message">
+    <%= render "chats/messages", chats: @chats %>
+  </div>
 
-<div class="message" style="width: 800px;">
-  <% @chats.each do |chat| %>
-    <% if chat.user_id == current_user.id %>
-      <p style="text-align: right;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
-    <% else %>
-      <p class="message-sender" style="text-align: left;"><%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg" %></p>
-      <p class="message-sender" style="text-align: left;"><%= chat.user.name %></p>
-      <p class="message-sender" style="text-align: left;"><%= safe_join(chat.message.split("\n"),tag(:br)) %></p>
+  <div class="chat-form fixed inset-x-0 bottom-0">
+    <%= form_with model: @chat, data: {remote: true} do |f| %>
+      <div class="errors">
+        <%= render "layouts/errors", obj: @chat %>
+      </div>
+      <%= f.text_area :message, placeholder: "メッセージを入力してください", autocomplete: "off", class: "w-full mb-4 h-32" %>
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "送信" %>
     <% end %>
-  <% end %>
+  </div>
 </div>
+<%#
+<div class="chat-container">
+  <%# <h1 id="room" data-room="<%= @room.id %>
+  <%# " data-user="<%= current_user.id %>
+  <%# <div class="chat-topbar"> %>
+    <%# <%= @user.name さんとのチャット</h1> %>
+  <%# </div> %>
 
-<div class="errors">
-  <%= render "layouts/errors", obj: @chat %>
-</div>
+  <%# <div class="chat-messages">
+    <% @chats.each do |chat| %>
+      <%# <% if chat.user_id == current_user.id %>
+        <%# <div class="message self"> %>
+          <%# <div class="message-body"> %>
+            <%# <p><%= safe_join(chat.message.split("\n"),tag(:br))</p> %>
+          <%# </div> %>
+        <%# </div> %>
+      <%# <% else %>
+        <%# <p class="message-sender" style="text-align: left;"><%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg"</p> %>
+        <%# <p class="message-sender" style="text-align: left;"><%= chat.user.name</p> %>
+        <%# <p class="message-sender" style="text-align: left;"><%= safe_join(chat.message.split("\n"),tag(:br))</p> %>
+      <%# <% end %>
+    <%# <% end %>
+  <%# </div> %>
 
-<%= form_with model: @chat, data: {remote: true} do |f| %>
-  <%= f.text_area :message, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55x8" %>
-  <%= f.hidden_field :room_id %>
-  <%= f.submit "送信" %>
-<% end %>
+  <%# <div class="errors"> %>
+    <%# <%= render "layouts/errors", obj: @chat %>
+  <%# </div> %>
+<%#
+  <div class="chat-form">
+    <%= form_with model: @chat, data: {remote: true} do |f| %>
+      <%# <%= f.text_area :message, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55x8" %>
+      <%# <%= f.hidden_field :room_id %>
+      <%# <%= f.submit "送信" %>
+    <%# <% end %>
+  <%# </div> %>
+<%# </div> %>
+
