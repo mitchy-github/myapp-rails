@@ -1,33 +1,43 @@
-<h2>ハッシュタグが埋め込まれている投稿一覧</h2>
-<div style = "display: flex; flex-wrap: wrap;">
+<div class="mt-4 text-center">
+  <h2 class="text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">ハッシュタグが埋め込まれている投稿一覧</h2>
+</div>
+<div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
   <% @questions.each_with_index do |question| %>
-    <%
-        display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
-    %>
-    <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;">
-        <%# <%= attachment_image_tag @questions[i],:image,style: 'width: 40%;' %>
-      <div style="border-bottom: 1px solid">
-        <p style="color: red">question_title</p>
-          <%= question["question_title"] %>
+    <div class="m-5 py-6 sm:py-8 lg:py-12">
+      <div class=" mx-auto max-w-5xl rounded-lg border">
+        <%
+            display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
+        %>
+        <%# <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;"> %>
+          <%# <%= attachment_image_tag @questions[i],:image,style: 'width: 40%;' %>
+        <%# <div style="border-bottom: 1px solid"> %>
+        <div class="flex flex-1 flex-col p-4 sm:p-6">
+          <div>
+            <p class="font-bold text-blue-600">
+              タイトル
+            </p>
+            <p class="mb-2 text-lg font-semibold text-gray-800 line-clamp-1">
+              <%= question["question_title"] %>
+            </p>
+            <%# </div> %>
+            <p class="font-bold text-blue-600">
+              質問内容
+            </p>
+            <p class="mb-8 text-gray-500 line-clamp-3">
+              <%= safe_join(display_contents_question.split("\n"),tag(:br)) %>
+            </p>
+            <p class="mb-8 text-gray-500">
+              <% if question.categories.present? %>
+                <% question.categories.each do |category| %>
+                  <%= link_to "##{category.category}", category_path(category.id) %>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+            <%= link_to "詳細", question_path(id: question["id"]) %>
+          <%# </div> %>
+        </div>
       </div>
-      <div>
-        <p style="color: red">contents_question</p>
-        <p>
-          <%= display_contents_question %><br>
-          <% if question.categories.present? %>
-            <% question.categories.each do |category| %>
-              <%= link_to "##{category.category}", category_path(category.id) %>
-            <% end %>
-          <% end %>
-        <p>
-      </div>
-      <% if logged_in? && question["user_id"] == current_user["id"] %>
-        <%= link_to "詳細", question_path(id: question["id"]) %>
-        <%= link_to "編集", edit_question_path(id: question["id"]) %>
-        <%= link_to "削除", question_path(id: question["id"]), data: { method: :delete, confirm: "本当に削除しますか？" } %>
-      <% else %>
-        <%= link_to "詳細", question_path(id: question["id"]) %>
-      <% end %>
     </div>
   <% end %>
 </div>

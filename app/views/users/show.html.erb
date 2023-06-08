@@ -1,6 +1,8 @@
+<div class="mt-4 text-center">
+  <h2 class="text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">ユーザー情報</h2>
+</div>
 <div class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-    <h1 class="text-5xl text-green-600">＜ユーザー情報＞</h1>
     <%# <%if current_user%>
     <%# <p class="d-flex justify-content-end"> %>
     <% if logged_in? && @user == current_user %>
@@ -24,14 +26,14 @@
             <div class="d-flex">
             <%# <%= attachment_image_tag @user, :profile_image, size: '100x100', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
             <%# <h4 class="ml-5 m-3"><%= @user.profile</h4> %>
-            <p class="mb-3 max-w-md"><%="#{current_user.name}さん"%></p>
+            <p class="mb-3 max-w-md break-all"><%="#{current_user.name}さん"%></p>
             </div>
             <div class="d-flex">
               <%= link_to follows_user_path(@user) do %>
-              <h6>フォロー<i class="text-blue-600"><%= @following_users.count %></i></h6>
+              <h6>フォロー<i class="text-lime-600"><%= @following_users.count %></i></h6>
               <% end %>
               <%= link_to followers_user_path(@user) do %>
-              <h6>フォロワー<i class="text-blue-600"><%= @follower_users.count %></i></h6>
+              <h6>フォロワー<i class="text-lime-600"><%= @follower_users.count %></i></h6>
               <% end %>
             </div>
           </div>
@@ -42,21 +44,34 @@
           </div>
 
           <div class="space-x-4 p-2">
-            <%= link_to "ログアウト", logout_path, data: { method: :delete, confirm: "本当にログアウトしますか？" }, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+            <%= link_to "ログアウト", logout_path, data: { method: :delete, confirm: "本当にログアウトしますか？" }, class: "w-full px-4 py-2 mt-4 text-sm font-medium uppercase transition-colors duration-200 transform text-lime-600 rounded-md lg:w-auto hover:bg-lime-500 hover:text-white focus:outline-none focus:bg-lime-500" %>
           </div>
 
           <div class="space-x-4 p-2">
-            <%= link_to '登録解除', user_path(@user.id), data: { method: :delete, confirm: "本当に削除しますか？" }, class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+            <%= link_to '登録解除', user_path(@user.id), data: { method: :delete, confirm: "本当に削除しますか？" }, class: "w-full px-4 py-2 mt-4 text-sm font-medium uppercase transition-colors duration-200 transform text-lime-600 rounded-md lg:w-auto hover:bg-lime-500 hover:text-white focus:outline-none focus:bg-lime-500" %>
           </div>
 
           <div class="space-x-4 p-2">
-            <%= link_to "設定", edit_user_path(current_user), class: "w-full px-4 py-2 mt-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
+            <%= link_to "設定", edit_user_path(current_user), class: "w-full px-4 py-2 mt-4 text-sm font-medium uppercase transition-colors duration-200 transform text-lime-600 rounded-md lg:w-auto hover:bg-lime-500 hover:text-white focus:outline-none focus:bg-lime-500" %>
           </div>
 
         </div>
         <!-- image - start -->
-        <div class="h-48 w-full bg-gray-700 sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
-          <img src="https://images.unsplash.com/photo-1505846951821-e25bacf2eccd?auto=format&q=75&fit=crop&crop=top&w=1000&h=500" loading="lazy" alt="Photo by Dom Hill" class="h-full w-full object-cover object-center" />
+        <div class="h-full w-full bg-lime-100  sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
+          <div class="m-8">
+          <p class="mb-2 border-b border-stone-700">妊娠されている方は何ヶ月か</p>
+          <p class="mb-3"><%="#{current_user.months_pregnant}ヶ月"%></p>
+          <p class="mb-2 border-b border-stone-700">赤ちゃんの誕生日</p>
+          <p class="mb-3"><%=I18n.l(current_user.birthday_of_baby, format: :long, default: '-')%></p>
+          <p class="mb-2 border-b border-stone-700">赤ちゃんの人数</p>
+          <p class="mb-3"><%="#{current_user.number_of_baby}人"%></p>
+          <p class="mb-2 border-b border-stone-700">現在育児中であればいつから</p>
+          <p class="mb-3"><%=I18n.l(current_user.childcare_start, format: :long, default: '-')%></p>
+          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつから</p>
+          <p class="mb-3"><%=I18n.l(current_user.childcare_start, format: :long, default: '-')%></p>
+          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつまで</p>
+          <p class="mb-3"><%=I18n.l(current_user.childcare_graduation_end, format: :long, default: '-')%></p>
+          </div>
         </div>
         <!-- image - end -->
       </div>
@@ -65,23 +80,23 @@
         <div class="w-full">
           <ul class="flex overflow-x-auto mb-0 list-none  pt-3 pb-4">
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600" onclick="changeAtiveTab(event,'tab-profile')">
-                  Questions
+              <a class="whitespace-nowrap text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-lime-600" onclick="changeAtiveTab(event,'tab-profile')">
+                  質問一覧
               </a>
             </li>
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
-                  Categories
+              <a class="whitespace-nowrap text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-lime-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
+                  カテゴリ一覧
               </a>
             </li>
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-options')">
-                  Comments
+              <a class="whitespace-nowrap text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-lime-600 bg-white" onclick="changeAtiveTab(event,'tab-options')">
+                  コメントした質問一覧
               </a>
             </li>
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-posts')">
-                  Posts
+              <a class="whitespace-nowrap text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-lime-600 bg-white" onclick="changeAtiveTab(event,'tab-posts')">
+                  投稿一覧
               </a>
             </li>
           </ul>
@@ -90,9 +105,8 @@
               <div class="tab-content tab-space">
                 <div class="block" id="tab-profile">
                   <p>
-                    <h2>質問一覧</h2>
                     <% @user.questions.each do |question| %>
-                      <p>
+                      <p class="py-3 border-t">
                         <%= link_to question.question_title, question_path(question) %>
                       </p>
                     <% end %>
@@ -100,9 +114,8 @@
                 </div>
                 <div class="hidden" id="tab-settings">
                   <p>
-                    <h2>ハッシュタグ一覧</h2>
                     <% @categories.each do |category| %>
-                      <p>
+                      <p class="py-3 border-t">
                         <%= link_to "##{category.category}", category_path(category.id) %>
                       </p>
                     <% end %>
@@ -110,9 +123,8 @@
                 </div>
                 <div class="hidden" id="tab-options">
                   <p>
-                    <h2>コメントした投稿一覧</h2>
                       <% @question_answer.each do |question_answer| %>
-                    <p>
+                    <p class="py-3 border-t">
                       <%= link_to "#{question_answer.question_title}", question_path(question_answer.id) %>
                     </p>
                       <% end %>
@@ -120,10 +132,9 @@
                 </div>
                 <div class="hidden" id="tab-posts">
                   <p>
-                    <p><%=link_to"お気に入り記事一覧",favorites_user_path(@user) %></p>
-                    <h2>投稿一覧</h2>
+                    <p class= "w-40 px-4 py-2 mt-4 mb-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-lime-600 rounded-md hover:bg-lime-500 focus:outline-none focus:bg-lime-500" ><%=link_to"お気に入り記事一覧",favorites_user_path(@user) %></p>
                       <% @user.posts.each do |post| %>
-                    <p>
+                    <p class="py-3 border-t">
                       <%= link_to post.post_title, post_path(post) %>
                     </p>
                       <% end %>
@@ -157,10 +168,10 @@
             </div>
             <div class="d-flex">
               <%= link_to follows_user_path(@user) do %>
-              <h6>フォロー<i class="text-blue-600"><%= @following_users.count %></i></h6>
+              <h6>フォロー<i class="text-lime-600"><%= @following_users.count %></i></h6>
               <% end %>
               <%= link_to followers_user_path(@user) do %>
-              <h6>フォロワー<i class="text-blue-600"><%= @follower_users.count %></i></h6>
+              <h6>フォロワー<i class="text-lime-600"><%= @follower_users.count %></i></h6>
               <% end %>
             </div>
           </div>
@@ -171,8 +182,20 @@
           </div>
         </div>
         <!-- image - start -->
-        <div class="h-48 w-full bg-gray-700 sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
-          <div class="h-full w-full object-cover object-center">
+        <div class="h-full w-full bg-lime-100  sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
+          <div class="m-8">
+          <p class="mb-2 border-b border-stone-700">妊娠されている方は何ヶ月か</p>
+          <p class="mb-3"><%="#{@user.months_pregnant}ヶ月"%></p>
+          <p class="mb-2 border-b border-stone-700">赤ちゃんの誕生日</p>
+          <p class="mb-3"><%=I18n.l(@user.birthday_of_baby, format: :long, default: '-')%></p>
+          <p class="mb-2 border-b border-stone-700">赤ちゃんの人数</p>
+          <p class="mb-3"><%="#{@user.number_of_baby}人"%></p>
+          <p class="mb-2 border-b border-stone-700">現在育児中であればいつから</p>
+          <p class="mb-3"><%=I18n.l(@user.childcare_start, format: :long, default: '-')%></p>
+          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつから</p>
+          <p class="mb-3"><%=I18n.l(@user.childcare_start, format: :long, default: '-')%></p>
+          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつまで</p>
+          <p class="mb-3"><%=I18n.l(@user.childcare_graduation_end, format: :long, default: '-')%></p>
           </div>
         </div>
         <!-- image - end -->
@@ -182,13 +205,13 @@
         <div class="w-full">
           <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600" onclick="changeAtiveTab(event,'tab-profile')">
-                  Profile
+              <a class="whitespace-nowrap text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-lime-600" onclick="changeAtiveTab(event,'tab-profile')">
+                  質問一覧
               </a>
             </li>
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-              <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
-                  Settings
+              <a class="whitespace-nowrap text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-lime-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
+                  投稿一覧
               </a>
             </li>
           </ul>
@@ -197,9 +220,8 @@
               <div class="tab-content tab-space">
                 <div class="block" id="tab-profile">
                   <p>
-                    <h2>質問一覧</h2>
                       <% @user.questions.each do |question| %>
-                    <p>
+                    <p class="py-3 border-t">
                       <%= link_to question.question_title, question_path(question) %>
                     </p>
                       <% end %>
@@ -207,9 +229,8 @@
                 </div>
                 <div class="hidden" id="tab-settings">
                   <p>
-                    <h2>投稿一覧</h2>
                       <% @user.posts.each do |post| %>
-                    <p>
+                    <p class="py-3 border-t">
                       <%= link_to post.post_title, post_path(post) %>
                     </p>
                       <% end %>
@@ -235,16 +256,16 @@
     tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
     for(let i = 0 ; i < aElements.length; i++){
       aElements[i].classList.remove("text-white");
-      aElements[i].classList.remove("bg-pink-600");
-      aElements[i].classList.add("text-pink-600");
+      aElements[i].classList.remove("bg-lime-600");
+      aElements[i].classList.add("text-lime-600");
       aElements[i].classList.add("bg-white");
       tabContents[i].classList.add("hidden");
       tabContents[i].classList.remove("block");
     }
-    element.classList.remove("text-pink-600");
+    element.classList.remove("text-lime-600");
     element.classList.remove("bg-white");
     element.classList.add("text-white");
-    element.classList.add("bg-pink-600");
+    element.classList.add("bg-lime-600");
     document.getElementById(tabID).classList.remove("hidden");
     document.getElementById(tabID).classList.add("block");
   }

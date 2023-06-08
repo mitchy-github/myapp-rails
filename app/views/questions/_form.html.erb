@@ -1,23 +1,27 @@
-<%= form_with(model: @question, local: true) do |f| %>
-<%= render 'layouts/errors', obj: @question %>
+<div class="mx-auto max-w-lg rounded-lg border">
+  <div class="flex flex-col gap-4 p-4 md:p-8">
+    <%= form_with(model: @question, local: true) do |f| %>
+    <%= render 'layouts/errors', obj: @question %>
 
-  <div>
-    <%= f.label :question_title, '質問タイトル' %><br>
-    <%= f.text_field :question_title, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55" %>
+      <div class="mb-3">
+        <%= f.label :question_title, '質問タイトル', class: "font-semibold p-1" %><br>
+        <%= f.text_field :question_title, autofocus: true, class: "w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :contents_question, '質問内容', class: "font-semibold p-1" %><br>
+        <%= f.text_area :contents_question, autofocus: true, class: "w-full h-96 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+      </div>
+
+      <%# <div class="field">
+        <% @categories.each do |t| %>
+          <%# <%= f.label t.category %>
+          <%# <%= check_box_tag "question[category_ids][]", t.id, @question.category_ids.include?(t) %>
+          <%# <br/> %>
+        <%# <% end %>
+      <%# </div> %>
+
+      <%= f.submit '登録', class: "w-full block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base" %>
+    <% end %>
   </div>
-  <div>
-    <%= f.label :contents_question, '質問内容' %><br>
-    <%= f.text_area :contents_question, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", size:"55x12" %>
-  </div>
-
-  <%# <div class="field">
-    <% @categories.each do |t| %>
-      <%# <%= f.label t.category %>
-      <%# <%= check_box_tag "question[category_ids][]", t.id, @question.category_ids.include?(t) %>
-      <%# <br/> %>
-    <%# <% end %>
-  <%# </div> %>
-
-  <%= f.submit '登録' %>
-<% end %>
-
+</div>

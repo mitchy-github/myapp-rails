@@ -58,7 +58,6 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #29b6f6;
   color: #fff;
   height: 50px;
   padding: 0 20px;
@@ -90,7 +89,7 @@ span {
 
 .self .message-body {
   align-self: flex-end;
-  background-color: #29b6f6;
+  background-color: #65A30d;
   color: #fff;
   word-break: break-all;
 }
@@ -130,7 +129,7 @@ span {
   font-size: 1em;
   border: none;
   border-radius: 5px;
-  background-color: #29b6f6;
+  background-color: #65A30d;
   color: #fff;
   cursor: pointer;
 }
@@ -140,6 +139,10 @@ span {
 
 #textPassword {
   border: none; /* デフォルトの枠線を消す */
+}
+
+input[type="file"] {
+  display: none;
 }
 
 /*

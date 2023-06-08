@@ -8,8 +8,8 @@
       </div>
     <% else %>
       <div class="message other">
-        <div class="message-sender">
-          <%= image_tag avatar_url(chat.user), width: 50, class: "rounded-lg" %>
+        <div class="message-sender flex items-center">
+          <%= image_tag avatar_url(chat.user), width: 40, class: "rounded-full mr-1" %>
           <%= chat.user.name %></div>
         <div class="message-body">
           <%= safe_join(chat.message.split("\n"),tag(:br)) %>

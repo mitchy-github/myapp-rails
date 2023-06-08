@@ -86,10 +86,12 @@
           <div class="mt-3 mb-5 <%= @user.errors.include?(:avatar) ? "validation_errors" : "" %>">
           <!------ 画像の添付 ------>
             <%= f.label :avatar, '画像(5MBまで)', class: "form-label fw-bold" %><br>
-            <%= f.file_field :avatar, onchange: "avatarImage(this);", accept: "image/jpeg,image/gif,image/png", class: "mb-3" %>
+              <label class="z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+              <%= f.file_field :avatar, onchange: "avatarImage(this);", accept: "image/jpeg,image/gif,image/png", class: "mb-3" %>ファイルを選択
+              </label>
             <%# <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :avatar %>
             <!------ 添付画像のプレビューを表示 ------>
-            <div id="avatar" >
+            <div id="avatar" class="mt-3" >
               <img id="avatar_preview" class="mb-5 rounded-lg" width="200">
             </div>
             <!------ 現在DBに登録(保存)されている画像を表示 ------>
