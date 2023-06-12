@@ -1,19 +1,44 @@
-いいね一覧
-<% @favorite_posts.each do |post|%>
-<%= image_tag avatar_url(post.user), width: 50, class: "rounded-lg" %>
-<p class="text-2xl text-green-600"><%= link_to(post.user.name, post_path(post.id)) %> さんの質問</p>
-<p><%=post.post_title %></p>
-<div class="my-8">
-  <div id="post-<%= post.id %>" class="mb-3">
-    <p class="font-bold">タイトル：<%= post.post_title %></p>
-    <% if post.images.attached? %>
-      <% post.images.each do |image| %>
-        <div class="mb-2 inline-flex">
-          <%= image_tag(image, width:100, class: "") %>
+<div class="mt-4 text-center">
+  <h2 class="text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">いいね一覧</h2>
+  <p><%= link_to "戻る", user_path(current_user) %></p>
+</div>
+<div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+  <% @favorite_posts.each do |post|%>
+    <div class="m-5 py-6 sm:py-8 lg:py-12">
+      <div class=" mx-auto max-w-5xl rounded-lg border mb-5">
+        <div class="flex flex-1 flex-col p-4 sm:p-6">
+          <div class="mt-auto flex justify-between">
+            <div class="flex items-center gap-2">
+              <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
+                <%= image_tag avatar_url(post.user), class: "h-full w-full object-cover object-center" %>
+              </div>
+              <div>
+                <p class="block text-gray-500"><%= link_to(post.user.name, post_path(post.id), class: "break-all") %> さんの質問</p>
+              </div>
+            </div>
+          </div>
+          <div class="my-8">
+            <div id="post-<%= post.id %>" class="mb-3">
+              <div>
+                <p class="font-bold text-blue-600">
+                タイトル
+                </p>
+                <p class="mb-2 text-lg font-semibold text-gray-800 line-clamp-1">
+                <%= post.post_title %>
+                </p>
+                <% if post.images.attached? %>
+                  <% post.images.each do |image| %>
+                    <div class="mb-2 inline-flex">
+                      <%= image_tag(image, width:100, class: "") %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <p><%= link_to "詳細", post_path(post) %></p>
+          </div>
         </div>
-      <% end %>
-    <% end %>
-  </div>
-  <p><%= link_to "詳細", post_path(post) %></p>
-<% end %>
-<p><%= link_to "戻る", user_path(current_user) %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

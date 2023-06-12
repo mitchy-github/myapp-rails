@@ -17,7 +17,7 @@ class QuestionAnswersController < ApplicationController
     categories = Category.all
     @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。
     @display_contents_question = @question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") #実際に表示するキャプション。ハッシュタグが文字列のまま表示されてしまうので、#から始まる文字列を""に変換したものをViewにて表示
-    flash[:danger] = "エラー：回答を空白にすることはできません。"
+    flash[:danger] = "エラー：空白、1000文字以上で回答することはできません。"
     redirect_to question_path(question_id)
   end
 

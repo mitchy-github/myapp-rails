@@ -6,6 +6,14 @@ module.exports = {
     './app/javascript/**/*.js'
   ],
   theme: {
+    fontFamily: {
+      banana: [
+        '"MS Ｐゴシック"','MS PGothic','sans-serif'
+        ],
+      ringo: [
+        'TsukuBRdGothic-Regular','ヒラギノ角ゴシック','メイリオ','Meiryo'
+        ],
+      },
     extend: {
       spacing: {
       '128': '32rem',
