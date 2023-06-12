@@ -34,7 +34,11 @@
               誰か詳しい人に聞きたい!
               </div>
               <%= link_to new_question_path do %>
-                <button class="z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">質問する！</button>
+                <button class="mt-3 w-full text-xs relative px-6 py-3 font-bold text-black group">
+                  <span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-blue-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                  <span class="absolute inset-0 w-full h-full border-4 border-black"></span>
+                  <span class="relative">質問する！</span>
+                </button>
             <% end %>
           </div>
         </div>
@@ -47,11 +51,15 @@
           </div>
 
           <div class="flex flex-col">
-              <div class="text-sm font-bold text-gray-800 lg:text-xl">
-              日々の思い出を共有したい！
-              </div>
-              <%= link_to new_post_path do %>
-                <button class="z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500">投稿する！</button>
+            <div class="text-sm font-bold text-gray-800 lg:text-xl">
+            日々の思い出を共有したい！
+            </div>
+            <%= link_to new_post_path do %>
+              <button class="mt-3 w-full text-xs relative px-6 py-3 font-bold text-black group">
+                <span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-green-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                <span class="absolute inset-0 w-full h-full border-4 border-black"></span>
+                <span class="relative">投稿する！</span>
+              </button>
             <% end %>
           </div>
         </div>
@@ -67,10 +75,10 @@
 
   <div class="bg-white sm:px-8">
     <!-- nav - start -->
-    <nav class="grid gap-x-4 gap-y-6 grid-cols-2  lg:grid-cols-4 sticky bottom-0 mx-auto justify-center md:justify-between gap-5 border-t border-b bg-white px-4 pt-5 pb-3 text-xs rounded-t-xl rounded-b-xl border-l border-r sm:text-sm mb-6">
+    <nav class="grid gap-x-4 gap-y-6 grid-cols-2  lg:grid-cols-4 sticky bottom-0 mx-auto justify-center md:justify-between gap-5 border-t border-b bg-white px-4 pt-5 pb-3 text-xs rounded-t-xl rounded-b-xl border-l border-r sm:text-sm mb-6 shadow-lg">
       <% if logged_in? %>
         <%= link_to(users_path, class: 'list-content1') do %>
-          <div class="list-content1 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+          <div class="list-content1 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-indigo-500 active:text-gray-600">
             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
             </svg>
@@ -80,7 +88,7 @@
       <% end %>
 
       <%= link_to(questions_path, class: 'list-content2') do %>
-        <div class="list-content2 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+        <div class="list-content2 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-blue-500 active:text-gray-600">
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
           </svg>
@@ -89,7 +97,7 @@
       <% end %>
 
       <%= link_to(posts_path, class: 'list-content3') do %>
-        <div class="list-content3 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+        <div class="list-content3 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-green-500 active:text-gray-600">
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
           </svg>
@@ -98,7 +106,7 @@
     <% end %>
 
     <%= link_to(categories_path, class: 'list-content3') do %>
-      <div class="list-content3 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+      <div class="list-content3 sm:px-10 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-700 active:text-gray-600">
         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
           </svg>
@@ -110,7 +118,7 @@
 
   <div class="">
     <div class="mx-auto max-w-screen-8xl md:px-8">
-      <div class="mx-auto max-w-6xl rounded-lg border">
+      <div class="mx-auto max-w-6xl rounded-lg border shadow-lg">
         <h2 class="m-4 text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">コメントが多い質問</h2>
         <%# <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3"> %>
         <div class="flex overflow-x-auto p-1.5">
@@ -123,7 +131,7 @@
                   display_contents_question = question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
                 %>
 
-                <div class="flex-none w-[18rem] flex-col p-4 mr-2 max-w-5xl rounded-lg border">
+                <div class="flex-none w-[18rem] flex-col p-4 mr-2 max-w-5xl rounded-lg border shadow-md">
                   <div class="mt-auto flex justify-between">
                     <div class="flex items-center gap-2">
                       <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
@@ -165,7 +173,7 @@
         <!--配列の1つ目から順に1位、２位と表示される-->
         <div class="flex overflow-x-auto p-1.5">
           <% @post_like_ranks.each.with_index(1) do |post| %>
-            <div class="flex-none w-[18rem] flex-col p-4 mr-2 max-w-5xl rounded-lg border">
+            <div class="flex-none w-[18rem] flex-col p-4 mr-2 max-w-5xl rounded-lg border shadow-md">
               <div class="my-8">
                 <div id="post-<%= post.id %>" class="mb-3">
                   <div class="mt-auto flex justify-between">
