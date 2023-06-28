@@ -8,5 +8,5 @@
 #
 class Room < ApplicationRecord
   has_many :user_rooms, dependent: :destroy#データ残っている
-  has_many :chats, dependent: :destroy
+  has_many :chats, dependent: :destroy#データ残っている
 end

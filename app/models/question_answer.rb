@@ -15,8 +15,8 @@
 #  index_question_answers_on_user_id      (user_id)
 #
 class QuestionAnswer < ApplicationRecord
-  has_many :likes
-  
+  has_many :likes, dependent: :destroy
+
   belongs_to :user
   belongs_to :question
 

@@ -38,12 +38,12 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :favorites, dependent: :destroy   #この行を追記
-  has_many :chats
-  has_many :likes
+  has_many :chats, dependent: :destroy#データ残っている
+  has_many :likes, dependent: :destroy
 
   has_many :question_answers, dependent: :destroy
-  has_many :user_rooms
-  has_many :rooms, through: :user_rooms
+  has_many :user_rooms, dependent: :destroy#データ残っている
+  has_many :rooms, through: :user_rooms#データ残っている
   has_many :category_users, dependent: :destroy
   has_many :categories, through: :category_users
 
@@ -52,7 +52,7 @@ class User < ApplicationRecord
   has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
   has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
 
-  has_many :community_users
+  has_many :community_users, dependent: :destroy
   has_many :communities, through: :community_users
 
   enum ride_area:{
