@@ -24,7 +24,7 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe '#create' do
+  describe '#uploaded_images' do
     let!(:post) {build(:post)}
 
     context 'imageが存在する場合' do
@@ -36,6 +36,65 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe '#favorited_by?(user_id)' do
+    let(:user_1) {create(:user)}
+    let(:user_2) {create(:user)}
+    let(:user_3) { create(:user) }
+    let!(:tester_1) { build(:post, user: user_1) }
+    let!(:tester_2) { build(:post, user: user_2) }
+    let!(:tester_3) { build(:post, user: user_3) }
+    # let!(:favorite) { create(:favorite, user: user_2, post_id: tester_2.id) }
+    # let(:post_1) {build(:post)}
+    # let(:post_2) {build(:post)}
+    # let(:tester_1) { build(post_id: post_1.id, user_id: user_1.id) }
+    # let(:tester_2) { build(post_id: post_2.id, user_id: user_2.id) }
+
+    context '投稿にいいねしている場合' do
+      it 'trueなっていること' do
+        # tester_1.favorites
+        # tester_2 = Post.find(tester_2.id)
+        # favorite = tester_1.favorites.new(tester_2.id)
+        favorite = tester_1.favorites.new(user_id: user_2.id, post_id: tester_2.id)
+        favorite.save
+        expect(tester_1.favorited_by?(user_2)).to eq true
+        # expect { tester_1.favorited_by?(tester_2) } .to change { tester_1.favorites.count }.by(1)
+      end
+    end
+
+    context '投稿にいいねしていない場合' do
+      it 'falseになっていること' do
+        expect(tester_1.favorited_by?(user_3)).to eq false
+      end
+    end
+  end
+
+  describe '#user_post?(user_id)' do
+    let(:user) {create(:user)}
+    let!(:tester) { build(:post, user_id: user.id) }
+
+    context '投稿者本人の場合' do
+      it 'returns trueすること' do
+        expect(tester.user_post?(user)).to be(true)
+      end
+    end
+  end
+
+  describe '#favorited_by?' do
+    let(:user) { create(:user) } # Assuming you have a user factory set up with FactoryBot
+    let(:other_user) { create(:user) }
+    let(:favorite) { create(:favorite, user: other_user) } # Assuming you have a favorite factory
+
+    it 'returns true if the favorite exists for the given user' do
+      # expect(favorite.favorited_by?(other_user)).to be true
+      # expect { favorite.favorited_by?(user.id) }.to change { Favorite.count }.by(1)
+    end
+
+    it 'returns false if the favorite does not exist for the given user' do
+      # expect(favorite.favorited_by?(user)).to be false
+    end
+  end
+end
 
   # 下記のテストはモデルspecではない？
   # describe '#create' do
@@ -66,7 +125,7 @@ RSpec.describe Post, type: :model do
   #     end
   #   end
   # end
-end
+# end
     # let(:user) {FactoryBot.create(:user)}
     # let!(:post) {build(:post, user_id: user.id)}
   #   # before do
