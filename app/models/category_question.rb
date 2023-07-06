@@ -15,5 +15,5 @@
 #
 class CategoryQuestion < ApplicationRecord
   belongs_to :question
-  belongs_to :category, dependent: :destroy
+  belongs_to :category, dependent: :destroy#データ残っている
 end
