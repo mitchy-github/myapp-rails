@@ -5,6 +5,8 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rspec'
+# require 'capybara-screenshot/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -20,7 +22,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -37,10 +39,57 @@ end
 #   self.file_fixture_path = "spec/fixtures"
 # end
 
+Capybara.register_driver :headless_chrome do |app|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.args << "--headless"
+    opts.args << "--disable-gpu"
+    opts.args << "--no-sandbox"
+  end
+  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: browser_options)
+end
+
+Capybara.server = :puma, { Silent: true }
+
+# Capybara.register_driver :selenium_chrome_headless do |app|
+#   options = Selenium::WebDriver::Chrome::Options.new
+
+#   [
+#     "headless",
+#     # ここの倍率を変更すれば、スクリーンショットサイズが変わります。
+#     "window-size=2880x2000",
+#     "disable-gpu" # https://developers.google.com/web/updates/2017/04/headless-chrome
+#   ].each { |arg| options.add_argument(arg) }
+
+#   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+# end
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+    config.before(:each) do |example|
+      if example.metadata[:type] == :system
+        if example.metadata[:js]
+          driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+        else
+          driven_by :rack_test
+        end
+      end
+    end
   config.include ActionDispatch::TestProcess
+
+  config.include(SystemSpecHelper, type: :system)
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :headless_chrome
+  end
+
+  # Delete screenshots before starting new tests
+  config.before(:all) do
+    FileUtils.rm_rf(Rails.root.join('tmp', 'capybara'), secure: true)
+  end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

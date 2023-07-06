@@ -1,12 +1,15 @@
 <h2 class="m-4 text-center text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">質問内容</h2>
 
-<div class="m-5 py-6 sm:py-8 lg:py-12">
+<div class="m-5">
+  <div class="text-center mb-2">
+    <p><%= link_to '質問一覧に戻る', questions_path, class: "" %></p>
+  </div>
   <div class="p-4 mx-auto max-w-5xl rounded-lg border">
   <%# <div style="border: 1px solid black;margin: 2rem 2rem;padding: 3rem;"> %>
     <%# <%= attachment_image_tag @post,:image,style: 'width: 40%;' %>
     <%# 投稿にユーザー情報を表示する→→user_idがないよエラーは@userから@questionにしたら治った %>
     <div class="flex items-center gap-2">
-      <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
+      <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-lg">
         <%= image_tag avatar_url(@question.user), class: "h-full w-full object-cover object-center" %>
       </div>
       <div>
@@ -17,9 +20,9 @@
       <% if logged_in? %>
         <% if current_user != @user %>
           <% if current_user.following?(@user) %>
-            <%= link_to 'フォロー外す', user_relationships_path(@question.user.id), data: { method: :delete }, class: "inline-block rounded border bg-white px-2 text-center font-light text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-500 hover:text-white focus-visible:ring active:bg-indigo-700 text-xs sm:text-sm" %>
+            <%= link_to 'フォロー外す', user_relationships_path(@question.user.id), data: { method: :delete }, class: "my-2 inline-block rounded border bg-white px-2 text-center font-light text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-500 hover:text-white focus-visible:ring active:bg-indigo-700 text-xs sm:text-sm" %>
           <% else %>
-            <%= link_to 'フォローする', user_relationships_path(@question.user.id), data: { method: :POST }, class: "inline-block rounded border bg-white px-2 text-center font-light text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-500 hover:text-white focus-visible:ring active:bg-indigo-700 text-xs sm:text-sm" %>
+            <%= link_to 'フォローする', user_relationships_path(@question.user.id), data: { method: :POST }, class: "my-2 inline-block rounded border bg-white px-2 text-center font-light text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-500 hover:text-white focus-visible:ring active:bg-indigo-700 text-xs sm:text-sm" %>
           <% end %>
         <% end %>
       <% end %>
@@ -80,19 +83,23 @@
     <%
 =end %>
 
-<div class="m-5 py-6 sm:py-8 lg:py-12">
+<div class="m-5">
   <div class="p-4 mx-auto max-w-5xl rounded-lg border">
     <div>                                                 <%#, data: { turbo: true }でリロードエラー解消%>
       <%= form_with(model: [@question, @question_answer], local: true) do |f| %>
-        <%= flash[:danger] %>
+        <div class="text-red-500"><%= flash[:danger] %></div>
         <%# <%= render 'layouts/errors', obj: @question_answer %>
 
         <% if logged_in? %>
           <div>
-            <%= f.label :answer_content, "回答" %><br>
-          <%= f.text_area :answer_content, class: "w-5/6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
+            <%= f.label :answer_content, "回答", class: "ml-3" %><br>
+            <%= f.text_area :answer_content, class: "w-full sm:w-5/6 h-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %>
           </div>
-            <%= f.submit '登録'  %>
+            <%= f.submit '登録',class: "w-auto my-4 px-4 py-2 text-sm font-medium uppercase transition-colors duration-200 transform text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500 shadow-lg shadow-blue-600/50"  %>
+        <% else %>
+          <div class="grid justify-items-center">
+            <p class="w-5/6 text-center text-sm md:text-lg mb-3 bg-blue-100 border-4 border-indigo-600 shadow-lg border-line-100 rounded-[3px]"><span>ログインすると</span><span>回答できます</span></p>
+          </div>
         <% end %>
       <% end %>
     </div>
@@ -106,7 +113,7 @@
           <% end %>
           <%# <p><%= question_answer.answer_content</p> %>
           <div class="flex items-center gap-2">
-            <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
+            <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-lg">
               <%= image_tag avatar_url(question_answer.user), class: "h-full w-full object-cover object-center" %>
             </div>
             <div>

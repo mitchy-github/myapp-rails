@@ -3,7 +3,7 @@
     <div class="flex flex-1 flex-col p-4 sm:p-6">
 
       <div class="my-8">
-        <div id="post-<%= post.id %>" class="mb-3">
+        <div id="post-<%= post.id %>" class="mb-8">
           <div class="mt-auto flex justify-between">
             <div class="flex items-center gap-2">
               <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
@@ -30,13 +30,7 @@
             <% end %>
           <% end %>
         </div>
-        <% if logged_in? %>
-          <%= link_to "詳細", post_path(post) %>
-        <% end %>
-        <% if logged_in? && post.user_post?(current_user) %>
-          <%= link_to "編集", edit_post_path(post), class: "btn btn-outline-gray" %>
-          <%= link_to "削除", post, data: { method: :delete, confirm: "削除してよろしいですか?" }, class: "btn btn-outline-gray" %>
-        <% end %>
+          <%= link_to "続きを読む", post_path(post) %>
       </div>
     </div>
   </div>
