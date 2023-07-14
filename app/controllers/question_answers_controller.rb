@@ -1,6 +1,6 @@
 class QuestionAnswersController < ApplicationController
   # include CategoryMethods
-  
+
   def create
     @question_answer = QuestionAnswer.new(question_answer_params)
     @question_answer.user_id = current_user.id
@@ -17,7 +17,7 @@ class QuestionAnswersController < ApplicationController
     categories = Category.all
     @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。
     @display_contents_question = @question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") #実際に表示するキャプション。ハッシュタグが文字列のまま表示されてしまうので、#から始まる文字列を""に変換したものをViewにて表示
-    flash[:danger] = "エラー：空白、1000文字以上で回答することはできません。"
+    flash[:danger] = "空白、1000文字以上で回答することはできません。"
     redirect_to question_path(question_id)
   end
 
@@ -30,9 +30,9 @@ class QuestionAnswersController < ApplicationController
     #   redirect_to question_path(question_id), alert: "許可されていないrequestです。", status: :unprocessable_entity
     # end
     unless question_answer.user_answer?(current_user)
-      redirect_to question_path(question_id), alert: "許可されていないrequestです。", status: :unprocessable_entity and return
+      redirect_to question_path(question_id), alert: "許可されていないリクエストです。", status: :unprocessable_entity and return
     end
-    
+
     question_answer.destroy
     redirect_to question_path(question_id), notice: "コメントを解除しました。", status: :see_other
   end

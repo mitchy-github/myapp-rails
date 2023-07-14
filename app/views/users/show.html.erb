@@ -107,7 +107,7 @@
                   <p>
                     <% @user.questions.each do |question| %>
                       <p class="py-3 border-t">
-                        <%= link_to question.question_title, question_path(question) %>
+                        <%= link_to question.question_title, question_path(question), class:"line-clamp-1" %>
                       </p>
                     <% end %>
                   </p>
@@ -116,7 +116,7 @@
                   <p>
                     <% @categories.each do |category| %>
                       <p class="py-3 border-t">
-                        <%= link_to "##{category.category}", category_path(category.id) %>
+                        <%= link_to "##{category.category}", category_path(category.id), class:"line-clamp-1" %>
                       </p>
                     <% end %>
                   </p>
@@ -125,7 +125,7 @@
                   <p>
                       <% @question_answer.each do |question_answer| %>
                     <p class="py-3 border-t">
-                      <%= link_to "#{question_answer.question_title}", question_path(question_answer.id) %>
+                      <%= link_to "#{question_answer.question_title}", question_path(question_answer.id), class:"line-clamp-1" %>
                     </p>
                       <% end %>
                   </p>
@@ -135,7 +135,7 @@
                     <p class= "w-40 px-4 py-2 mt-4 mb-4 text-sm font-medium text-white uppercase transition-colors duration-200 transform bg-lime-600 rounded-md hover:bg-lime-500 focus:outline-none focus:bg-lime-500" ><%=link_to"お気に入り記事一覧",favorites_user_path(@user) %></p>
                       <% @user.posts.each do |post| %>
                     <p class="py-3 border-t">
-                      <%= link_to post.post_title, post_path(post) %>
+                      <%= link_to post.post_title, post_path(post), class:"line-clamp-1" %>
                     </p>
                       <% end %>
                   </p>
@@ -153,7 +153,7 @@
             <p class="mb-3"><%="#{@user.name}さん"%></p>
           </h1>
           <% if current_user != @user %>
-            <p class="mb-8">
+            <p class="mb-8 user_relationship_follow">
               <% if current_user.following?(@user) %>
                 <%= link_to 'フォロー外す', user_relationships_path(@user.id), data: { method: :delete }, class: "w-full rounded border px-2 py-1 text-sm text-gray-500" %>
               <% else %>

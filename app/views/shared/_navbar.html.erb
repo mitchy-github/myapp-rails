@@ -1,7 +1,7 @@
 <div id="app">
   <nav class="w-full bg-red-200">
     <div class="z-40 flex justify-between bg-lime-600 mx-auto fixed top-0 w-full left-0">
-      <div class="flex items-center ml-8 bg-lime-600 h-11 rounded-lg">
+      <div class="flex items-center ml-3 sm:ml-8 bg-lime-600 h-11 rounded-lg">
         <a href="/">
           <img
           class="rounded-lg w-32"
@@ -10,7 +10,7 @@
           />
         </a>
       </div>
-      <div class="mr-8">
+      <div class="mr-3 sm:mr-8">
         <!-- Mobile menu -->
         <%# <div id="hamburger" class="hamburger"> %>
         <div class="flex mt-2">
@@ -46,9 +46,6 @@
           <ul class="md:flex md:justify-end">
           <% if logged_in? %>
             <li class="border-b md:border-none">
-              <%= link_to "質問一覧", questions_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
-            </li>
-            <li class="border-b md:border-none">
               <%= link_to "ユーザー情報", user_path(current_user),class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li>
@@ -57,6 +54,9 @@
           <% else %>
             <li class="border-b md:border-none">
               <%= link_to "ゲストログイン(お試し)", guest_login_path(current_user), data: { method: :post }, class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
+            </li>
+            <li class="border-b md:border-none">
+              <%= link_to "新規登録", signup_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>
             </li>
             <li class="border-b md:border-none">
               <%= link_to "ログイン", login_path,class: "block px-8 py-2 hover:bg-gray-400 rounded" %>

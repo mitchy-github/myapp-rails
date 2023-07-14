@@ -44,6 +44,7 @@ services:
       DB_HOST: db
       DB_USER: root
       MYSQL_ROOT_PASSWORD: password
+      SELENIUM_DRIVER_URL: http://selenium_chrome:4444/wd/hub
 
     # ローカルの80ポートとコンテナの3000ポートを紐付けブラウザーの80ポートで接続できるようにしている
     ports:
@@ -54,6 +55,10 @@ services:
       true
     depends_on:
       - db
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
 # host(pc)に保存領域作成
 volumes:
   mysql-data:

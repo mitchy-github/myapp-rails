@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include CategoryMethods
   before_action :set_user, only: [:show, :edit, :update, :destroy, :likes]
-  before_action :require_login, only:[:show, :edit, :update, :destroy]
+  before_action :require_login, only:[:index, :show, :edit, :update, :destroy]
 
   def favorites
     @user = User.find(params[:id])
