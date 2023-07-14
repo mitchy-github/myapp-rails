@@ -1,31 +1,56 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id           :bigint           not null, primary key
+#  post_content :text(4294967295) not null
+#  post_title   :string(255)      not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint           not null
+#
+# Indexes
+#
+#  index_posts_on_user_id  (user_id)
+#
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   describe 'バリデーションチェック' do
     #factoriesで作成したダミーデータを使用する
-    let(:user) {create(:user)}
-    let!(:post) {build(:post, user_id: user.id)}
+    let!(:user) { create(:user) }
+    let!(:post) { create(:post, user_id: user.id) }
+    let!(:title_is_blank) { build(:post, user_id: user.id, post_title: '') }
+    let!(:title_length) { build(:post, user_id: user.id, post_title: 'a' * 110) }
+    let!(:contents_is_blank) { build(:post, user_id: user.id, post_content: '') }
     #test_postを作成し、空欄での登録ができるか確認
-    subject {test_post.valid?}
-    let(:test_post) {post}
+    # subject { test_post.valid? }
+    # let(:test_post) { post }
 
-    context 'titleカラムが空欄でないこと' do
+    context 'post_titleカラムが空欄でない場合' do
       it 'バリデーションエラーが発生すること' do
-        test_post.post_title = ''
-        is_expected.to eq false;
+        title_is_blank.valid?
+        expect(title_is_blank.errors.full_messages).to eq ["Post titleを入力してください"]
       end
     end
 
-    context 'contentカラムが空欄でないこと' do
+    context 'post_titleカラムが100文字以上の場合' do
       it 'バリデーションエラーが発生すること' do
-        test_post.post_content = ''
-        is_expected.to eq false;
+        title_length.valid?
+        expect(title_length.errors.full_messages).to eq ["Post titleは100文字以内で入力してください"]
+      end
+    end
+
+    context 'post_contentカラムが空欄でない場合' do
+      it 'バリデーションエラーが発生すること' do
+        contents_is_blank.valid?
+        expect(contents_is_blank.errors.full_messages).to eq ["Post contentを入力してください"]
       end
     end
   end
 
   describe '#uploaded_images' do
-    let!(:post) {build(:post)}
+    let!(:post) { create(:post) }
 
     context 'imageが存在する場合' do
       it 'imageが登録できること' do
@@ -38,8 +63,8 @@ RSpec.describe Post, type: :model do
   end
 
   describe '#favorited_by?' do
-    let!(:user_1) {create(:user)}
-    let!(:user_2) {create(:user)}
+    let!(:user_1) { create(:user) }
+    let!(:user_2) { create(:user) }
     let!(:user_3) { create(:user) }
     let!(:post_1) { create(:post, user: user_1) }
     let!(:post_2) { create(:post, user: user_2) }
@@ -56,7 +81,7 @@ RSpec.describe Post, type: :model do
     end
 
     context '投稿にいいねしている場合' do
-      it 'trueなっていること' do
+      it 'trueを返すこと' do
         # tester_1.favorites
         # tester_2 = Post.find(tester_2.id)
         # favorite = tester_1.favorites.new(tester_2.id)
@@ -68,25 +93,25 @@ RSpec.describe Post, type: :model do
     end
 
     context '投稿にいいねしていない場合' do
-      it 'falseになっていること' do
+      it 'falseを返すこと' do
         expect(post_1.favorited_by?(user_3)).to eq false
       end
     end
   end
 
   describe '#user_post?' do
-    let(:user_a) {create(:user)}
-    let(:user_b) {create(:user)}
+    let(:user_a) { create(:user) }
+    let(:user_b) { create(:user) }
     let!(:post) { create(:post, user_id: user_a.id) }
 
     context '投稿者本人の場合' do
-      it 'trueになっていること' do
+      it 'trueを返すこと' do
         expect(post.user_post?(user_a)).to be_truthy
       end
     end
 
     context '投稿者本人ではない場合' do
-      it 'falseになっていること' do
+      it 'falseを返すこと' do
         expect(post.user_post?(user_b)).to be_falsy
       end
     end
@@ -96,15 +121,19 @@ RSpec.describe Post, type: :model do
     let!(:user) { create(:user) } # Assuming you have a user factory set up with FactoryBot
     let!(:post) { create(:post) }
     let!(:other_user) { create(:user) }
-    let!(:favorite) { create(:favorite, user: other_user, post: post) } # Assuming you have a favorite factory
+    let!(:favorite) { create(:favorite, user: user, post: post) } # Assuming you have a favorite factory
 
-    it 'returns true if the favorite exists for the given user' do
-      expect(post.favorited_by?(other_user)).to be_truthy
-      # expect { favorite.favorited_by?(user.id) }.to change { Favorite.count }.by(1)
+    context '指定されたユーザーのお気に入りが存在する場合' do
+      it 'trueを返すこと' do
+        expect(post.favorited_by?(user)).to be_truthy
+        # expect { favorite.favorited_by?(user.id) }.to change { Favorite.count }.by(1)
+      end
     end
 
-    it 'returns false if the favorite does not exist for the given user' do
-      expect(post.favorited_by?(user)).to be_falsy
+    context '指定されたユーザーのお気に入りが存在しない場合' do
+      it 'falseを返すこと' do
+        expect(post.favorited_by?(other_user)).to be_falsy
+      end
     end
   end
 end

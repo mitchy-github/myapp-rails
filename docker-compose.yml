@@ -16,14 +16,14 @@ services:
 
     # mysql-dataとコンテナの/var/lib/mysqlをリンクさせ、データの永続化する
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-data2:/var/lib/mysql
 
     # ローカルの3306ポートとコンテナの3306ポートを結びつける
     ports:
       - 3306:3306
 
     # 使用する環境を指定
-    platform: linux/x86_64/v8
+    platform: linux/amd64
   rails:
     build:
       # Dockerfileのある位置を指定
@@ -53,6 +53,8 @@ services:
     # 正常終了してしまうとコンテナに入れないので, 正常終了しないようにしている
     tty:
       true
+    stdin_open:
+      true
     depends_on:
       - db
   chrome:
@@ -61,4 +63,4 @@ services:
       - 4444:4444
 # host(pc)に保存領域作成
 volumes:
-  mysql-data:
+  mysql-data2:

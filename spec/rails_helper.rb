@@ -6,7 +6,7 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'capybara/rspec'
-# require 'capybara-screenshot/rspec'
+require 'capybara-screenshot/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -44,6 +44,8 @@ Capybara.register_driver :headless_chrome do |app|
     opts.args << "--headless"
     opts.args << "--disable-gpu"
     opts.args << "--no-sandbox"
+    opts.args << "--disable-dev-shm-usage"
+    opts.args << "--lang=ja-JP"
   end
   Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: browser_options)
 end
@@ -78,9 +80,9 @@ RSpec.configure do |config|
 
   config.include(SystemSpecHelper, type: :system)
 
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
+  # config.before(:each, type: :system) do
+  #   driven_by :rack_test
+  # end
 
   config.before(:each, type: :system, js: true) do
     driven_by :headless_chrome

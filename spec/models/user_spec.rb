@@ -1,5 +1,38 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: users
+#
+#  id                         :bigint           not null, primary key
+#  activated                  :boolean          default(FALSE), not null
+#  activated_at               :datetime
+#  activation_digest          :string(255)
+#  admin                      :boolean          default(FALSE), not null
+#  birthday                   :date             not null
+#  birthday_of_baby           :date
+#  child_want                 :boolean
+#  childcare_graduation_end   :date
+#  childcare_graduation_start :date
+#  childcare_start            :date
+#  email                      :string(255)      not null
+#  image                      :string(255)
+#  months_pregnant            :integer
+#  name                       :string(255)      not null
+#  number_of_baby             :integer
+#  password_digest            :string(255)      not null
+#  region                     :string(255)      not null
+#  remember_digest            :string(255)
+#  reset_digest               :string(255)
+#  reset_sent_at              :datetime
+#  sex                        :boolean          not null
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 require "rails_helper"
 
 RSpec.describe User, type: :model do
@@ -29,6 +62,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "バリデーションチェック" do
+    let!(:user) { create(:user) }
     let!(:name_is_blank) { build(:user, name: '') }
     let!(:birthday_nil) { build(:user, birthday: nil) }
     let!(:sex_nil) { build(:user, sex: nil) }
@@ -93,7 +127,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'パスワードの検証' do
-    let!(:user) { build(:user) }
+    let!(:user) { create(:user) }
     let!(:password_nil) { build(:user, password: nil) }
     let!(:password_length) { build(:user, password: "00000", password_confirmation:"00000") }
     let!(:password_confirmation_is_blank) { build(:user, password_confirmation:"") }
@@ -151,7 +185,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'フォーマットの検証' do
-    let!(:user) { build(:user) }
+    let!(:user) { create(:user) }
 
     context 'メールアドレスが正常なフォーマットの場合' do
       it '有効であること' do
@@ -166,9 +200,9 @@ RSpec.describe User, type: :model do
   end
 
   describe "インスタンスメソッド" do
-    let(:user_a) { create(:user) }
-    let(:user_b) { create(:user) }
-    let(:user_c) { create(:user) }
+    let!(:user_a) { create(:user) }
+    let!(:user_b) { create(:user) }
+    let!(:user_c) { create(:user) }
     # let(:post_by_user_a) { create(:post, user:user_a) }
     # let(:post_by_user_b) { create(:post, user: user_b) }
     # let(:post_by_user_c) { create(:post, user: user_c) }
@@ -195,8 +229,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'フォローの検証' do
-    let(:tester_1) { create(:user) }
-    let(:tester_2) { create(:user) }
+    let!(:tester_1) { create(:user) }
+    let!(:tester_2) { create(:user) }
 
     it'ユーザーが他のユーザーをフォロー、フォロー解除可能であること' do
       tester_1.follow(tester_2.id)
