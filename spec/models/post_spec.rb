@@ -16,6 +16,21 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
+  describe '内容に問題がないかのチェック' do
+    #factoriesで作成したダミーデータを使用する
+    let!(:user) { create(:user) }
+    let!(:post) { create(:post, user_id: user.id) }
+    #test_postを作成し、空欄での登録ができるか確認
+    # subject { test_post.valid? }
+    # let(:test_post) { post }
+
+    context '内容に問題がない場合' do
+      it '表示されること' do
+        expect(post).to be_valid
+      end
+    end
+  end
+
   describe 'バリデーションチェック' do
     #factoriesで作成したダミーデータを使用する
     let!(:user) { create(:user) }

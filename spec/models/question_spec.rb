@@ -17,6 +17,19 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
+  describe '内容に問題がないかのチェック' do
+    let!(:user) { create(:user) }
+    let!(:question) { build(:question, user_id: user.id) }
+    # subject { test_question.valid? }
+    # let(:test_question) { question }
+
+    context '内容に問題がない場合' do
+      it '表示されること' do
+        expect(question).to be_valid
+      end
+    end
+  end
+
   describe 'バリデーションチェック' do
     let!(:user) { create(:user) }
     let!(:question) { build(:question, user_id: user.id) }

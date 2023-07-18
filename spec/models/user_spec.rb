@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
     let!(:email_save) { build(:user, email: 'SAMPLE@SAMPLE.JP') }
 
     context '内容に問題ない場合' do
-      it "正常にユーザー登録できること" do
+      it "ユーザー登録ができること" do
         expect(user).to be_valid
       end
     end
