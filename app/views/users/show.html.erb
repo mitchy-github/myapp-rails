@@ -7,28 +7,26 @@
     <%# <p class="d-flex justify-content-end"> %>
     <% if logged_in? && @user == current_user %>
       <div class="flex flex-col overflow-hidden rounded-lg sm:flex-row">
-        <div class="flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-2/5">
+        <div class="items-center text-center flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-2/5">
           <h1>
             <%= image_tag avatar_url(current_user), width: 200, class: "rounded-lg" %>
           </h1>
-
-          <% if current_user != @user %>
-            <p>
+          <%# <% if current_user != @user %>
+            <%# <p>
               <% if current_user.following?(@user) %>
-                <%= link_to 'フォロー外す', user_relationships_path(@user.id), data: { method: :delete }, class:"" %>
-              <% else %>
-                <%= link_to 'フォローする', user_relationships_path(@user.id), data: { method: :POST }, class:"" %>
-              <% end %>
-            </p>
+                <%# <%= link_to 'フォロー外す', user_relationships_path(@user.id), data: { method: :delete }, class:"" %>
+              <%# <% else %>
+                <%# <%= link_to 'フォローする', user_relationships_path(@user.id), data: { method: :POST }, class:"" %>
+              <%# <% end %>
+            <%# </p>
           <% end %>
-
           <div class="ml-3 mb-3 card w-100">
             <div class="d-flex">
             <%# <%= attachment_image_tag @user, :profile_image, size: '100x100', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
             <%# <h4 class="ml-5 m-3"><%= @user.profile</h4> %>
-            <p class="mb-3 max-w-md break-all"><%="#{current_user.name}さん"%></p>
+            <p class="text-center mb-3 max-w-md break-all"><%="#{current_user.name}さん"%></p>
             </div>
-            <div class="d-flex">
+            <div class="d-flex text-center">
               <%= link_to follows_user_path(@user) do %>
               <h6>フォロー<i class="text-lime-600"><%= @following_users.count %></i></h6>
               <% end %>
@@ -39,7 +37,7 @@
           </div>
           <div class="d-flex">
             <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
-              <%= link_to 'chatを始める', chat_path(@user.id), class: "ml-3" %>
+              <%= link_to 'chatを始める', chat_path(@user.id) %>
             <% end %>
           </div>
 
@@ -147,21 +145,23 @@
       </div>
     <% else %>
       <div class="flex flex-col overflow-hidden rounded-lg sm:flex-row">
-        <div class="flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-2/5">
+        <div class="items-center flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-2/5">
           <h1>
             <%= image_tag avatar_url(@user), width: 200, class: "rounded-lg" %>
-            <p class="mb-3"><%="#{@user.name}さん"%></p>
+          </h1>
+          <p class="mb-3 break-all"><%="#{@user.name}さん"%></p>
           </h1>
           <% if current_user != @user %>
-            <p class="mb-8 user_relationship_follow">
+            <div class="text-center w-full user_relationship_follow">
               <% if current_user.following?(@user) %>
-                <%= link_to 'フォロー外す', user_relationships_path(@user.id), data: { method: :delete }, class: "w-full rounded border px-2 py-1 text-sm text-gray-500" %>
+                <%= link_to 'フォロー外す', user_relationships_path(@user.id), data: { method: :delete }, class: "block rounded border px-2 py-1 text-sm text-gray-500" %>
               <% else %>
-                <%= link_to 'フォローする', user_relationships_path(@user.id), data: { method: :POST }, class:"w-full rounded border px-2 py-1 text-sm text-gray-500" %>
+                <%= link_to 'フォローする', user_relationships_path(@user.id), data: { method: :POST }, class:"block rounded border px-2 py-1 text-sm text-gray-500" %>
+                <%# w-full %>
               <% end %>
-            </p>
+            </div>
           <% end %>
-          <div class="ml-3 mb-3 card w-100">
+          <div class="mb-3 card">
             <div class="d-flex">
             <%# <%= attachment_image_tag @user, :profile_image, size: '100x100', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
             <%# <h4 class="ml-5 m-3"><%= @user.profile</h4> %>
@@ -177,7 +177,7 @@
           </div>
           <div class="d-flex">
             <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
-              <%= link_to 'chatを始める', chat_path(@user.id), class: "ml-3" %>
+              <%= link_to 'chatを始める', chat_path(@user.id) %>
             <% end %>
           </div>
         </div>
