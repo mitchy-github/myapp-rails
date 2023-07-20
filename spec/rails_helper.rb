@@ -78,6 +78,7 @@ RSpec.configure do |config|
     end
   config.include ActionDispatch::TestProcess
 
+  config.include(RequestSpecHelper, type: :request)
   config.include(SystemSpecHelper, type: :system)
 
   # config.before(:each, type: :system) do
