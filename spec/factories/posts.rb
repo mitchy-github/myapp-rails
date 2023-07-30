@@ -18,5 +18,21 @@ FactoryBot.define do
     post_title { Faker::Hacker.say_something_smart }
     post_content { Faker::Hacker.say_something_smart }
     user
+
+    trait :invalid do
+      post_title { "" }
+    end
+  end
+
+  factory :takaship, class: Post do
+    post_title { "Takaship" }
+    post_content { "takashi@example.com" }
+    user
+  end
+
+  factory :satoship, class: Post do
+    post_title { "Satoship" }
+    post_content { "satoshi@example.com" }
+    user
   end
 end

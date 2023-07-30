@@ -1,6 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -66,6 +66,9 @@ Capybara.server = :puma, { Silent: true }
 # end
 
 RSpec.configure do |config|
+  # config.render_views
+  # config.render_views = true
+
   config.include FactoryBot::Syntax::Methods
     config.before(:each) do |example|
       if example.metadata[:type] == :system
@@ -80,6 +83,7 @@ RSpec.configure do |config|
 
   config.include(RequestSpecHelper, type: :request)
   config.include(SystemSpecHelper, type: :system)
+  # config.include(ApiRequestExampleGroup, type: :request)
 
   # config.before(:each, type: :system) do
   #   driven_by :rack_test

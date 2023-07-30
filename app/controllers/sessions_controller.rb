@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
   include CategoryMethods
+  # prepend_before_action :confirm_authenticity_token, only: :create
+  # protect_from_forgery with: :null_session
   before_action :require_login, only: [:edit, :update, :destroy]
 
   def index
@@ -34,6 +36,10 @@ class SessionsController < ApplicationController
     # @all_comment_ranks = Question.joins(:question_answers).group("question_answers.question_id").order('count(question_id) desc')
     # @post_like_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').pluck(:post_id))
     # (Favorite.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+  end
+
+  def new
+
   end
 
   def create

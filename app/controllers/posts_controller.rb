@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    # binding.pry
     @post = Post.new(post_params)
     @post.save!
       redirect_to posts_path, notice: "投稿しました"
