@@ -27,8 +27,8 @@ RSpec.describe "Questions", type: :system do
         fill_in "question[contents_question]", with: nil
         click_button "質問する"
         expect(current_path).to eq questions_path
-        expect(page).to have_content "Question titleを入力してください"
-        expect(page).to have_content "Contents questionを入力してください"
+        expect(page).to have_content "質問タイトルを入力してください"
+        expect(page).to have_content "質問内容を入力してください"
       end
     end
   end

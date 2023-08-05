@@ -48,8 +48,8 @@ RSpec.describe "Users", type: :system do
         select '東京都', from: 'user[region]'
         click_button '登録'
         expect(current_path).to eq signup_path
-        expect(page).to have_content "Emailを入力してください"
-        expect(page).to have_content "Emailは不正な値です"
+        expect(page).to have_content "メールアドレスを入力してください"
+        expect(page).to have_content "メールアドレスは不正な値です"
       end
     end
   end

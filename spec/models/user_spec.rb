@@ -70,21 +70,21 @@ RSpec.describe User, type: :model do
     context 'nameが空の場合' do
       it "バリデーションエラーが発生すること" do
         name_is_blank.valid?
-        expect(name_is_blank.errors.full_messages).to include("Nameを入力してください")
+        expect(name_is_blank.errors.full_messages).to include("名前を入力してください")
       end
     end
 
     context '生年月日が空の場合' do
       it "バリデーションエラーが発生すること" do
         birthday_nil.valid?
-        expect(birthday_nil.errors.full_messages).to include("Birthdayを入力してください")
+        expect(birthday_nil.errors.full_messages).to include("誕生日を入力してください")
       end
     end
 
     context '性別が入力されていない場合' do
       it "バリデーションエラーが発生すること" do
         sex_nil.valid?
-        expect(sex_nil.errors.full_messages).to include("Sexを入力してください")
+        expect(sex_nil.errors.full_messages).to include("性別を入力してください")
       end
     end
   end
@@ -107,14 +107,14 @@ RSpec.describe User, type: :model do
       it "バリデーションエラーが発生すること" do
         user.save
         another_user.valid?
-        expect(another_user.errors.full_messages).to include("Emailはすでに存在します")
+        expect(another_user.errors.full_messages).to include("メールアドレスはすでに存在します")
       end
     end
 
     context 'emailが空の場合' do
       it "バリデーションエラーが発生すること" do
         email_is_blank.valid?
-        expect(email_is_blank.errors.full_messages).to include("Emailを入力してください", "Emailは不正な値です")
+        expect(email_is_blank.errors.full_messages).to include("メールアドレスを入力してください", "メールアドレスは不正な値です")
       end
     end
 
@@ -138,42 +138,42 @@ RSpec.describe User, type: :model do
     context 'passwordが空の場合' do
       it "バリデーションエラーが発生すること" do
         password_nil.valid?
-        expect(password_nil.errors.full_messages).to include("Passwordを入力してください", "Passwordは8文字以上で入力してください")
+        expect(password_nil.errors.full_messages).to include("パスワードを入力してください", "パスワードは8文字以上で入力してください")
       end
     end
 
     context 'passwordが5文字以下の場合' do
       it "バリデーションエラーが発生すること" do
         password_length.valid?
-        expect(password_length.errors.full_messages).to include("Passwordは8文字以上で入力してください")
+        expect(password_length.errors.full_messages).to include("パスワードは8文字以上で入力してください")
       end
     end
 
     context 'passwordが存在してもpassword_confirmationが空だった場合' do
       it "バリデーションエラーが発生すること" do
         password_confirmation_is_blank.valid?
-        expect(password_confirmation_is_blank.errors.full_messages).to include("Password confirmationとPasswordの入力が一致しません")
+        expect(password_confirmation_is_blank.errors.full_messages).to include("確認用パスワードとパスワードの入力が一致しません")
       end
     end
 
     context 'passwordが半角英数字混合でない場合' do
       it "バリデーションエラーが発生すること" do
         password_invalid.valid?
-        expect(password_invalid.errors.full_messages).to include("Password confirmationとPasswordの入力が一致しません", "Passwordは8文字以上で入力してください")
+        expect(password_invalid.errors.full_messages).to include("確認用パスワードとパスワードの入力が一致しません", "パスワードは8文字以上で入力してください")
       end
     end
 
     context 'passwordが全角だった場合' do
       it "バリデーションエラーが発生すること" do
         password_invalid2.valid?
-        expect(password_invalid2.errors.full_messages).to include("Password confirmationとPasswordの入力が一致しません", "Passwordは8文字以上で入力してください")
+        expect(password_invalid2.errors.full_messages).to include("確認用パスワードとパスワードの入力が一致しません", "パスワードは8文字以上で入力してください")
       end
     end
 
     context 'パスワードと確認用パスワードが間違っている場合' do
       it '無効であること' do
         password_not_match.valid?
-        expect(password_not_match.errors[:password_confirmation]).to include("とPasswordの入力が一致しません")
+        expect(password_not_match.errors[:password_confirmation]).to include("とパスワードの入力が一致しません")
       end
     end
 

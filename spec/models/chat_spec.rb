@@ -39,7 +39,7 @@ RSpec.describe Chat, type: :model do
         user_a.follow(user_b.id)
         user_b.follow(user_a.id)
         chat_is_blank.valid?
-        expect(chat_is_blank.errors.full_messages).to eq ["Messageを入力してください"]
+        expect(chat_is_blank.errors.full_messages).to eq ["メッセージを入力してください"]
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Chat, type: :model do
         user_a.follow(user_b.id)
         user_b.follow(user_a.id)
         chat_length.valid?
-        expect(chat_length.errors.full_messages).to eq ["Messageは140文字以内で入力してください"]
+        expect(chat_length.errors.full_messages).to eq ["メッセージは140文字以内で入力してください"]
         # test_message.message = 'a' * 150
         # is_expected.to eq false;
       end

@@ -3,6 +3,7 @@
   <head>
     <title>Myapp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%# <meta name="turbo-visit-control" content="reload"> %>
     <meta charset="utf-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -24,9 +25,8 @@
     <%# <div class="mb"> %>
     <%= yield %>
     <%# </div> %>
-    <div class="mb"></div>
+    <%# <div class="mb"></div> %>
     <%# <%= debug(params) if Rails.env.development? %>
   </body>
+  <%= render  "shared/footer" %>
 </html>
-
-

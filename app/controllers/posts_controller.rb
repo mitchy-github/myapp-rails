@@ -65,6 +65,7 @@ class PostsController < ApplicationController
 
   # アップロード済み画像の検索
   def uploaded_images
+    # binding.pry
     params[:post][:images].drop(1).map{|id| ActiveStorage::Blob.find(id)} if params[:post][:images]
   end
 
