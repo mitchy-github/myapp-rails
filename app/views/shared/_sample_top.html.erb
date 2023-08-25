@@ -1,19 +1,19 @@
 <div class="w-full bg-center bg-cover lg:h-[32rem] h-96 mb-8 border-b shadow-lg" style="background-image: url(../../img/4_walk_m.jpg);">
   <div class="flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50">
     <div class="text-center">
-      <h1 class="text-2xl font-semibold text-white uppercase lg:text-3xl mt-28">
-        キャッチフレーズ <span class="text-blue-400 underline"></span>
+      <h1 class="text-4xl lg:text-7xl font-semibold text-white mt-28">
+        公共Living <span class="text-blue-400 underline"></span>
       </h1>
       <% if logged_in? %>
         <%= link_to new_question_path do %>
-          <button class="z-0 animate-bounce w-full px-4 py-2 mt-4 text-sm lg:text-lg font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 shadow-lg shadow-blue-600/50">質問する！</button>
+          <button class="z-0 animate-bounce w-full px-4 py-2 mt-8 lg:mt-10 text-sm lg:text-lg font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 shadow-lg shadow-blue-600/50">質問する！</button>
         <% end %>
         <%= link_to new_post_path do %>
           <button class="z-0 animate-bounce w-full px-4 py-2 mt-4 text-sm lg:text-lg font-medium text-white uppercase transition-colors duration-200 bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500 shadow-lg shadow-green-500/50">投稿する！</button>
         <% end %>
       <% else %>
         <%= link_to signup_path do %>
-          <button class="z-0 animate-bounce w-full px-4 py-2 mt-4 text-sm lg:text-lg font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500 shadow-lg shadow-blue-600/50">新規登録</button>
+          <button class="z-0 animate-bounce w-full px-4 py-2 mt-8 lg:mt-10 text-sm lg:text-lg font-medium text-white uppercase transition-colors duration-200 bg-blue-600 rounded-md  hover:bg-blue-500 focus:outline-none focus:bg-blue-500 shadow-lg shadow-blue-600/50">新規登録</button>
         <% end %>
         <%= link_to login_path do %>
           <button class="z-0 animate-bounce w-full px-4 py-2 mt-4 text-sm lg:text-lg font-medium text-white uppercase transition-colors duration-200 bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500 shadow-lg shadow-green-500/50">ログイン</button>
