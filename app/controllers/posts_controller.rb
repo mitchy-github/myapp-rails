@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    # binding.pry
     @post = Post.new(post_params)
     @post.save!
       redirect_to posts_path, notice: "投稿しました"
@@ -64,6 +65,7 @@ class PostsController < ApplicationController
 
   # アップロード済み画像の検索
   def uploaded_images
+    # binding.pry
     params[:post][:images].drop(1).map{|id| ActiveStorage::Blob.find(id)} if params[:post][:images]
   end
 

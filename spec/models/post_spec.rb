@@ -45,21 +45,21 @@ RSpec.describe Post, type: :model do
     context 'post_titleカラムが空欄でない場合' do
       it 'バリデーションエラーが発生すること' do
         title_is_blank.valid?
-        expect(title_is_blank.errors.full_messages).to eq ["Post titleを入力してください"]
+        expect(title_is_blank.errors.full_messages).to eq ["タイトルを入力してください"]
       end
     end
 
     context 'post_titleカラムが100文字以上の場合' do
       it 'バリデーションエラーが発生すること' do
         title_length.valid?
-        expect(title_length.errors.full_messages).to eq ["Post titleは100文字以内で入力してください"]
+        expect(title_length.errors.full_messages).to eq ["タイトルは100文字以内で入力してください"]
       end
     end
 
     context 'post_contentカラムが空欄でない場合' do
       it 'バリデーションエラーが発生すること' do
         contents_is_blank.valid?
-        expect(contents_is_blank.errors.full_messages).to eq ["Post contentを入力してください"]
+        expect(contents_is_blank.errors.full_messages).to eq ["投稿内容を入力してください"]
       end
     end
   end

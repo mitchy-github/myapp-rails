@@ -43,7 +43,7 @@ RSpec.describe Question, type: :model do
     context 'titleカラムが空欄でない場合' do
       it 'バリデーションエラーが発生すること' do
         title_is_blank.valid?
-        expect(title_is_blank.errors.full_messages).to eq ["Question titleを入力してください"]
+        expect(title_is_blank.errors.full_messages).to eq ["質問タイトルを入力してください"]
         # test_question.question_title = ''
         # is_expected.to eq false;
       end
@@ -52,21 +52,21 @@ RSpec.describe Question, type: :model do
     context 'question_titleカラムが100文字以上の場合' do
       it 'バリデーションエラーが発生すること' do
         title_length.valid?
-        expect(title_length.errors.full_messages).to eq ["Question titleは100文字以内で入力してください"]
+        expect(title_length.errors.full_messages).to eq ["質問タイトルは100文字以内で入力してください"]
       end
     end
 
     context 'contentカラムが空欄の場合' do
       it 'バリデーションエラーが発生すること' do
         contents_is_blank.valid?
-        expect(contents_is_blank.errors.full_messages).to eq ["Contents questionを入力してください"]
+        expect(contents_is_blank.errors.full_messages).to eq ["質問内容を入力してください"]
       end
     end
 
     context 'contents_questionカラムが1000文字以上の場合' do
       it 'バリデーションエラーが発生すること' do
         contents_length.valid?
-        expect(contents_length.errors.full_messages).to eq ["Contents questionは1000文字以内で入力してください"]
+        expect(contents_length.errors.full_messages).to eq ["質問内容は1000文字以内で入力してください"]
       end
     end
   end

@@ -1,6 +1,13 @@
 require "active_support/core_ext/integer/time"
 
+#これでもいけた→ Rails.application.config.hosts << '.example.com'
+
 Rails.application.configure do
+  # これでもいけた↓
+  config.hosts << '.example.com'
+  config.hosts << "alb-user1-663561289.us-west-2.elb.amazonaws.com"
+  config.hosts << "koukyouliving.com"
+  # config.action_controller.allow_forgery_protection = false
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -59,6 +66,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.assets.compile = true
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -67,5 +76,4 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  config.active_storage.service = :local
 end

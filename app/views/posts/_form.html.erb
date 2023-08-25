@@ -18,7 +18,7 @@
 
       <div class="mb-3">
         <%= f.label :images, "画像", class: "font-semibold block p-1" %>
-        <label class="z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500">
+        <label class="post_images z-0 w-full px-4 py-2 mt-4 text-xs font-medium text-white uppercase transition-colors duration-200 bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500">
         <%= f.file_field :images, multiple: true, accept: "image/jpeg,image/gif,image/png", data: { images_target: "select", action: "change->images#selectImages" } %>ファイルを選択
         </label>
         <p data-images-target="error" class="text-red-600"></p>

@@ -13,8 +13,12 @@ RSpec.describe "Posts", js: true, type: :system do
         visit new_post_path
         fill_in "post[post_title]", with: "テスト投稿"
         fill_in "post[post_content]", with: "これはテスト投稿です"
-        attach_file "ファイルを選択", "#{Rails.root}/spec/fixtures/files/fixture.jpg", make_visible: true
+        # page.attach_file "#{Rails.root}/spec/fixtures/files/fixture.jpg", make_visible: true do #←←←ここから
+          # page.find('.post_images').click
+        # end
+        # attach_file "画像", "#{Rails.root}/spec/fixtures/files/fixture.jpg", make_visible: true
         click_button "投稿する"
+        # wait_for_turbo
         expect(page).to have_content "投稿しました"
         expect(page).to have_content "テスト投稿"
         # fill_in 'post_images', with: File.join(Rails.root, 'spec/fixtures/files/fixture.jpg')
@@ -39,8 +43,8 @@ RSpec.describe "Posts", js: true, type: :system do
         fill_in "post[post_content]", with: nil
         click_button "投稿する"
         expect(current_path).to eq posts_path
-        expect(page).to have_content "Post titleを入力してください"
-        expect(page).to have_content "Post contentを入力してください"
+        expect(page).to have_content "タイトルを入力してください"
+        expect(page).to have_content "投稿内容を入力してください"
       end
     end
   end

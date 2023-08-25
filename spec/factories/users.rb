@@ -40,5 +40,30 @@ FactoryBot.define do
     sex { "1" }
     birthday {  "2020-01-01" }
     region {  "東京都" }
+    # confirmed_at { Date.today }
+
+    trait :invalid do
+      name { "" }
+    end
+  end
+
+  factory :takashi, class: User do
+    name { "Takashi" }
+    email { "takashi@example.com" }
+    password { '12345678' }
+    password_confirmation { '12345678' }
+    sex { "1" }
+    birthday {  "2020-01-01" }
+    region {  "東京都" }
+  end
+
+  factory :satoshi, class: User do
+    name { "Satoshi" }
+    email { "satoshi@example.com" }
+    password { '12345678' }
+    password_confirmation { '12345678' }
+    sex { "1" }
+    birthday {  "2020-01-01" }
+    region {  "東京都" }
   end
 end

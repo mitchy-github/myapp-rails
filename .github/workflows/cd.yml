@@ -1,0 +1,46 @@
+name: Deploy work flow for Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-west-2
+  ECS_WEBAPP_SERVICE: task-def-user1
+  WEBAPP_CONTAINER_NAME: app
+  WEBAPP_TAG: latest
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: webapp push to ECR
+      id: build-image-webapp
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        docker build -t $WEBAPP_CONTAINER_NAME .
+        docker tag $WEBAPP_CONTAINER_NAME:$WEBAPP_TAG $ECR_REGISTRY/$WEBAPP_CONTAINER_NAME:$WEBAPP_TAG
+        docker push $ECR_REGISTRY/$WEBAPP_CONTAINER_NAME:$WEBAPP_TAG
+
+    - name: Deploy to ECS
+      run: |
+        aws ecs update-service --service $ECS_WEBAPP_SERVICE --cluster cluster-main1 --force-new-deployment
