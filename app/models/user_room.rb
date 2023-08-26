@@ -10,5 +10,5 @@
 #
 class UserRoom < ApplicationRecord
   belongs_to :user
-  belongs_to :room#データ残っている
+  belongs_to :room
 end

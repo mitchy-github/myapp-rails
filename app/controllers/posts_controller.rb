@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only:[:new, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
 
   def index
     @posts = Post.includes(:user)
@@ -60,13 +60,13 @@ class PostsController < ApplicationController
 
   # 選択状態の画像をパラメータにマージ（Postモデルとの紐付け）
   def post_params
-    params.require(:post).permit(:post_title, :post_content).merge(images: uploaded_images, user_id:current_user.id)
+    params.require(:post).permit(:post_title, :post_content).merge(images: uploaded_images, user_id: current_user.id)
   end
 
   # アップロード済み画像の検索
   def uploaded_images
     # binding.pry
-    params[:post][:images].drop(1).map{|id| ActiveStorage::Blob.find(id)} if params[:post][:images]
+    params[:post][:images].drop(1).map{ |id| ActiveStorage::Blob.find(id) } if params[:post][:images]
   end
 
   # blobデータの作成

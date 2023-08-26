@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   include CategoryMethods
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only:[:new, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
 
   def index
     @questions = Question.includes(:user)
@@ -17,10 +17,10 @@ class QuestionsController < ApplicationController
     @user = User.find_by(id: @question.user_id)
     @question_answer = QuestionAnswer.new
     @question = Question.includes(:categories, :question_answers).find(params[:id])
-    related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id) #=> [1,2,3] idのみを配列にして返す
+    related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id)
     categories = Category.all
-    @categories = categories.select{|category| related_records.include?(category.id)} #hashtagテーブルより中間テーブルで取得したidのハッシュタグを取得。配列に。
-    @display_contents_question = @question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"") #実際に表示するキャプション。ハッシュタグが文字列のまま表示されてしまうので、#から始まる文字列を""に変換したものをViewにて表示
+    @categories = categories.select{ |category| related_records.include?(category.id) }
+    @display_contents_question = @question.contents_question.gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/, "")
   end
 
   def new
@@ -29,11 +29,11 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params) #インスタンスの作成
+    @question = Question.new(question_params)
     @question.user_id = current_user.id
-    category = extract_category(@question.contents_question) #パラメーターのcaptionの中よりハッシュタグを抽出
-    @question.save! #一度投稿を保存
-      save_category(category,@question) #先ほど抽出したハッシュタグをハッシュタグテーブルへ、作成したpostのidとハッシュタグのidを中間テーブルへ保存
+    category = extract_category(@question.contents_question)
+    @question.save!
+      save_category(category, @question)
       flash[:notice] = "成功！"
       redirect_to questions_path
 
@@ -66,12 +66,12 @@ class QuestionsController < ApplicationController
 
     @question = Question.find(params[:id])
     strong_paramater = question_params
-    delete_records_related_to_category(params[:id]) #こちらのメソッドで中間テーブルとハッシュタグのレコードを削除
+    delete_records_related_to_category(params[:id])
 
     # @question.update(question_params)
     flash[:notice] = "投稿内容を編集しました"
-    category = extract_category(@question.contents_question) #投稿よりハッシュタグを取得
-    save_category(category,@question) #ハッシュタグの保存
+    category = extract_category(@question.contents_question)
+    save_category(category, @question)
     redirect_to question_path(@question.id)
 
 
@@ -106,9 +106,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find_by(id: params[:id]) #削除対象のレコード
-    @question.destroy #投稿を削除
-    delete_records_related_to_category(params[:id]) #中間テーブルとハッシュタグのレコードを削除
+    @question = Question.find_by(id: params[:id])
+    @question.destroy
+    delete_records_related_to_category(params[:id])
     flash[:notice] = "投稿を削除しました"
     redirect_to questions_path, status: :see_other
 
@@ -124,6 +124,5 @@ private
 
   def question_params
     params.require(:question).permit(:question_title, :contents_question, :best_answer_id)
-      # , {:category_ids => []})
   end
 end
