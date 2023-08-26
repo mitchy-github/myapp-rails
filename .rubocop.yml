@@ -1,0 +1,124 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+Rails:
+  Enabled: true
+
+LineLength:
+  Max: 300
+
+Rails/ActiveRecordCallbacksOrder: # (new in 2.7)
+  Enabled: true
+Rails/AfterCommitOverride: # (new in 2.8)
+  Enabled: true
+Rails/AttributeDefaultBlockValue: # (new in 2.9)
+  Enabled: true
+Rails/FindById: # (new in 2.7)
+  Enabled: true
+Rails/Inquiry: # (new in 2.7)
+  Enabled: true
+Rails/MailerName: # (new in 2.7)
+  Enabled: true
+Rails/MatchRoute: # (new in 2.7)
+  Enabled: true
+Rails/NegateInclude: # (new in 2.7)
+  Enabled: true
+Rails/Pluck: # (new in 2.7)
+  Enabled: true
+Rails/PluckInWhere: # (new in 2.7)
+  Enabled: true
+Rails/RenderInline: # (new in 2.7)
+  Enabled: true
+Rails/RenderPlainText: # (new in 2.7)
+  Enabled: true
+Rails/ShortI18n: # (new in 2.7)
+  Enabled: true
+Rails/SquishedSQLHeredocs: # (new in 2.8)
+  Enabled: true
+Rails/WhereEquals: # (new in 2.9)
+  Enabled: true
+Rails/WhereNot: # (new in 2.8)
+  Enabled: true
+Rails/HelperInstanceVariable:
+  Enabled: false
+Rails/WhereExists: # (new in 2.7)
+  Enabled: false
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+Style/BlockDelimiters:
+  Enabled: false
+Style/AndOr:
+  Enabled: false
+Layout/FirstHashElementLineBreak:
+  Enabled: false
+Layout/HashAlignment:
+  Enabled: false
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+Layout/EmptyLines:
+  Enabled: false
+Layout/CommentIndentation:
+  Enabled: false
+Layout/AccessModifierIndentation:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
+Layout/ConditionPosition:
+  Enabled: false
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+Layout/BlockAlignment:
+  Enabled: false
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
+Airbnb/OptArgParameters:
+  Enabled: false
+Airbnb/SimpleUnless:
+  Enabled: false
+Airbnb/SimpleModifierConditional:
+  Enabled: false
+Style/ColonMethodCall:
+  Enabled: false
+Layout/IndentationConsistency:
+  Enabled: false
+Layout/IndentationWidth:
+  Enabled: false
+Layout/TrailingWhitespace:
+  Enabled: false
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+Layout/RescueEnsureAlignment:
+  Enabled: false
+Style/MixinUsage:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/UnlessElse:
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+Lint/UselessAssignment:
+  Enabled: false
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - '**/Gemfile'
+    - 'vendor/**/*'
+    - '.git/**/*ruby'
+    - 'vedor/**/*'

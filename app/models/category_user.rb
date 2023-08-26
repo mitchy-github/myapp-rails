@@ -15,5 +15,5 @@
 #
 class CategoryUser < ApplicationRecord
   belongs_to :user
-  belongs_to :category, dependent: :destroy#データ残っている
+  belongs_to :category, dependent: :destroy
 end

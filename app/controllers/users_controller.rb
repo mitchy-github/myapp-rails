@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   include CategoryMethods
   # prepend_before_action :confirm_authenticity_token, only: :create
   before_action :set_user, only: [:show, :edit, :update, :destroy, :likes]
-  before_action :require_login, only:[:index, :show, :edit, :update, :destroy]
+  before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
 
   def favorites
     @user = User.find(params[:id])
-    favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
+    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
     @favorite_posts = Post.find(favorites)
   end
 
