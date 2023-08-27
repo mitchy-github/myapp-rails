@@ -33,7 +33,7 @@ RSpec.describe "Chats", js: true, type: :system do
         expect(page).to have_content "さんとのチャット"
         fill_in "chat[message]", with: 'a' * 150
         click_button "送信"
-        expect(page).to have_content "Messageは140文字以内で入力してください"
+        expect(page).to have_content "メッセージは140文字以内で入力してください"
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe "Chats", js: true, type: :system do
         expect(page).to have_content "さんとのチャット"
         fill_in "chat[message]", with: nil
         click_button "送信"
-        expect(page).to have_content "Messageを入力してください"
+        expect(page).to have_content "メッセージを入力してください"
       end
     end
   end
