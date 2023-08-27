@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 10
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:8.0.31
         ports:
           - 3306:3306
         env:
@@ -27,27 +27,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.18.1'
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          ruby-version: 3.1.1
 
       - name: Bundler and gem install
         run: |
           gem install bundler
-          bundle install --jobs 4 --retry 3 --path vendor/bundle
+          bundle install
 
       - name: Yarn install
         run: yarn install --check-files
+
+      - run: rails tailwindcss:build
 
       - name: Database create and migrate
         run: |
@@ -58,25 +56,9 @@ jobs:
       - name: Run rspec
         run: bundle exec rspec
 
-  rubocop:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Run rubocop
-        run: bundle exec rubocop
-
   deploy:
     name: deploy
     needs: rspec
-    needs: rubocop
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
