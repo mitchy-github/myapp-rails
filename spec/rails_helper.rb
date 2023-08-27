@@ -73,7 +73,10 @@ RSpec.configure do |config|
     config.before(:each) do |example|
       if example.metadata[:type] == :system
         if example.metadata[:js]
-          driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+          driven_by :selenium, screen_size: [1400, 1400], using: :headless_chrome do |options|
+            options.add_argument('--disable-dev-sim-usage')
+            options.add_argument('--no-sandbox')
+          end
         else
           driven_by :rack_test
         end
