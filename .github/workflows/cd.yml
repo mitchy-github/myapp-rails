@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 env:
   AWS_REGION: us-west-2
@@ -17,7 +18,7 @@ jobs:
     timeout-minutes: 10
     services:
       mysql:
-        image: mysql:8.0.31
+        image: mysql:8.0.29
         ports:
           - 3306:3306
         env:
@@ -30,7 +31,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.18.1'
+          node-version: '14.21.3'
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
