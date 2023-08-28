@@ -67,7 +67,7 @@ Capybara.server = :puma, { Silent: true }
 
 RSpec.configure do |config|
   # Webdrivers::Chromedriver.required_version = '114.0.5735.198'
-  Webdrivers::Chromedriver.required_version = "114.0.5735.90"
+  # Webdrivers::Chromedriver.required_version = "114.0.5735.90"
   # config.render_views
   # config.render_views = true
 

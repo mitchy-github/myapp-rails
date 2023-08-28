@@ -87,7 +87,7 @@ group :test do
   gem "capybara"
   gem 'capybara-screenshot'
   gem "selenium-webdriver"
-  gem "webdrivers"
+  # gem "webdrivers"
 end
 
 gem 'kaminari'
