@@ -73,6 +73,7 @@ jobs:
         run: |
           gem install rubocop-airbnb
           bundle exec rubocop
+        working-directory: ./myapp
 
   deploy:
     name: deploy
