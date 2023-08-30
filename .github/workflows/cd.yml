@@ -70,11 +70,14 @@ jobs:
           ruby-version: 3.1.1
 
       - name: Run rubocop
-        run: bundle exec rubocop
+        run: |
+          gem install rubocop-airbnb
+          bundle exec rubocop
 
   deploy:
     name: deploy
     needs: rspec
+    needs: rubocop
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
