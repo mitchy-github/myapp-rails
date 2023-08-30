@@ -46,6 +46,7 @@ jobs:
         run: yarn install --check-files
 
       - run: rails tailwindcss:build
+      - run: rails assets:precompile
 
       - name: Database create and migrate
         run: |
