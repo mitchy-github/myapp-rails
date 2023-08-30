@@ -76,8 +76,7 @@ jobs:
 
   deploy:
     name: deploy
-    needs: rspec
-    needs: rubocop
+    needs: [rspec, rubocop]
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
