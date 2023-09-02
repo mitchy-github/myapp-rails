@@ -40,7 +40,6 @@ FactoryBot.define do
     sex { "1" }
     birthday {  "2020-01-01" }
     region {  "東京都" }
-    # confirmed_at { Date.today }
 
     trait :invalid do
       name { "" }

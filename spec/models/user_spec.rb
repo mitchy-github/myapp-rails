@@ -203,9 +203,6 @@ RSpec.describe User, type: :model do
     let!(:user_a) { create(:user) }
     let!(:user_b) { create(:user) }
     let!(:user_c) { create(:user) }
-    # let(:post_by_user_a) { create(:post, user:user_a) }
-    # let(:post_by_user_b) { create(:post, user: user_b) }
-    # let(:post_by_user_c) { create(:post, user: user_c) }
 
     context "フォローメソッド" do
       it 'フォローができること' do

@@ -1,5 +1,4 @@
 class QuestionAnswersController < ApplicationController
-  # include CategoryMethods
 
   def create
     @question_answer = QuestionAnswer.new(question_answer_params)
@@ -9,10 +8,7 @@ class QuestionAnswersController < ApplicationController
     flash[:notice] = "コメントしました。"
     redirect_to question_path(question_id)
   rescue StandardError
-    # @user = User.find_by(id: question_id)
-    # @user = User.find_by(id: @question.current_user_id)
     @question = Question.find(params[:question_id])
-    # @question_answer = QuestionAnswer.find(params[:id])
     related_records = CategoryQuestion.where(question_id: @question.id).pluck(:category_id)
     categories = Category.all
     @categories = categories.select{ |category| related_records.include?(category.id) }
@@ -23,12 +19,6 @@ class QuestionAnswersController < ApplicationController
 
   def destroy
     question_answer = QuestionAnswer.find_by(id: params[:id], question_id: question_id)
-    # if question_answer.user_answer?(current_user)
-    #   question_answer.destroy
-    #   redirect_to question_path(question_id), notice: "コメントを解除しました。", status: :see_other
-    # else
-    #   redirect_to question_path(question_id), alert: "許可されていないrequestです。", status: :unprocessable_entity
-    # end
     unless question_answer.user_answer?(current_user)
       redirect_to question_path(question_id), alert: "許可されていないリクエストです。", status: :unprocessable_entity and return
     end

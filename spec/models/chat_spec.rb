@@ -16,8 +16,6 @@ RSpec.describe Chat, type: :model do
     let!(:user_a) { create(:user) }
     let!(:user_b) { create(:user) }
     let!(:chat) { build(:chat, user_id: user_b.id) }
-    # subject {test_message.valid?}
-    # let!(:test_message) {chat}
 
     context '内容に問題がない場合' do
       it '表示されること' do
@@ -34,8 +32,6 @@ RSpec.describe Chat, type: :model do
     let!(:chat) { build(:chat, user_id: user_b.id) }
     let!(:chat_is_blank) { build(:chat, user_id: user_b.id, message: "") }
     let!(:chat_length) { build(:chat, user_id: user_b.id, message: "a" * 150) }
-    # subject {test_message.valid?}
-    # let!(:test_message) {chat}
 
     context 'メッセージを送信した場合' do
       it '送信できること' do
@@ -60,8 +56,6 @@ RSpec.describe Chat, type: :model do
         user_b.follow(user_a.id)
         chat_length.valid?
         expect(chat_length.errors.full_messages).to eq ["メッセージは140文字以内で入力してください"]
-        # test_message.message = 'a' * 150
-        # is_expected.to eq false;
       end
     end
   end

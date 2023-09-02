@@ -79,18 +79,3 @@ RSpec.describe "Questions", type: :system do
     end
   end
 end
-
-  # describe "ユーザーの新規登録" do
-  #   context '未記入の項目がある' do
-  #     it 'ユーザーの新規作成が失敗' do
-  #       visit new_question_path
-  #         fill_in "question[question_title]", with: "nil"
-  #         fill_in "question[contents_question]", with: "nil"
-  #       click_button "質問する"
-
-  #       expect(current_path).to eq new_question_path
-  #       expect(page).to have_content "Emailを入力してください"
-  #       expect(page).to have_content "Emailは不正な値です"
-  #     end
-  #   end
-  # end

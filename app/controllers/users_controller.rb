@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   include CategoryMethods
-  # prepend_before_action :confirm_authenticity_token, only: :create
   before_action :set_user, only: [:show, :edit, :update, :destroy, :likes]
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
 
@@ -45,12 +44,6 @@ class UsersController < ApplicationController
     @questions = @user.questions.page(params[:page]).reverse_order
     @following_users = @user.following_user
     @follower_users = @user.follower_user
-    # @questions = Question.all
-    # @posts = Post.all
-    # @category_questions = CategoryQuestion.all
-    # @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
-    # favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
-    # @favorite_posts = Post.find(favorites)
   end
 
   def edit
@@ -64,7 +57,7 @@ class UsersController < ApplicationController
       @user.update(user_params)
       redirect_to user_path(@user), notice: "ユーザーアカウントを編集しました。"
     else
-      render "edit", status: :unprocessable_entity # rails7 から必須のオプション
+      render "edit", status: :unprocessable_entity
     end
   end
 

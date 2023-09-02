@@ -13,18 +13,9 @@ RSpec.describe "Posts", js: true, type: :system do
         visit new_post_path
         fill_in "post[post_title]", with: "テスト投稿"
         fill_in "post[post_content]", with: "これはテスト投稿です"
-        # page.attach_file "#{Rails.root}/spec/fixtures/files/fixture.jpg", make_visible: true do #←←←ここから
-          # page.find('.post_images').click
-        # end
-        # attach_file "画像", "#{Rails.root}/spec/fixtures/files/fixture.jpg", make_visible: true
         click_button "投稿する"
-        # wait_for_turbo
         expect(page).to have_content "投稿しました"
         expect(page).to have_content "テスト投稿"
-        # fill_in 'post_images', with: File.join(Rails.root, 'spec/fixtures/files/fixture.jpg')
-        # page.attach_file("#{Rails.root}/spec/fixtures/files/fixture.jpeg") do #←←←ここから
-        #   page.find('#post_images').click
-        # end
       end
     end
 

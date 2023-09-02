@@ -1,12 +1,12 @@
 <div class="mt-4 text-center">
   <h2 class="text-2xl font-bold text-gray-800 md:m-8 lg:text-3xl">質問一覧</h2>
-              <%= link_to new_question_path do %>
-                <button class="mt-3 w-auto text-xs relative px-6 py-3 font-bold text-black group">
-                  <span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-blue-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                  <span class="absolute inset-0 w-full h-full border-4 border-black"></span>
-                  <span class="relative">質問を投稿する</span>
-                </button>
-            <% end %>
+  <%= link_to new_question_path do %>
+    <button class="mt-3 w-auto text-xs relative px-6 py-3 font-bold text-black group">
+      <span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-blue-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+      <span class="absolute inset-0 w-full h-full border-4 border-black"></span>
+      <span class="relative">質問を投稿する</span>
+    </button>
+  <% end %>
 </div>
 <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
   <%= render @questions %>

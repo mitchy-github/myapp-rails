@@ -8,9 +8,6 @@
         <%
             display_contents_question = question["contents_question"].gsub(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/,"")
         %>
-        <%# <div style="border: 1px solid black;margin: 2%;padding: 3%;width: 25%;"> %>
-          <%# <%= attachment_image_tag @questions[i],:image,style: 'width: 40%;' %>
-        <%# <div style="border-bottom: 1px solid"> %>
         <div class="flex flex-1 flex-col p-4 sm:p-6">
           <div>
             <p class="font-bold text-blue-600">
@@ -19,7 +16,6 @@
             <p class="mb-2 text-lg font-semibold text-gray-800 line-clamp-1">
               <%= question["question_title"] %>
             </p>
-            <%# </div> %>
             <p class="font-bold text-blue-600">
               質問内容
             </p>
@@ -35,35 +31,8 @@
             </p>
           </div>
             <%= link_to "詳細", question_path(id: question["id"]) %>
-          <%# </div> %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-
-<%# <h2>投稿詳細</h2>
-<div style="border: 1px solid black;margin: 2% 0;padding: 3%;">
-    <%# <%= attachment_image_tag @question,:image,style: 'width: 40%;' %>
-    <%# <div style="border-bottom: 1px solid"> %>
-        <%# <p style="color: red">title</p> %>
-        <%# <%= @question.title %>
-    <%# </div> %>
-    <%# <div>
-        <p style="color: red">category</p>
-        <p>
-            <%= @display_category<br>
-            <% if @categories.present? %>
-                <%# <% @categories.each do |category| %>
-                    <%# <%= link_to "##{category.name}", category_path(category.id) %>
-                <%# <% end %>
-            <%# <% end %>
-        <%# <p>
-    </div>
-    <div> %>
-    <%# <%= link_to "編集", edit_question_path(id: @question.id) %>
-    <%# <%= link_to "削除", question_path(id: @question.id),method: :delete %>
-
-    <%# </div> %>
-<%# </div> %>
-

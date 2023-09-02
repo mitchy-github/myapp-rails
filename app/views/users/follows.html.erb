@@ -1,16 +1,12 @@
 <div class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-xl px-4 md:px-8">
-    <!-- text - start -->
     <div class="mb-10 md:mb-16">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">フォロー一覧</h2>
 
       <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">This is a section of some simple filler text, also known as placeholder text. It shares some characteristics of a real written text but is random or otherwise generated.</p>
     </div>
-    <!-- text - end -->
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
-    <%# <ul class="users"> %>
       <% @users.each do |user| %>
-          <%# <li> %>
         <div class="flex flex-col items-center rounded-lg bg-gray-100 p-4 lg:p-8">
           <div class="mb-2 h-24 w-24 overflow-hidden rounded-full bg-gray-200 shadow-lg md:mb-4 md:h-32 md:w-32">
             <%= image_tag avatar_url(user), class: "h-full w-full object-cover object-center" %>
@@ -19,7 +15,6 @@
             <div class="w-24 sm:w-48 text-center font-bold text-indigo-500 md:text-lg truncate mb-2">
               <%= link_to user.name, user %>
             </div>
-            <%# </li> %>
             <div class="flex justify-center gap-4">
             <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
             <%= link_to 'chatを始める', chat_path(user.id), class: "
@@ -31,33 +26,5 @@
       <% end %>
     </div>
     <%= paginate @users %>
-  <%# </ul> %>
   </div>
 </div>
-
-<%
-=begin %>
-<div class="cover-user-index">
-  <div class="container">
-    <div class="row justify-content-center">
-      <h1 class="font-weight-normal mt-5 mb-5">フォロー一覧</h1>
-    </div>
-    <div class="row justify-content-center">
-      <% @users.each do |user| %>
-      <div class="one-post card w-100">
-        <%= link_to user_path(user) do %>
-        <p class="caption h4"><%= user.name %></p>
-        <div class="d-flex">
-          <%# <%= attachment_image_tag @user, :profile_image, size: '50x50', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
-          <%# <h4 class="ml-5"><%= user.profile</h4> %>
-        <%# </div> %>
-        <%# <p class="caption"><%= "#{user.posts.count} 投稿"</p> %>
-        <% end %>
-      </div>
-      <% end %>
-    </div>
-    <%= paginate @users %>
-  </div>
-</div>
-<%
-=end %>
