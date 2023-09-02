@@ -19,7 +19,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    # binding.pry
     @post = Post.new(post_params)
     @post.save!
       redirect_to posts_path, notice: "投稿しました"
@@ -33,12 +32,6 @@ class PostsController < ApplicationController
     end
 
     redirect_to posts_path, notice: "更新しました"
-
-    # if @post.update(post_params)
-    #   redirect_to posts_path, notice: "更新しました"
-    # else
-    #   render "edit", status: :unprocessable_entity
-    # end
   end
 
   def destroy
@@ -46,7 +39,6 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: "削除しました", status: :see_other
   end
 
-  # 画像アップロード用のアクション
   def upload_image
     @image_blob = create_blob(params[:image])
     render json: @image_blob
@@ -58,18 +50,14 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  # 選択状態の画像をパラメータにマージ（Postモデルとの紐付け）
   def post_params
     params.require(:post).permit(:post_title, :post_content).merge(images: uploaded_images, user_id: current_user.id)
   end
 
-  # アップロード済み画像の検索
   def uploaded_images
-    # binding.pry
     params[:post][:images].drop(1).map{ |id| ActiveStorage::Blob.find(id) } if params[:post][:images]
   end
 
-  # blobデータの作成
   def create_blob(file)
     ActiveStorage::Blob.create_and_upload!(
       io: file.open,

@@ -57,7 +57,7 @@ Capybara.server = :puma, { Silent: true }
 
 #   [
 #     "headless",
-#     # ここの倍率を変更すれば、スクリーンショットサイズが変わります。
+# ここの倍率を変更すれば、スクリーンショットサイズが変わります
 #     "window-size=2880x2000",
 #     "disable-gpu" # https://developers.google.com/web/updates/2017/04/headless-chrome
 #   ].each { |arg| options.add_argument(arg) }

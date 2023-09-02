@@ -14,7 +14,7 @@ RSpec.describe "Questions", type: :system do
         fill_in "question[question_title]", with: "テスト質問"
         fill_in "question[contents_question]", with: "これはテスト質問です"
         click_button "質問する"
-        expect(page).to have_text("成功！")
+        expect(page).to have_text("質問しました")
         expect(page).to have_text("テスト質問")
         expect(page).to have_text("これはテスト質問です")
       end
@@ -48,7 +48,7 @@ RSpec.describe "Questions", type: :system do
         fill_in "question_answer[answer_content]", with: 'テスト回答です'
         click_on "登録"
         expect(current_path).to eq question_path(question)
-        expect(page).to have_content "コメントしました。"
+        expect(page).to have_content "コメントしました"
       end
     end
 
@@ -57,7 +57,7 @@ RSpec.describe "Questions", type: :system do
         visit question_path(question.id)
         click_on "登録"
         expect(current_path).to eq question_path(question)
-        expect(page).to have_content "空白、1000文字以上で回答することはできません。"
+        expect(page).to have_content "空白、1000文字以上で回答することはできません"
       end
     end
   end
@@ -79,18 +79,3 @@ RSpec.describe "Questions", type: :system do
     end
   end
 end
-
-  # describe "ユーザーの新規登録" do
-  #   context '未記入の項目がある' do
-  #     it 'ユーザーの新規作成が失敗' do
-  #       visit new_question_path
-  #         fill_in "question[question_title]", with: "nil"
-  #         fill_in "question[contents_question]", with: "nil"
-  #       click_button "質問する"
-
-  #       expect(current_path).to eq new_question_path
-  #       expect(page).to have_content "Emailを入力してください"
-  #       expect(page).to have_content "Emailは不正な値です"
-  #     end
-  #   end
-  # end

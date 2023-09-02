@@ -20,8 +20,6 @@ RSpec.describe Question, type: :model do
   describe '内容に問題がないかのチェック' do
     let!(:user) { create(:user) }
     let!(:question) { build(:question, user_id: user.id) }
-    # subject { test_question.valid? }
-    # let(:test_question) { question }
 
     context '内容に問題がない場合' do
       it '表示されること' do
@@ -37,15 +35,11 @@ RSpec.describe Question, type: :model do
     let!(:title_length) { build(:question, user_id: user.id, question_title: 'a' * 110) }
     let!(:contents_is_blank) { build(:question, user_id: user.id, contents_question: '') }
     let!(:contents_length) { build(:question, user_id: user.id, contents_question: 'a' * 1010) }
-    # subject { test_question.valid? }
-    # let(:test_question) { question }
 
     context 'titleカラムが空欄でない場合' do
       it 'バリデーションエラーが発生すること' do
         title_is_blank.valid?
         expect(title_is_blank.errors.full_messages).to eq ["質問タイトルを入力してください"]
-        # test_question.question_title = ''
-        # is_expected.to eq false;
       end
     end
 

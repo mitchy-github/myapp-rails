@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   include CategoryMethods
-  # prepend_before_action :confirm_authenticity_token, only: :create
   before_action :set_user, only: [:show, :edit, :update, :destroy, :likes]
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
 
@@ -33,7 +32,7 @@ class UsersController < ApplicationController
     @user.avatar.attach(params[:user][:avatar])
     @user.save!
       log_in @user
-      redirect_to @user, notice: "新規登録完了しました。"
+      redirect_to @user, notice: "新規登録完了しました"
     rescue StandardError
       render "new", status: :unprocessable_entity
   end
@@ -45,12 +44,6 @@ class UsersController < ApplicationController
     @questions = @user.questions.page(params[:page]).reverse_order
     @following_users = @user.following_user
     @follower_users = @user.follower_user
-    # @questions = Question.all
-    # @posts = Post.all
-    # @category_questions = CategoryQuestion.all
-    # @question_objects = creating_structures(questions: @questions,category_questions: @category_questions,categories: @categories)
-    # favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
-    # @favorite_posts = Post.find(favorites)
   end
 
   def edit
@@ -59,21 +52,21 @@ class UsersController < ApplicationController
   def update
     @user.avatar.attach(params[:user][:avatar]) if @user.avatar.blank?
     if @user.email == "guest@exapmle.com"
-      redirect_to root_path, alert: "ゲストユーザーは編集できません。"
+      redirect_to root_path, alert: "ゲストユーザーは編集できません"
     elsif
       @user.update(user_params)
-      redirect_to user_path(@user), notice: "ユーザーアカウントを編集しました。"
+      redirect_to user_path(@user), notice: "ユーザーアカウントを編集しました"
     else
-      render "edit", status: :unprocessable_entity # rails7 から必須のオプション
+      render "edit", status: :unprocessable_entity
     end
   end
 
   def destroy
     if @user.guest_user?
-      redirect_to root_path, alert: "ゲストユーザーは登録解除できません。"
+      redirect_to root_path, alert: "ゲストユーザーは登録解除できません"
     else
       @user.destroy
-      redirect_to root_path, notice: "登録解除しました。", status: :see_other
+      redirect_to root_path, notice: "登録解除しました", status: :see_other
     end
   end
 

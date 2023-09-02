@@ -30,7 +30,7 @@ RSpec.describe "Users", type: :system do
         select '東京都', from: 'user[region]'
         click_button '登録'
         expect(current_path).to eq user_path(User.last)
-        expect(page).to have_content '新規登録完了しました。'
+        expect(page).to have_content '新規登録完了しました'
       end
     end
   end
@@ -69,30 +69,6 @@ RSpec.describe "Users", type: :system do
         click_on 'フォローする'
       }.to change { user1.follower.count }.by(1)
     end
-      #     # within "#follow-area-#{user2.id}" do
-      #         # click_on 'フォローする'
-      #         # save_and_open_page
-      #         # expect(page).to have_content 'これでできたら不思議'
-      #         # save_and_open_page
-      #         # end
-      # # }.to change { user1.follower.count }.by(1)
-        # within ('.user_relationship_follow') do
-          # find(:link, "フォローする").click
-          # click_on 'フォローする'
-          # expect(page).to have_content 'フォロー外す'
-          # user1.follow(user2.id)
-        # end
-
-    # it 'フォローができること' do
-    #     visit users_path
-    #     visit user_path(user2.id)
-    #     click_on "フォローする"
-    #     save_and_open_page
-    #     expect(page).to have_content 'フォロー外す'
-    #     # binding.pry
-    #     # expect(user2.followed.count).to eq(1)
-    #     expect(user1.follower.count).to eq(1)
-    # end
 
     it 'フォローが解除できること'do
         visit user_path(user2.id)

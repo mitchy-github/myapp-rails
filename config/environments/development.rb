@@ -1,9 +1,6 @@
 require "active_support/core_ext/integer/time"
 
-#これでもいけた→ Rails.application.config.hosts << '.example.com'
-
 Rails.application.configure do
-  # これでもいけた↓
   config.hosts << '.example.com'
   config.hosts << "alb-user1-663561289.us-west-2.elb.amazonaws.com"
   config.hosts << "koukyouliving.com"
