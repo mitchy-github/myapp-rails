@@ -30,7 +30,7 @@ RSpec.describe "Users", type: :system do
         select '東京都', from: 'user[region]'
         click_button '登録'
         expect(current_path).to eq user_path(User.last)
-        expect(page).to have_content '新規登録完了しました。'
+        expect(page).to have_content '新規登録完了しました'
       end
     end
   end

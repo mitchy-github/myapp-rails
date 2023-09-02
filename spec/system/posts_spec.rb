@@ -23,7 +23,7 @@ RSpec.describe "Posts", js: true, type: :system do
       it "バリデーションエラーが発生すること" do
         visit new_post_path
         attach_file "ファイルを選択", "#{Rails.root}/spec/fixtures/files/fixture_2.6m.jpg", make_visible: true
-        expect(page).to have_content "ファイルサイズの上限(1枚あたり2MB)を超えている画像はアップロードできません。"
+        expect(page).to have_content "ファイルサイズの上限(1枚あたり2MB)を超えている画像はアップロードできません"
       end
     end
 

@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
     category = extract_category(@question.contents_question)
     @question.save!
       save_category(category, @question)
-      flash[:notice] = "成功！"
+      flash[:notice] = "質問しました"
       redirect_to questions_path
 
     rescue StandardError

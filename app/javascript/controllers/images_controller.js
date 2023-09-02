@@ -22,11 +22,11 @@ export default class extends Controller {
     const uploadedFilesCount = this.previewTarget.querySelectorAll(".image-box").length // すでにアップロードされた画像の枚数
     const files = this.selectTargets[0].files // 選択した画像の枚数（これからアップロードする画像）
     if(files.length + uploadedFilesCount > 1){
-      this.errorTarget.textContent = "画像アップロード上限は最大1枚です。"
+      this.errorTarget.textContent = "画像アップロード上限は最大1枚です"
     }else{
       for(const file of files){
         if(this.imageSizeOver(file)){
-          this.errorTarget.textContent = "ファイルサイズの上限(1枚あたり2MB)を超えている画像はアップロードできません。"
+          this.errorTarget.textContent = "ファイルサイズの上限(1枚あたり2MB)を超えている画像はアップロードできません"
         }else{
           this.uploadImage(file) // ファイルのアップロード
         }

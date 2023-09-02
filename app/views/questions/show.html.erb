@@ -99,7 +99,7 @@
                   <%= form_with(model: @question, local: true) do |f| %>
                   <%= f.hidden_field :best_answer_id, value: question_answer.id %>
                     <div class="actions rounded border px-2 py-1 text-sm text-gray-500">
-                      <%= f.submit 'BA', data: {confirm: "#{question_answer.user.name}さんの回答をベストアンサーにします。よろしいですか？"} %>
+                      <%= f.submit 'BA', data: {confirm: "#{question_answer.user.name}さんの回答をベストアンサーにしてもよろしいですか？"} %>
                     </div>
                   <% end %>
                 <% end %>
