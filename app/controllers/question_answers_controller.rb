@@ -1,5 +1,4 @@
 class QuestionAnswersController < ApplicationController
-
   def create
     @question_answer = QuestionAnswer.new(question_answer_params)
     @question_answer.user_id = current_user.id
