@@ -55,18 +55,13 @@
           <h2 class="m-4 font-bold text-gray-800">任意項目（あとから追加できます）</h2>
 
           <div>
-            <%= f.label :months_pregnant, '妊娠されている方は何ヶ月か', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
-            <%= f.number_field :months_pregnant, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-          </div>
-
-          <div>
-            <%= f.label :birthday_of_baby, '赤ちゃんの誕生日', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
-            <%= f.date_field :birthday_of_baby, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
-          </div>
-
-          <div>
             <%= f.label :number_of_baby, '赤ちゃんの人数', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
             <%= f.number_field :number_of_baby, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
+          </div>
+
+          <div>
+            <%= f.label :months_pregnant, '妊娠されている方は何ヶ月か', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.number_field :months_pregnant, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
           </div>
 
           <div>
@@ -75,12 +70,12 @@
           </div>
 
           <div>
-            <%= f.label :childcare_start, '育児卒業の方はいつから', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.label :childcare_start, '育児卒業の方はいつからか', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
             <%= f.date_field :childcare_start, class: "w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
           </div>
 
           <div>
-            <%= f.label :childcare_graduation_end, '育児卒業の方はいつから', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+            <%= f.label :childcare_graduation_end, '育児卒業の方はいつまでか', class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
             <%= f.date_field :childcare_graduation_end, class: "mb-4 w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50" %>
           </div>
 
