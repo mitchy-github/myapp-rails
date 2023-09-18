@@ -44,18 +44,16 @@
         </div>
         <div class="h-full w-full bg-lime-100  sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
           <div class="m-8">
-          <p class="mb-2 border-b border-stone-700">妊娠されている方は何ヶ月か</p>
-          <p class="mb-3"><%="#{current_user.months_pregnant}ヶ月"%></p>
-          <p class="mb-2 border-b border-stone-700">赤ちゃんの誕生日</p>
-          <p class="mb-3"><%=I18n.l(current_user.birthday_of_baby, format: :long, default: '-')%></p>
-          <p class="mb-2 border-b border-stone-700">赤ちゃんの人数</p>
-          <p class="mb-3"><%="#{current_user.number_of_baby}人"%></p>
-          <p class="mb-2 border-b border-stone-700">現在育児中であればいつから</p>
-          <p class="mb-3"><%=I18n.l(current_user.childcare_start, format: :long, default: '-')%></p>
-          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつから</p>
-          <p class="mb-3"><%=I18n.l(current_user.childcare_start, format: :long, default: '-')%></p>
-          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつまで</p>
-          <p class="mb-3"><%=I18n.l(current_user.childcare_graduation_end, format: :long, default: '-')%></p>
+            <p class="mb-2 border-b border-stone-700">赤ちゃんの人数</p>
+            <p class="mb-3"><%="#{current_user.number_of_baby}人"%></p>
+            <p class="mb-2 border-b border-stone-700">妊娠されている方は何ヶ月か</p>
+            <p class="mb-3"><%="#{current_user.months_pregnant}ヶ月"%></p>
+            <p class="mb-2 border-b border-stone-700">現在育児中であればいつからか</p>
+            <p class="mb-3"><%=I18n.l(current_user.childcare_start, format: :long, default: '-')%></p>
+            <p class="mb-2 border-b border-stone-700">育児卒業の方はいつからか</p>
+            <p class="mb-3"><%=I18n.l(current_user.childcare_start, format: :long, default: '-')%></p>
+            <p class="mb-2 border-b border-stone-700">育児卒業の方はいつまでか</p>
+            <p class="mb-3"><%=I18n.l(current_user.childcare_graduation_end, format: :long, default: '-')%></p>
           </div>
         </div>
       </div>
@@ -165,18 +163,16 @@
         </div>
         <div class="h-full w-full bg-lime-100  sm:order-none sm:h-auto sm:w-1/2 lg:w-3/5">
           <div class="m-8">
-          <p class="mb-2 border-b border-stone-700">妊娠されている方は何ヶ月か</p>
-          <p class="mb-3"><%="#{@user.months_pregnant}ヶ月"%></p>
-          <p class="mb-2 border-b border-stone-700">赤ちゃんの誕生日</p>
-          <p class="mb-3"><%=I18n.l(@user.birthday_of_baby, format: :long, default: '-')%></p>
-          <p class="mb-2 border-b border-stone-700">赤ちゃんの人数</p>
-          <p class="mb-3"><%="#{@user.number_of_baby}人"%></p>
-          <p class="mb-2 border-b border-stone-700">現在育児中であればいつから</p>
-          <p class="mb-3"><%=I18n.l(@user.childcare_start, format: :long, default: '-')%></p>
-          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつから</p>
-          <p class="mb-3"><%=I18n.l(@user.childcare_start, format: :long, default: '-')%></p>
-          <p class="mb-2 border-b border-stone-700">育児卒業の方はいつまで</p>
-          <p class="mb-3"><%=I18n.l(@user.childcare_graduation_end, format: :long, default: '-')%></p>
+            <p class="mb-2 border-b border-stone-700">赤ちゃんの人数</p>
+            <p class="mb-3"><%="#{@user.number_of_baby}人"%></p>
+            <p class="mb-2 border-b border-stone-700">妊娠されている方は何ヶ月か</p>
+            <p class="mb-3"><%="#{@user.months_pregnant}ヶ月"%></p>
+            <p class="mb-2 border-b border-stone-700">現在育児中であればいつからか</p>
+            <p class="mb-3"><%=I18n.l(@user.childcare_start, format: :long, default: '-')%></p>
+            <p class="mb-2 border-b border-stone-700">育児卒業の方はいつからか</p>
+            <p class="mb-3"><%=I18n.l(@user.childcare_start, format: :long, default: '-')%></p>
+            <p class="mb-2 border-b border-stone-700">育児卒業の方はいつまでか</p>
+            <p class="mb-3"><%=I18n.l(@user.childcare_graduation_end, format: :long, default: '-')%></p>
           </div>
         </div>
       </div>
