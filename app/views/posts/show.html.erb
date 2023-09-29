@@ -36,7 +36,7 @@
           投稿内容
         </p>
         <p class="mb-8 text-gray-500">
-          <%= @post.post_content %>
+          <%= safe_join(@post.post_content.split("\n"),tag(:br)) %>
         </p>
       </div>
       <% if @post.images.attached? %>
