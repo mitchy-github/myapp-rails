@@ -61,16 +61,14 @@ GitHub Actionsはほぼ無料であることや、今回使用していません
   - 画像を一緒に投稿できる
   - いいね追加、取消機能
 
-## 今後の開発予定
-
 ## 遷移図
-<!-- <img src= '/README_images/Transition_diagram.png'> -->
+<img src= '/README_images/Transition_diagram.JPEG'>
 
 ## ER図
-<!-- <img src= '/README_images/ER.png' > -->
+<img src= '/README_images/ER.JPEG' >
 
 ## インフラ設計図
-<!-- <img src= '/README_images/infra.png' > -->
+<img src= '/README_images/Infra.JPEG' >
 
 <br><br>
 <strong>最後までご覧いただきましてありがとうございました。</strong>
