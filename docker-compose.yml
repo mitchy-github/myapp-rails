@@ -24,7 +24,7 @@ services:
 
     # 使用する環境を指定
     platform: linux/amd64
-  rails:
+  task-def-user1:
     build:
       # Dockerfileのある位置を指定
       context: .
