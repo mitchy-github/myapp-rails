@@ -106,4 +106,4 @@ jobs:
 
     - name: Deploy to ECS
       run: |
-        aws ecs update-service --service $ECS_WEBAPP_SERVICE --cluster cluster-user1 --force-new-deployment
+        aws ecs update-service --service $ECS_WEBAPP_SERVICE --cluster cluster-user2 --force-new-deployment
