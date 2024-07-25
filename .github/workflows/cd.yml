@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: us-west-2
-  ECS_WEBAPP_SERVICE: task-def-user1
+  ECS_WEBAPP_SERVICE: task-def-user1:2
   WEBAPP_CONTAINER_NAME: rails
   WEBAPP_TAG: latest
 
