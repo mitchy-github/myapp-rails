@@ -5,11 +5,10 @@ on:
     branches:
       - main
 
-
 env:
   AWS_REGION: us-west-2
   ECS_WEBAPP_SERVICE: task-def-user1
-  WEBAPP_CONTAINER_NAME: rails
+  WEBAPP_CONTAINER_NAME: app
   WEBAPP_TAG: latest
 
 jobs:
