@@ -1,9 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << '.example.com'
-  config.hosts << "alb-user1-569998420.us-west-2.elb.amazonaws.com"
-  config.hosts << "koukyouliving.net"
+  config.hosts.clear
 
   # config.action_controller.allow_forgery_protection = false
   # Settings specified here will take precedence over those in config/application.rb.
