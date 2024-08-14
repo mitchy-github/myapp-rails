@@ -47,7 +47,7 @@ Capybara.register_driver :headless_chrome do |app|
     opts.args << "--disable-dev-shm-usage"
     opts.args << "--lang=ja-JP"
   end
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: browser_options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
 Capybara.server = :puma, { Silent: true }
